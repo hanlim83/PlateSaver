@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<html>
+<head>
+    <title>Template</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1> Name : {{name}} </h1> 
+    <h1> Phone : {{phone}} </h1>   
+  </div>
+
+  <script>
+    let name = "John";
+    let phone = "1234";
+  </script>
+</body>
 </html>
