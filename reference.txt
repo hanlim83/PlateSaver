@@ -1,0 +1,12 @@
+I referenced the following guides for the setup.
+
+Vue and Express
+https://vegibit.com/vue-js-express-tutorial/
+https://www.bezkoder.com/serve-vue-app-express/
+
+Express and Firebase
+https://riptutorial.com/firebase/example/22139/hello-world-firebase-realtime-database-in-node
+https://deeppatel23.medium.com/rest-api-with-node-js-and-firebase-4d618f1bbc60
+https://firebase.google.com/docs/hosting/frameworks/express
+https://firebase.google.com/docs/reference/node/firebase
+https://firebase.google.com/docs/database/web/

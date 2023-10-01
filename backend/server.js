@@ -1,17 +1,32 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
+const { db } = require('./utils/firebase.js');
+const {createUser, getUsers} = require('./models/users.js');
 
 const app = express();
-
-app.use(morgan('tiny'));
-app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'Behold The MEVN Stack!'
+        message: 'Hooray the Express server loaded!'
+    });
+});
+
+app.post('/user', async (req, res) => {
+    // console.log("request: ", req.body);
+    let response = await createUser(req.body);
+    res.json({
+        status: 200,
+        message: "Success"
+    })
+})
+
+app.get('/users', async (req, res) => {
+    let response = await getUsers();
+    console.log(response);
+    res.json({
+        status: 200,
+        message: "Success",
+        data: response
     });
 });
 
