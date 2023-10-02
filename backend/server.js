@@ -1,9 +1,11 @@
 const express = require('express');
 const { db } = require('./utils/firebase.js');
 const {createUser, getUsers} = require('./models/users.js');
-var cors = require('cors')
-
+const cors = require('cors')
 const app = express();
+const {logger} = require("firebase-functions");
+const {onRequest} = require("firebase-functions/v2/https");
+
 app.use(express.json())
 app.use(cors());
 
