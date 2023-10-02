@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CreateUserView from "../views/CreateUserView.vue";
+import CreatePostView from "../views/CreatePostView.vue";
 
 const routes = [
   {
@@ -22,6 +23,11 @@ const routes = [
     name: "createUser",
     component: CreateUserView,
   },
+  {
+    path: "/createPost",
+    name: "createPost",
+    component: CreatePostView,
+  }
 ];
 
 const router = createRouter({

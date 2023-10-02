@@ -3,6 +3,7 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
     <router-link to="/createUser">User</router-link>
+    <router-link to="/createPost">Post</router-link>
   </nav>
   <router-view class="container" />
 </template>
