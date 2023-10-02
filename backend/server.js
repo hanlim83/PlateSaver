@@ -6,14 +6,15 @@ const app = express();
 const {logger} = require("firebase-functions");
 const {onRequest} = require("firebase-functions/v2/https");
 
+const vuePath = __dirname + "/../frontend/dist/";
+
 app.use(express.json())
 app.use(cors());
+app.use(express.static(vuePath));
 
 
 app.get('/', (req, res) => {
-    res.json({
-        message: 'Hooray the Express server loaded!'
-    });
+    res.sendFile(vuePath + "index.html");
 });
 
 app.post('/user', async (req, res) => {
@@ -27,7 +28,6 @@ app.post('/user', async (req, res) => {
 
 app.get('/users', async (req, res) => {
     let response = await getUsers();
-    console.log(response);
     res.json({
         status: 200,
         message: "Success",
