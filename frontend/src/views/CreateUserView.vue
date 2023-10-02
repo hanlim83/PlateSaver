@@ -3,18 +3,22 @@
     <form>
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" v-model="name">
+        <input type="text" class="form-control" id="name" v-model="name" />
       </div>
       <div class="mb-3">
         <label for="age" class="form-label">Age</label>
-        <input type="text" class="form-control" id="age" v-model="age">
+        <input type="text" class="form-control" id="age" v-model="age" />
       </div>
-      <button type="submit" class="btn btn-primary" @click="createUser()">Submit</button>
+      <button type="submit" class="btn btn-primary" @click="createUser()">
+        Submit
+      </button>
     </form>
 
-    <br>
-    <button type="button" class="btn btn-primary" @click="getUsers()">Get Users</button>
-    <br>
+    <br />
+    <button type="button" class="btn btn-primary" @click="getUsers()">
+      Get Users
+    </button>
+    <br />
 
     <div>
       <table v-if="canViewTable" class="table">
@@ -30,13 +34,12 @@
         </tbody>
       </table>
     </div>
-
   </div>
 </template>
 
 <script>
 const API_URL = "http://localhost:4000/";
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   name: "CreateUserView",
@@ -45,15 +48,13 @@ export default {
       name: "",
       age: "",
       users: [],
-      canViewTable: false
-    }
+      canViewTable: false,
+    };
   },
-  components: {
-
-  },
+  components: {},
   methods: {
     async getUsers() {
-      let response = await axios.get(API_URL + 'users');
+      let response = await axios.get(API_URL + "users");
       this.users = response.data.data;
       this.canViewTable = true;
       console.log("Users: ", this.users);
@@ -61,13 +62,12 @@ export default {
     async createUser() {
       console.log("Name: ", this.name);
       console.log("Age: ", this.age);
-      let response = await axios.post(API_URL + 'user',
-        {
-          name: this.name,
-          age: this.age
-        });
+      let response = await axios.post(API_URL + "user", {
+        name: this.name,
+        age: this.age,
+      });
       console.log("Response: ", response);
-    }
-  }
+    },
+  },
 };
 </script>

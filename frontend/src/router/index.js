@@ -20,8 +20,8 @@ const routes = [
   {
     path: "/createUser",
     name: "createUser",
-    component: CreateUserView
-  }
+    component: CreateUserView,
+  },
 ];
 
 const router = createRouter({

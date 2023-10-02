@@ -7,7 +7,13 @@ updates:
     assignees:
       - "hanlim83"   
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "hanlim83"
+  - package-ecosystem: "npm"
+    directory: "/frontend"
     schedule:
       interval: "weekly"
     assignees:
