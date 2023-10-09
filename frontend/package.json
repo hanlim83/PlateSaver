@@ -34,7 +34,7 @@
     "moment": "^2.29.3",
     "register-service-worker": "^1.7.1",
     "smooth-scrollbar": "^8.7.4",
-    "swiper": "^8.1.4",
+    "swiper": "^10.3.1",
     "vue": "^3.0.0",
     "vue-flatpickr-component": "^9.0.6",
     "vue-router": "^4.0.0-0",
