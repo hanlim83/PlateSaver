@@ -38,8 +38,8 @@
 </template>
 
 <script>
-const API_URL = "http://localhost:4000/";
 import axios from "axios";
+import { API_URL } from "../config";
 
 export default {
   name: "CreateUserView",
