@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "../views/HomeView.vue";
 import CreateUserView from "../views/CreateUserView.vue";
 import CreatePostView from "../views/CreatePostView.vue";
@@ -31,8 +31,11 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-});
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'exact-active',
+  history: createWebHistory(process.env.BASE_URL),
+  base: process.env.BASE_URL,
+  routes
+})
 
-export default router;
+export default router
