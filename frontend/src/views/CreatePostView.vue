@@ -37,8 +37,8 @@
     name: "CreatePostView",
     data() {
       return {
-        title:"",
-        foodImage:"",
+      title:"",
+      foodImage:"",
     	content:"",
     	userID:"",
 	    timeStamp:"",
@@ -52,14 +52,14 @@
     async createPost() {
       console.log("post: ", this.post);
       let response = await axios.post(API_URL + "post", {
-        title: this.title,
-        foodImage: this.foodImage,
-        content: this.content,
+      title: this.title,
+      foodImage: this.foodImage,
+      content: this.content,
     	userID: this.userID,
 	    timeStamp: this.timeStamp,
 	    location: this.location,
-	    tags: this.tags,
-	    collectionStatus: true,
+	    tags: this.tag,
+	    status: true,
       });
       console.log("Response: ", response);
     },
