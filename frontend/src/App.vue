@@ -6,7 +6,6 @@
     <router-link to="/RegisterView">Register</router-link>
   </nav>
   <router-view class="container" />
-  <router-view />
 </template>
 
 <script>
