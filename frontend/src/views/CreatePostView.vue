@@ -59,7 +59,7 @@
 	    timeStamp: this.timeStamp,
 	    location: this.location,
 	    tags: this.tags,
-	    collectionStatus: True,
+	    collectionStatus: true,
       });
       console.log("Response: ", response);
     },
