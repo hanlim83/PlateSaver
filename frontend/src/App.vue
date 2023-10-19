@@ -6,27 +6,53 @@
     <router-link to="/RegisterView">Register</router-link>
   </nav>
   <router-view class="container" />
+  <router-view />
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import { onMounted, onUnmounted, computed } from 'vue'
+import { useStore } from 'vuex'
+import '@/plugins/styles'
+export default {
+  name: 'App',
+  setup() {
+    const store = useStore()
+    store.dispatch('setting/setSetting')
+    const sidebarType = computed(() => store.getters['setting/sidebar_type'])
+    const resizePlugin = () => {
+      const sidebarResponsive = document.querySelector('[data-sidebar="responsive"]')
+      if (window.innerWidth < 1025) {
+        if (sidebarResponsive !== null) {
+          if (!sidebarResponsive.classList.contains('sidebar-mini')) {
+            sidebarResponsive.classList.add('on-resize')
+            store.dispatch('setting/sidebar_type', [...sidebarType.value, 'sidebar-mini'])
+          }
+        }
+      } else {
+        if (sidebarResponsive !== null) {
+          if (sidebarResponsive.classList.contains('sidebar-mini') && sidebarResponsive.classList.contains('on-resize')) {
+            sidebarResponsive.classList.remove('on-resize')
+            store.dispatch(
+              'setting/sidebar_type',
+              sidebarType.value.filter((item) => item !== 'sidebar-mini')
+            )
+          }
+        }
+      }
+    }
+    onMounted(() => {
+      window.addEventListener('resize', resizePlugin)
+      setTimeout(() => {
+        resizePlugin()
+      }, 200)
+    })
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizePlugin)
+    })
+  }
 }
+</script>
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="scss">
+@import '@/assets/custom-vue/scss/styles.scss';
 </style>
