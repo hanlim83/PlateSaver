@@ -1,7 +1,7 @@
 <template>
 
 <div>
-  <b-card-group deck id="postscards"><!--not sure if the v-if is nested properly in v-for-->
+  <b-card-group deck>
     <template v-for="(post, index) in allposts" :key="index">
       <b-card  v-if="post.status" 
         :title="post.title"
@@ -55,16 +55,5 @@ const API_URL = "http://localhost:4000/";
     },
   },
 };
-
-Vue.createApp( {
-  data() {
-    return {
-
-  }
-  },
-  methods: {
-  }
-}
-).mount("#postscards")
 
 </script>
