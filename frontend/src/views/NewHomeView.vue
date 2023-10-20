@@ -2,21 +2,24 @@
   <div class="home">
     <HelloWorld msg="Welcome to Your Vue.js App" />
 
-      <div class="position-relative p-3 bg-info text-white">
-        <div class = py-3>
+      <div class="position-relative bg-info text-white">
+        <div class = "px-3 py-3">
           <img src = ../assets/namelogo.png width = "100" height = "100">
-          <h1>Jumbotron Example</h1>
-          <p>Lorem ipsum...</p>
+          
+        </div>
       </div>
-    </div>
+      <div>
+        <img src =  "../assets/frontpage.jpeg" style = "width : 100%; height :25%;">
+      </div>
   </div>
+
       
   
-  <footer class="py-3 bg-info text-center text-lg-start fixed-bottom">
+  <footer class="py-2 bg-info text-center text-lg-start">
     <div class="footer-body bg-info text-center">
 
       <div class = "py-1">
-        <img src = ../assets/namelogo.png width = "100" height = "100">
+        <img src = ../assets/namelogo.png width = "80" height = "80">
       </div>
       <div class="right-panel text-dark">
           2023 © ALL RIGHTS RESERVED
