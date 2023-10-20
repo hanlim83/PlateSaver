@@ -1,10 +1,12 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-    <router-link to="/createUser">User</router-link>
-    <router-link to="/RegisterView">Register</router-link>
-  </nav>
+    <nav style = "float : right;color :blue;">
+      <router-link to="/">Home</router-link>
+      <router-link to="/newHome">Actual Home</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link to="/createUser">User</router-link>
+      <router-link to="/RegisterView">Register</router-link>
+      <router-link to="/testView">Test</router-link>
+    </nav>
   <router-view class="container" />
 </template>
 
