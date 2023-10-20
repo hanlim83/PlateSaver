@@ -2,26 +2,27 @@
 
 <div>
   <b-card-group deck id="postscards"><!--not sure if the v-if is nested properly in v-for-->
-    <b-card  v-if="post.status" 
-      v-for="(post, index) in allposts" :key="index"
-      :title="post.title"
-      style="min-width: 20rem;"
-      class="mb-2" 
-      :img-src= "post.foodImage" 
-      img-top> <!--idk about the food image-->
+    <template v-for="(post, index) in allposts" :key="index">
+      <b-card  v-if="post.status" 
+        :title="post.title"
+        style="min-width: 20rem;"
+        class="mb-2" 
+        :img-src= "post.foodImage" 
+        img-top> <!--idk about the food image-->
       
 
-      <b-card-text>{{ post.content }}</b-card-text>
-      <b-card-text>{{ post.location }}</b-card-text>
-      
-      <b-button href="#" variant="primary">View details</b-button>
-      <template #footer>
-        <small class="text-muted">Posted on: {{ post.timeStamp }}</small>
-        <br/>
-        <small class="text-muted">Posted on: {{ post.tag }}</small>
-      </template>
+        <b-card-text>{{ post.content }}</b-card-text>
+        <b-card-text>{{ post.location }}</b-card-text>
+        
+        <b-button href="#" variant="primary">View details</b-button>
+        <template #footer>
+          <small class="text-muted">Posted on: {{ post.timeStamp }}</small>
+          <br/>
+          <small class="text-muted">Posted on: {{ post.tag }}</small>
+        </template>
 
-    </b-card>
+      </b-card>
+    </template>
     
 </b-card-group>
 </div>
