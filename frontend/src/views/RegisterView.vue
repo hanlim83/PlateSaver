@@ -1,5 +1,5 @@
 <template>
-  <div class="create-user">
+  <div class="create-user m-2">
       <div class = "col-md-2"></div>
       <div class="row justify-content-center">
         <div class="col-md-10">
@@ -7,7 +7,7 @@
             <div class="card-body">
               
               <h2 class="mb-2 text-center">Sign Up</h2>
-              <p class="text-center">Create your <brand-name></brand-name> account.</p>
+              <p class="text-center">Create your PlateSaver account.</p>
               <form>
                 <div class="row">
                   <div class="col-lg-6">

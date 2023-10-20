@@ -8,6 +8,7 @@
       <router-link to="/testView">Test</router-link>
     </nav>
   <router-view class="container" />
+
 </template>
 
 <script>
