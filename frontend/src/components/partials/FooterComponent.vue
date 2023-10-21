@@ -3,8 +3,7 @@
   <footer :class="`footer ${footerStyle}`">
     <div class="footer-body">
       <ul class="left-panel list-inline mb-0 p-0">
-        <li class="list-inline-item"><router-link :to="{ name: 'default.privacy-policy' }">Privacy Policy</router-link></li>
-        <li class="list-inline-item"><router-link :to="{ name: 'default.terms-and-conditions' }">Terms of Use</router-link></li>
+       
       </ul>
       <div class="right-panel">
         ©2022
