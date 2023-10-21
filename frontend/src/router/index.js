@@ -3,9 +3,15 @@ import HomeView from "../views/HomeView.vue";
 import NewHomeView from "../views/NewHomeView.vue";
 import CreateUserView from "../views/CreateUserView.vue";
 import RegisterView from "../views/RegisterView.vue";
-import TestView from "../components/partials/FooterComponent.vue";
+import AdminRecipeView from "../views/AdminRecipeView.vue";
+import Page from "../examples/dashboards/IndexPage.vue";
 
 const routes = [
+  {
+    path: "/test",
+    name: "Test",
+    component: Page,
+  },
   {
     path: "/",
     name: "home",
@@ -31,15 +37,16 @@ const routes = [
     component: CreateUserView,
   },
   {
-    path: "/RegisterView",
-    name: "RegisterView",
+    path: "/register",
+    name: "register",
     component: RegisterView,
   },
   {
-    path: "/testView",
-    name: "testView",
-    component: TestView,
-  }
+    path: "/admin/recipe",
+    name: "adminRecipe",
+    component: AdminRecipeView,
+  },
+
 ];
 
 const router = createRouter({
