@@ -9,26 +9,20 @@
       <div class="offcanvas-header">
         <div class="navbar-brand ms-0">
           <brand-logo :color="true"></brand-logo>
-          <h4 class="logo-title"><brand-name></brand-name></h4>
+          <!-- <h4 class="logo-title"><brand-name></brand-name></h4> -->
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav">
-          <li class="nav-item"><router-link class="nav-link" :to="{ name: 'horizontal.dashboard' }"> Horizontal </router-link></li>
-          <li class="nav-item"><router-link class="nav-link" :to="{ name: 'dual-horizontal.dashboard' }"> Dual Horizontal </router-link></li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'dual-compact.dashboard' }"><span class="item-name">Dual Compact</span></router-link>
-          </li>
-          <li class="nav-item"><router-link class="nav-link" :to="{ name: 'boxed.dashboard' }"> Boxed Horizontal </router-link></li>
-          <li class="nav-item"><router-link class="nav-link" :to="{ name: 'boxed-fancy.dashboard' }"> Boxed Fancy</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/"> Horizontal </router-link></li>
         </ul>
       </div>
     </div>
-    <b-col lg="3 navbar-brand">
-      <router-link :to="{ name: 'default.dashboard' }" class="d-flex">
+    <b-col lg="1 navbar-brand">
+      <router-link to="/" class="d-flex">
         <brand-logo></brand-logo>
-        <h4 class="logo-title d-none d-sm-block"><brand-name></brand-name></h4>
+        <!-- <h4 class="logo-title d-none d-sm-block"><brand-name></brand-name></h4> -->
       </router-link>
     </b-col>
     <horizontal-menu></horizontal-menu>
