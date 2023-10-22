@@ -18,20 +18,28 @@ import globalMixin from './plugins/global-mixin'
 
 require('waypoints/lib/noframework.waypoints.min')
 
-const app = createApp(App)
-app.use(store).use(router)
+import { VueFire, VueFireAuth } from 'vuefire'
+import { firebaseApp } from './firebase'
+
+const app = createApp(App);
+app.use(store).use(router);
+
+app.use(VueFire, {
+  firebaseApp,
+  modules: [VueFireAuth()]
+});
 
 // Library Components
-app.use(VueSweetalert2)
-app.use(VueApexCharts)
-app.use(BootstrapVue3)
-app.component('counter-up', CounterUp)
+app.use(VueSweetalert2);
+app.use(VueApexCharts);
+app.use(BootstrapVue3);
+app.component('counter-up', CounterUp);
 
 // Custom Components & Directives
-app.use(globalComponent)
-app.use(globalDirective)
-app.mixin(globalMixin)
+app.use(globalComponent);
+app.use(globalDirective);
+app.mixin(globalMixin);
 
-app.mount('#app')
+app.mount('#app');
 
-export default app
+export default app;

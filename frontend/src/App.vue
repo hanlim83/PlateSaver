@@ -1,5 +1,8 @@
 <template>
 
+  <router-view />
+
+
     <div class="container-fluid">
       <div class="bg-info text-white row">
         <div class="col">
@@ -100,6 +103,7 @@
         </div>
       </footer>
     </div>
+
 </template>
 
 <style>
