@@ -2,7 +2,7 @@
   <section class="login-content">
     <div class="row m-0 align-items-center bg-white vh-100">
       <div class="col-md-6 d-md-block d-none bg-primary p-0 vh-100 overflow-hidden">
-        <img src="@/assets/images/auth/05.png" class="img-fluid gradient-main animated-scaleX" alt="images" loading="lazy" />
+        <img src="@/assets/login1.jpeg" class="img-fluid gradient-main animated-scaleX" alt="images" loading="lazy" />
       </div>
       <div class="col-md-6">
         <div class="row justify-content-center">
