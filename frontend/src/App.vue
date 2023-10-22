@@ -8,6 +8,9 @@ import { useStore } from 'vuex'
 import '@/plugins/styles'
 export default {
   name: 'App',
+  created() {
+    document.title = "PlateSavers!";
+  },
   setup() {
     const store = useStore()
     store.dispatch('setting/setSetting')
