@@ -4,7 +4,7 @@ export const initialState = {
   storeKey: 'huisetting',
   setting: {
     app_name: {
-      value: 'PlateSavers'
+      value: 'PlateSaver'
     },
     theme_scheme_direction: {
       value: 'ltr'
@@ -55,7 +55,7 @@ export const defaultState = {
       target: '[data-setting="app_name"]',
       choices: [],
       type: 'text',
-      value: 'PlateSavers'
+      value: 'Hope UI'
     },
     theme_scheme_direction: {
       target: 'html',

@@ -1,52 +1,101 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from "../views/HomeView.vue";
-import NewHomeView from "../views/NewHomeView.vue";
-import CreateUserView from "../views/CreateUserView.vue";
-import RegisterView from "../views/RegisterView.vue";
-import AdminRecipeView from "../views/AdminRecipeView.vue";
-import Page from "../examples/dashboards/IndexPage.vue";
+
+
+const baseChildRoutes = (prefix) => [
+  {
+    path: '',
+    name: prefix + 'home',
+    meta: { auth: false, name: 'Home', isBanner: false },
+    component: () => import('@/views/HomeView.vue')
+  },
+  {
+    path: 'about',
+    name: prefix + 'about',
+    meta: { auth: false, name: 'About', isBanner: false },
+    component: () => import('@/views/AboutView.vue')
+  },
+  {
+    path: 'createUser',
+    name: prefix + 'createUser',
+    meta: { auth: false, name: 'create user', isBanner: false },
+    component: () => import('@/views/CreateUserView.vue')
+  },
+  {
+    path: 'RegisterView',
+    name: prefix + 'RegisterView',
+    meta: { auth: false, name: 'register user', isBanner: false },
+    component: () => import('@/views/RegisterView.vue')
+  },
+  {
+  path: "/testView",
+  name: prefix + 'TestView',
+  component: () => import('@/views/components/partials/FooterComponent.vue')
+
+}
+]
+
+const authChildRoutes = (prefix) => [
+  {
+    path: 'login',
+    name: prefix + '.login',
+    meta: { auth: false, name: 'Login' },
+    component: () => import('@/views/auth/SignIn.vue')
+  },
+  {
+    path: 'register',
+    name: prefix + '.signup',
+    meta: { auth: false, name: 'Sign Up' },
+    component: () => import('@/views/auth/SignUp.vue')
+  },
+  {
+    path: 'reset-password',
+    name: prefix + '.reset-password',
+    meta: { auth: false, name: 'Reset Password' },
+    component: () => import('@/views/auth/ResetPassword.vue')
+  },
+  {
+    path: 'verify',
+    name: prefix + '.verify',
+    meta: { auth: false, name: 'Verify Email' },
+    component: () => import('@/views/auth/VerifyEmail.vue')
+  }
+]
+
+const postsChildRoutes = (prefix) => [
+  {
+    path: "createPost",
+    name: prefix + "createPost",
+    meta: { auth: true, name: 'create post', isBanner: false },
+    component: () => import('@/views/CreatePostView.vue')
+  },
+  {
+    path: "viewPost",
+    name: prefix + "viewPost",
+    meta: { auth: true, name: 'view post', isBanner: false },
+    component: () => import('@/views/ViewPostView.vue')
+  }
+
+]
 
 const routes = [
   {
-    path: "/test",
-    name: "Test",
-    component: Page,
+    path: '/',
+    name: 'landing-page',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: baseChildRoutes('')
   },
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/newHome",
-    name: "newHome",
-    component: NewHomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
-    path: "/createUser",
-    name: "createUser",
-    component: CreateUserView,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: RegisterView,
-  },
-  {
-    path: "/admin/recipe",
-    name: "adminRecipe",
-    component: AdminRecipeView,
-  },
 
+    path: '/auth',
+    name: 'auth',
+    component: () => import('@/layouts/BlankLayout.vue'),
+    children: authChildRoutes('auth')
+  },
+  {
+    path: "/testView",
+    name: "testView",
+    component: TestView,
+  }
 ];
 
 const router = createRouter({
