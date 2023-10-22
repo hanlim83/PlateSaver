@@ -8,7 +8,7 @@ const baseChildRoutes = (prefix) => [
     meta: { auth: true, name: 'Home', isBanner: false },
     component: () => import('@/views/HomeView.vue')
   },
-
+]
 import CreatePostView from "../views/CreatePostView.vue";
 import ViewPostView from "../views/ViewPostView.vue";
 
@@ -32,6 +32,36 @@ const routes = [
     name: prefix + 'RegisterView',
     meta: { auth: true, name: 'register user', isBanner: false },
     component: () => import('@/views/RegisterView.vue')
+  },
+  {
+    path: '/',
+    name: 'landing-page',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: baseChildRoutes('')
+  },
+  {
+
+    path: '/auth',
+    name: 'auth',
+    component: () => import('@/layouts/BlankLayout.vue'),
+    children: authChildRoutes('auth'),
+
+    path: "/testView",
+    name: "testView",
+    component: TestView,
+
+  },
+  {
+    path: "/createPost",
+    name: "createPost",
+    component: CreatePostView,
+  },
+  {
+    path: "/viewPost",
+    name: "viewPost",
+    component: ViewPostView,
+
+
   }
 ]
 
@@ -62,38 +92,6 @@ const authChildRoutes = (prefix) => [
   }
 ]
 
-const routes = [
-  {
-    path: '/',
-    name: 'landing-page',
-    component: () => import('@/layouts/HorizontalLayout.vue'),
-    children: baseChildRoutes('')
-  },
-  {
-
-    path: '/auth',
-    name: 'auth',
-    component: () => import('@/layouts/BlankLayout.vue'),
-    children: authChildRoutes('auth')
-
-    path: "/testView",
-    name: "testView",
-    component: TestView,
-
-  },
-  {
-    path: "/createPost",
-    name: "createPost",
-    component: CreatePostView,
-  },
-  {
-    path: "/viewPost",
-    name: "viewPost",
-    component: ViewPostView,
-
-
-  }
-]
 
 const router = createRouter({
   linkActiveClass: 'active',
