@@ -43,7 +43,7 @@
         </b-row>
       </b-col>
       <div class="col-md-6 d-md-block d-none bg-primary p-0 vh-100 overflow-hidden">
-        <img src="@/assets/images/auth/01.png" class="img-fluid gradient-main animated-scaleX" alt="images" loading="lazy" />
+        <img src="@/assets/login2.jpeg" class="img-fluid gradient-main animated-scaleX" alt="images" loading="lazy" />
       </div>
     </b-row>
   </section>

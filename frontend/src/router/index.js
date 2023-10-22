@@ -1,37 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-
 const baseChildRoutes = (prefix) => [
   {
-    path: '',
+    path: '/',
     name: prefix + 'home',
-    meta: { auth: false, name: 'Home', isBanner: false },
+    meta: { auth: true, name: 'Home', isBanner: false },
     component: () => import('@/views/HomeView.vue')
   },
   {
-    path: 'about',
+    path: '/about',
     name: prefix + 'about',
-    meta: { auth: false, name: 'About', isBanner: false },
+    meta: { auth: true, name: 'About', isBanner: false },
     component: () => import('@/views/AboutView.vue')
   },
   {
-    path: 'createUser',
+    path: '/createUser',
     name: prefix + 'createUser',
-    meta: { auth: false, name: 'create user', isBanner: false },
+    meta: { auth: true, name: 'create user', isBanner: false },
     component: () => import('@/views/CreateUserView.vue')
   },
   {
-    path: 'RegisterView',
+    path: '/RegisterView',
     name: prefix + 'RegisterView',
-    meta: { auth: false, name: 'register user', isBanner: false },
+    meta: { auth: true, name: 'register user', isBanner: false },
     component: () => import('@/views/RegisterView.vue')
-  },
-  {
-  path: "/testView",
-  name: prefix + 'TestView',
-  component: () => import('@/views/components/partials/FooterComponent.vue')
-
-}
+  }
 ]
 
 const authChildRoutes = (prefix) => [
@@ -64,39 +57,37 @@ const authChildRoutes = (prefix) => [
 const postsChildRoutes = (prefix) => [
   {
     path: "createPost",
-    name: prefix + "createPost",
-    meta: { auth: true, name: 'create post', isBanner: false },
-    component: () => import('@/views/CreatePostView.vue')
+    name: prefix + '.createpost',
+    meta: { auth: true, name: 'Create Post' },
+    component: () => import('@/views/posts/CreatePostView.vue')
   },
   {
-    path: "viewPost",
-    name: prefix + "viewPost",
-    meta: { auth: true, name: 'view post', isBanner: false },
-    component: () => import('@/views/ViewPostView.vue')
-  }
-
+    path: "viewPosts",
+    name: prefix + '.viewpost',
+    meta: { auth: true, name: 'View Post' },
+    component: () => import('@/views/posts/ViewPostsView.vue')
+  },
 ]
 
 const routes = [
   {
     path: '/',
-    name: 'landing-page',
+    name: 'landing pages',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: baseChildRoutes('')
   },
   {
-
     path: '/auth',
     name: 'auth',
     component: () => import('@/layouts/BlankLayout.vue'),
     children: authChildRoutes('auth')
   },
   {
-    path: '/',
+    path: '/posts',
     name: 'posts',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: postsChildRoutes('posts')
-  }
+  },
 ]
 
 const router = createRouter({
