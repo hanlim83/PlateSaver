@@ -12,14 +12,10 @@
   <!-- Footer Component Start Here -->
   <footer-component></footer-component>
   <!-- Footer Component End Here -->
-  <!-- Live Customizer Component Start Here -->
-  <setting-offcanvas></setting-offcanvas>
-  <!-- Live Customizer Component End Here-->
 </template>
 
 <script setup>
 import HorizontalNavbar from '@/components/menu-styles/HorizontalNavbar.vue'
 import MainContentComponent from '@/components/partials/MainContentComponent.vue'
 import FooterComponent from '@/components/partials/FooterComponent.vue'
-import SettingOffcanvas from '@/components/setting/SettingOffcanvas.vue'
 </script>

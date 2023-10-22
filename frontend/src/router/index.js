@@ -1,45 +1,81 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from "../views/HomeView.vue";
-import NewHomeView from "../views/NewHomeView.vue";
-import CreateUserView from "../views/CreateUserView.vue";
-import RegisterView from "../views/RegisterView.vue";
-import TestView from "../components/partials/FooterComponent.vue";
+
+
+const baseChildRoutes = (prefix) => [
+  {
+    path: '/',
+    name: prefix + 'home',
+    meta: { auth: true, name: 'Home', isBanner: false },
+    component: () => import('@/views/HomeView.vue')
+  },
 
 import CreatePostView from "../views/CreatePostView.vue";
 import ViewPostView from "../views/ViewPostView.vue";
 
 
 const routes = [
+
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
+    path: '/about',
+    name: prefix + 'about',
+    meta: { auth: true, name: 'About', isBanner: false },
+    component: () => import('@/views/AboutView.vue')
   },
   {
-    path: "/newHome",
-    name: "newHome",
-    component: NewHomeView,
+    path: '/createUser',
+    name: prefix + 'createUser',
+    meta: { auth: true, name: 'create user', isBanner: false },
+    component: () => import('@/views/CreateUserView.vue')
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: '/RegisterView',
+    name: prefix + 'RegisterView',
+    meta: { auth: true, name: 'register user', isBanner: false },
+    component: () => import('@/views/RegisterView.vue')
+  }
+]
+
+const authChildRoutes = (prefix) => [
+  {
+    path: 'login',
+    name: prefix + '.login',
+    meta: { auth: false, name: 'Login' },
+    component: () => import('@/views/auth/SignIn.vue')
   },
   {
-    path: "/createUser",
-    name: "createUser",
-    component: CreateUserView,
+    path: 'register',
+    name: prefix + '.signup',
+    meta: { auth: false, name: 'Sign Up' },
+    component: () => import('@/views/auth/SignUp.vue')
   },
   {
-    path: "/RegisterView",
-    name: "RegisterView",
-    component: RegisterView,
+    path: 'reset-password',
+    name: prefix + '.reset-password',
+    meta: { auth: false, name: 'Reset Password' },
+    component: () => import('@/views/auth/ResetPassword.vue')
   },
   {
+    path: 'verify',
+    name: prefix + '.verify',
+    meta: { auth: false, name: 'Verify Email' },
+    component: () => import('@/views/auth/VerifyEmail.vue')
+  }
+]
+
+const routes = [
+  {
+    path: '/',
+    name: 'landing-page',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: baseChildRoutes('')
+  },
+  {
+
+    path: '/auth',
+    name: 'auth',
+    component: () => import('@/layouts/BlankLayout.vue'),
+    children: authChildRoutes('auth')
+
     path: "/testView",
     name: "testView",
     component: TestView,
@@ -55,8 +91,9 @@ const routes = [
     name: "viewPost",
     component: ViewPostView,
 
+
   }
-];
+]
 
 const router = createRouter({
   linkActiveClass: 'active',
