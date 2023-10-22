@@ -8,8 +8,9 @@
         style="min-width: 20rem;"
         class="mb-2" 
         :img-src= "post.foodImage" 
-        img-top> <!--idk about the food image-->
-      
+        img-top
+        :sub-title="`by ${getUserName(post)}`"> <!--idk about the food image-->
+
 
         <b-card-text>{{ post.content }}</b-card-text>
         <b-card-text>{{ post.location }}</b-card-text>
@@ -30,6 +31,11 @@
 <script>
 const API_URL = "http://localhost:4000/";
   import axios from "axios";
+  import { ref as dbRef } from 'firebase/database';
+  import { useDatabase, useDatabaseObject } from 'vuefire';
+
+  const db = useDatabase();
+  
   
   export default {
   name: "ViewPostView",
@@ -52,6 +58,10 @@ const API_URL = "http://localhost:4000/";
       let response = await axios.get(API_URL + "posts");
       this.allposts = response.data.data;
       console.log("Posts: ", this.allposts);
+    },
+    async getUserName(post){
+      var userExtendedData = useDatabaseObject(dbRef(db,'users', post.userid));
+      return userExtendedData.username;
     },
   },
 };

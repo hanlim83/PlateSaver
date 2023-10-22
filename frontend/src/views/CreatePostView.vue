@@ -23,7 +23,9 @@
           Submit
         </button>
       </form>
-  
+  <!--TODO:
+    Get location from googlemaps api
+    Get UserID -->
       <br />
       <br />
     </div>
@@ -44,7 +46,7 @@
 	    timeStamp:"",
 	    location:"",
 	    tags:"",
-	    collectionStatus: true,
+	    status: true,
         
       };
     },
