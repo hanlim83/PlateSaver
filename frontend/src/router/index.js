@@ -69,6 +69,21 @@ const postsChildRoutes = (prefix) => [
   },
 ]
 
+const recipeChildRoutes = (prefix) => [
+  {
+    path: "create",
+    name: prefix + '.create',
+    meta: { auth: false, name: 'Create Recipe' },
+    component: () => import('@/views/CreateRecipeView.vue')
+  },
+  {
+    path: "search",
+    name: prefix + '.search',
+    meta: { auth: false, name: 'Search Recipe' },
+    component: () => import('@/views/AdminRecipeSearchView.vue')
+  },
+]
+
 const routes = [
   {
     path: '/',
@@ -87,6 +102,12 @@ const routes = [
     name: 'posts',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: postsChildRoutes('posts')
+  },
+  {
+    path: '/recipe',
+    name: 'recipes',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: recipeChildRoutes('recipe')
   },
 ]
 

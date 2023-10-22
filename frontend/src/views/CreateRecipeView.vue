@@ -95,6 +95,13 @@
                                                 placeholder="e.g. 20 minutes" v-model="cooktime" />
                                         </b-form-group>
                                     </b-col>
+                                    <b-col md="6" class="order-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Servings: </label>
+                                            <b-form-input type="text" class="form-control" name="servings"
+                                                placeholder="e.g. 3 pax" v-model="servings" />
+                                        </div>
+                                    </b-col>
                                     <b-col md="6" class="order-last">
                                         <div class="form-group">
                                             <label class="form-label">Choose a photo:</label>
@@ -178,16 +185,37 @@
                         </div>
 
                         <!-- Step 4: Nutritional Facts -->
-                        <div id="confirm" :class="`${currentindex == 4 ? 'show' : 'd-none'}`">
-                            <b-button class="btn btn-success me-1 float-end" value="Previous">Submit</b-button>
+                        <div id="nutrition" :class="`${currentindex == 4 ? 'show' : 'd-none'}`">
+                            <div class="form-card text-start">
+                                <b-row>
+                                    <div class="col-7">
+                                        <h3 class="mb-4">Nutritional Facts</h3>
+                                    </div>
+                                </b-row>
+                                <b-row>
+                                    <b-form-group>
+                                        <label>Share the nutritional facts per serving.</label>
+                                    </b-form-group>
+                                    <b-col md="12" v-for="(value, key) in nutritionDetails" :key="key">
+                                        <b-form-group>
+                                            <b-form-input type="text" class="form-control"
+                                                :placeholder="'e.g. ' + nutritionPlaceHolders[key % nutritionPlaceHolders.length]"
+                                                v-model="nutritionDetails[key]" />
+                                        </b-form-group>
+                                    </b-col>
+
+                                    <b-col md="6" class="order-last">
+                                        <b-button class="btn btn-info" @click="addNutrition()">Add Row</b-button>
+                                    </b-col>
+                                </b-row>
+                            </div>
+
+                            <b-button class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe">Submit</b-button>
                             <b-button @click="changeTab(3)"
                                 class="btn btn-dark previous action-button-previous float-end me-1"
                                 value="Previous">Previous</b-button>
-
                         </div>
                     </b-form>
-
-
 
                 </b-card-body>
             </b-card>
@@ -196,8 +224,8 @@
 </template>
 
 <script>
-// import axios from "axios";
-// import { API_URL } from "../config";
+import axios from "axios";
+import { API_URL } from "../config";
 import IconComponent from '@/components/icons/IconComponent.vue'
 
 export default {
@@ -205,12 +233,13 @@ export default {
     data() {
         return {
             iconSize: 25,
-            currentindex: 3,
+            currentindex: 1,
             //Page 1
             name: "",
             description: "",
             preptime: "",
             cooktime: "",
+            servings: "",
             //Page 2
             ingredients: ["", "", ""],
             ingredientPlaceHolder: ["2 cups flour sifted",
@@ -228,7 +257,17 @@ export default {
                 "Combine flour and baking powder, add to the creamed mixture and mix well.",],
             //Page 4
             nutritionDetails: ["", "", ""],
-
+            nutritionPlaceHolders: [
+                "Calories: 240 kcal",
+                "Carbohydrates: 4.6g",
+                "Protein: 8.5g",
+                "Fat: 20.3g",
+                "Saturated Fat: 12.2g",
+                "Cholesterol: 67.9mg",
+                "Sodium: 240mg",
+                "Potassium: 217mg",
+                "Fiber: 0.1g",
+            ]
         };
     },
     components: {
@@ -241,10 +280,42 @@ export default {
         addIngredient() {
             this.ingredients.push("");
         },
-        addDirections(){
+        addDirections() {
             this.directions.push("");
             console.log(this.directions);
-        }
+        },
+        addNutrition() {
+            this.nutrition.push("");
+            console.log(this.nutrition);
+        },
+        async createRecipe() {
+            let data = {
+                name: this.name,
+                description: this.description,
+                preptime: this.preptime,
+                cooktime: this.cooktime,
+                servings: this.servings,
+                ingredients: this.ingredients,
+                directions: this.directions,
+                nutritionDetails: this.nutritionDetails,
+            }
+
+            //Remove empty strings from arrays
+            data.ingredients = data.ingredients.filter(function (el) {
+                return el != "";
+            });
+            data.directions = data.directions.filter(function (el) {
+                return el != "";
+            });
+            data.nutritionDetails = data.nutritionDetails.filter(function (el) {
+                return el != "";
+            });
+
+            console.log("Sending a request");
+            let response = await axios.post(API_URL + "recipe", data);
+            console.log("Status: ",response.status);
+            //Todo After done redirect to view recipe page
+        },
     },
 };
 
