@@ -7,10 +7,9 @@ const {onRequest} = require("firebase-functions/v2/https");
 
 const vuePath = __dirname + "/../frontend/dist/";
 
-const {createUser, getUsers} = require('./models/users.js');
-const {createPost, getPosts} = require('./models/posts.js');
 
 //Imports from models
+const {createPost, getPosts} = require('./models/posts.js');
 const {createUser, getUsers} = require('./models/users.js');
 const {search} = require('./models/edamane.js');
 

@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-
 const baseChildRoutes = (prefix) => [
   {
     path: '',
@@ -26,13 +25,12 @@ const baseChildRoutes = (prefix) => [
     meta: { auth: false, name: 'register user', isBanner: false },
     component: () => import('@/views/RegisterView.vue')
   },
-  {
-  path: "/testView",
-  name: prefix + 'TestView',
-  component: () => import('@/views/components/partials/FooterComponent.vue')
-
-}
-]
+  // {
+  //   path: "/testView",
+  //   name: prefix + 'TestView',
+  //   component: () => import('@/views/components/partials/FooterComponent.vue')
+  // }
+];
 
 const authChildRoutes = (prefix) => [
   {
@@ -59,7 +57,7 @@ const authChildRoutes = (prefix) => [
     meta: { auth: false, name: 'Verify Email' },
     component: () => import('@/views/auth/VerifyEmail.vue')
   }
-]
+];
 
 const postsChildRoutes = (prefix) => [
   {
@@ -74,8 +72,16 @@ const postsChildRoutes = (prefix) => [
     meta: { auth: true, name: 'view post', isBanner: false },
     component: () => import('@/views/ViewPostView.vue')
   }
+];
 
-]
+const recipeChildRoutes = (prefix) => [
+  {
+    path: "create",
+    name: prefix + "create",
+    meta: { auth: true, name: 'create recipe', isBanner: false },
+    component: () => import('@/views/CreateRecipeView.vue'),
+  },
+];
 
 const routes = [
   {
@@ -92,10 +98,15 @@ const routes = [
     children: authChildRoutes('auth')
   },
   {
-    path: "/testView",
-    name: "testView",
-    component: TestView,
-  }
+    path: '/post',
+    name: 'post',
+    children: postsChildRoutes('post')
+  },
+  {
+    path: '/recipe',
+    name: 'recipe',
+    children: recipeChildRoutes('recipe')
+  },
 ];
 
 const router = createRouter({
