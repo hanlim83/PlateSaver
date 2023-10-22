@@ -14,8 +14,8 @@
             <router-link to="/createUser">User</router-link>
             <router-link to="/RegisterView">Register</router-link>
             <router-link to="/testView">Test</router-link>
-            <router-link to="/createPost">Post</router-link>
-            <router-link to="/viewPost">Posts</router-link>
+            <router-link to="/createPost">PostSomething</router-link>
+            <router-link to="/viewPost">ViewPosts</router-link>
           </nav>
         </div>
       </div>
