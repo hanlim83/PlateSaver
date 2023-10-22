@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+
 const baseChildRoutes = (prefix) => [
   {
     path: '/',
@@ -7,6 +8,13 @@ const baseChildRoutes = (prefix) => [
     meta: { auth: true, name: 'Home', isBanner: false },
     component: () => import('@/views/HomeView.vue')
   },
+
+import CreatePostView from "../views/CreatePostView.vue";
+import ViewPostView from "../views/ViewPostView.vue";
+
+
+const routes = [
+
   {
     path: '/about',
     name: prefix + 'about',
@@ -62,10 +70,28 @@ const routes = [
     children: baseChildRoutes('')
   },
   {
+
     path: '/auth',
     name: 'auth',
     component: () => import('@/layouts/BlankLayout.vue'),
     children: authChildRoutes('auth')
+
+    path: "/testView",
+    name: "testView",
+    component: TestView,
+
+  },
+  {
+    path: "/createPost",
+    name: "createPost",
+    component: CreatePostView,
+  },
+  {
+    path: "/viewPost",
+    name: "viewPost",
+    component: ViewPostView,
+
+
   }
 ]
 
