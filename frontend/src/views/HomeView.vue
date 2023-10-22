@@ -4,8 +4,7 @@
 
       <div class="bg-info text-white">
         <div class = "px-3 py-3">
-          <img src = ../assets/namelogo.png width = "100" height = "100">
-          
+          <a href="http://localhost:8080/newHome"><img src = ../assets/namelogo.png width = "100" height = "100"></a>
         </div>
       </div>
       <div>
@@ -14,4 +13,3 @@
   </div>
 
 </template>
-
