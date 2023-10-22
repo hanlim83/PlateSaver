@@ -3,36 +3,35 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const baseChildRoutes = (prefix) => [
   {
-    path: '/',
+    path: '',
     name: prefix + 'home',
-    meta: { auth: true, name: 'Home', isBanner: false },
+    meta: { auth: false, name: 'Home', isBanner: false },
     component: () => import('@/views/HomeView.vue')
   },
-
-import CreatePostView from "../views/CreatePostView.vue";
-import ViewPostView from "../views/ViewPostView.vue";
-
-
-const routes = [
-
   {
-    path: '/about',
+    path: 'about',
     name: prefix + 'about',
-    meta: { auth: true, name: 'About', isBanner: false },
+    meta: { auth: false, name: 'About', isBanner: false },
     component: () => import('@/views/AboutView.vue')
   },
   {
-    path: '/createUser',
+    path: 'createUser',
     name: prefix + 'createUser',
-    meta: { auth: true, name: 'create user', isBanner: false },
+    meta: { auth: false, name: 'create user', isBanner: false },
     component: () => import('@/views/CreateUserView.vue')
   },
   {
-    path: '/RegisterView',
+    path: 'RegisterView',
     name: prefix + 'RegisterView',
-    meta: { auth: true, name: 'register user', isBanner: false },
+    meta: { auth: false, name: 'register user', isBanner: false },
     component: () => import('@/views/RegisterView.vue')
-  }
+  },
+  {
+  path: "/testView",
+  name: prefix + 'TestView',
+  component: () => import('@/views/components/partials/FooterComponent.vue')
+
+}
 ]
 
 const authChildRoutes = (prefix) => [
@@ -62,6 +61,22 @@ const authChildRoutes = (prefix) => [
   }
 ]
 
+const postsChildRoutes = (prefix) => [
+  {
+    path: "createPost",
+    name: prefix + "createPost",
+    meta: { auth: true, name: 'create post', isBanner: false },
+    component: () => import('@/views/CreatePostView.vue')
+  },
+  {
+    path: "viewPost",
+    name: prefix + "viewPost",
+    meta: { auth: true, name: 'view post', isBanner: false },
+    component: () => import('@/views/ViewPostView.vue')
+  }
+
+]
+
 const routes = [
   {
     path: '/',
@@ -75,23 +90,12 @@ const routes = [
     name: 'auth',
     component: () => import('@/layouts/BlankLayout.vue'),
     children: authChildRoutes('auth')
-
-    path: "/testView",
-    name: "testView",
-    component: TestView,
-
   },
   {
-    path: "/createPost",
-    name: "createPost",
-    component: CreatePostView,
-  },
-  {
-    path: "/viewPost",
-    name: "viewPost",
-    component: ViewPostView,
-
-
+    path: '/',
+    name: 'posts',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: postsChildRoutes('posts')
   }
 ]
 
