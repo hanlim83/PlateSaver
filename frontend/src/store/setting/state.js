@@ -55,7 +55,7 @@ export const defaultState = {
       target: '[data-setting="app_name"]',
       choices: [],
       type: 'text',
-      value: 'PlateSaver'
+      value: 'Hope UI'
     },
     theme_scheme_direction: {
       target: 'html',

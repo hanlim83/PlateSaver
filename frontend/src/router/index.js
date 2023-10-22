@@ -52,7 +52,7 @@ const authChildRoutes = (prefix) => [
     meta: { auth: false, name: 'Verify Email' },
     component: () => import('@/views/auth/VerifyEmail.vue')
   }
-]
+];
 
 const postsChildRoutes = (prefix) => [
   {
@@ -66,6 +66,21 @@ const postsChildRoutes = (prefix) => [
     name: prefix + '.viewpost',
     meta: { auth: true, name: 'View Post' },
     component: () => import('@/views/posts/ViewPostsView.vue')
+  },
+]
+
+const recipeChildRoutes = (prefix) => [
+  {
+    path: "create",
+    name: prefix + '.create',
+    meta: { auth: false, name: 'Create Recipe' },
+    component: () => import('@/views/CreateRecipeView.vue')
+  },
+  {
+    path: "search",
+    name: prefix + '.search',
+    meta: { auth: false, name: 'Search Recipe' },
+    component: () => import('@/views/AdminRecipeSearchView.vue')
   },
 ]
 
@@ -87,6 +102,12 @@ const routes = [
     name: 'posts',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: postsChildRoutes('posts')
+  },
+  {
+    path: '/recipe',
+    name: 'recipes',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: recipeChildRoutes('recipe')
   },
 ]
 
