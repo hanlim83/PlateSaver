@@ -5,6 +5,10 @@ import CreateUserView from "../views/CreateUserView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import TestView from "../components/partials/FooterComponent.vue";
 
+import CreatePostView from "../views/CreatePostView.vue";
+import ViewPostView from "../views/ViewPostView.vue";
+
+
 const routes = [
   {
     path: "/",
@@ -39,6 +43,18 @@ const routes = [
     path: "/testView",
     name: "testView",
     component: TestView,
+
+  },
+  {
+    path: "/createPost",
+    name: "createPost",
+    component: CreatePostView,
+  },
+  {
+    path: "/viewPost",
+    name: "viewPost",
+    component: ViewPostView,
+
   }
 ];
 
