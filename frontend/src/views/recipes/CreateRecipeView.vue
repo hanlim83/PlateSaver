@@ -202,7 +202,7 @@
                                     <b-col md="6">
                                         <b-form-group label="Carbohydrates:">
                                             <b-form-input type="text" class="form-control" name="carbs"
-                                                placeholder="e.g. 22g" v-model="nutritionDetails.carbs" />
+                                                placeholder="e.g. 22g" v-model="nutritionDetails.carbohydrates" />
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
@@ -257,7 +257,7 @@ export default {
     data() {
         return {
             iconSize: 25,
-            currentindex: 4,
+            currentindex: 1,
             //Page 1
             name: "",
             description: "",
@@ -282,7 +282,7 @@ export default {
             //Page 4
             nutritionDetails: {
                 calories: "",
-                carbs: "",
+                carbohydrates: "",
                 fat: "",
                 protein: "",
                 sodium: "",

@@ -34,4 +34,16 @@ async function getRecipe(req) {
     });
 }
 
-module.exports = { createRecipe, getRecipes, getRecipe};
+async function createComment(data){
+    let recipeId = data.recipeId;
+    let comment = data.comment;
+    return new Promise((resolve) => {
+        var db = firebase.database();
+        var ref = db.ref("/recipes/" + recipeId + "/comments");  //Set the current directory you are working in
+        ref.push(comment);
+        resolve("Success");
+    });
+
+}
+
+module.exports = { createRecipe, getRecipes, getRecipe, createComment};
