@@ -94,10 +94,13 @@ const handleSignUp = () => {
     let newUser = userCredential.user
     updateProfile(newUser, { displayName: fName.value + ' ' + lName.value })
     set(dbRef(db, 'users/' + newUser.uid), {
+      id: newUser.uid,
       firstName: fName.value,
       lastName: lName.value,
       emailAddress: emailAddress.value,
-      age: age.value
+      age: age.value,
+      role: 'user',
+      photoPath: 'user-profile-pictures/Untitled design.png'
     })
     router.push('/auth/verify')
   })
