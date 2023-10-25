@@ -21,33 +21,6 @@
       <img src="@/assets/SDG4.png" style="width:30%;height:auto;">   
       <img src="@/assets/SDG12.png" style="width:30%;height:auto;">   
     </div>
-
-    <div>
-        <p id = "demo"></p>
-        <button onclick="getLocation()">Try It</button>
-    </div>
-
-
   </div>
-    
 
 </template>
-
-<script>
-    const x = document.getElementById('demo')
-    function getLocation() {
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-
-    function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude + 
-        "<br>Longitude: " + position.coords.longitude;
-    }
-
-
-</script>
-

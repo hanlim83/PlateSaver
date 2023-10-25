@@ -24,6 +24,12 @@ const baseChildRoutes = (prefix) => [
     name: prefix + 'RegisterView',
     meta: { auth: true, name: 'register user', isBanner: false },
     component: () => import('@/views/RegisterView.vue')
+  },
+  {
+    path: '/UserLocation',
+    name: prefix + 'RegisterView',
+    meta: { auth: true, name: 'user location', isBanner: false },
+    component: () => import('@/views/UserLocationView.vue')
   }
 ]
 

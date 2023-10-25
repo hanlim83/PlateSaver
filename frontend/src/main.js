@@ -3,6 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import VueGeoLocation from 'vue-browser-geolocation'
+Vue.use(VueGeoLocation)
 
 // Library Components
 import VueSweetalert2 from 'vue-sweetalert2'
