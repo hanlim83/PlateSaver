@@ -21,4 +21,17 @@ async function getRecipes() {
     });
 }
 
-module.exports = { createRecipe, getRecipes };
+async function getRecipe(req) {
+    let recipeId = req.params.id;
+    return new Promise((resolve) => {
+        var db = firebase.database();
+        var ref = db.ref("/recipes/" + recipeId);  //Set the current directory you are working in        
+        ref.once("value", function (snapshot) {
+            var response = snapshot.val();
+            resolve(response);
+        });
+
+    });
+}
+
+module.exports = { createRecipe, getRecipes, getRecipe};

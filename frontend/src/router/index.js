@@ -74,13 +74,25 @@ const recipeChildRoutes = (prefix) => [
     path: "create",
     name: prefix + '.create',
     meta: { auth: false, name: 'Create Recipe' },
-    component: () => import('@/views/CreateRecipeView.vue')
+    component: () => import('@/views/recipes/CreateRecipeView.vue')
   },
   {
     path: "search",
     name: prefix + '.search',
     meta: { auth: false, name: 'Search Recipe' },
-    component: () => import('@/views/AdminRecipeSearchView.vue')
+    component: () => import('@/views/recipes/AdminRecipeSearchView.vue')
+  },
+  {
+    path: "view",
+    name: prefix + '.view',
+    meta: { auth: false, name: 'View Recipe' },
+    component: () => import('@/views/recipes/ViewRecipeView.vue')
+  },
+  {
+    path: "view/:id",
+    name: prefix + '.viewDetails',
+    meta: { auth: false, name: 'View Recipe Details' },
+    component: () => import('@/views/recipes/ViewRecipeDetailsView.vue')
   },
 ]
 
