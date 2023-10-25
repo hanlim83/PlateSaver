@@ -1,18 +1,20 @@
 <template>
-  <div class="container-xxl display-3">Share your Food With Others</div>
-  <div class="create-user">
+  <div class="container-xxl display-3 text-center text-primary"><strong>Share your Food With Others</strong></div>
+  <br/>
+  <br/>
+  <div class="create-post">
     <form>
       <div class="mb-3">
         <input type="text" class="form-control" value="title" />
       </div>
 
       <div class="mb-3">
-        <label for="food" class="form-label">Upload Image Here</label>
-        <input type="" class="form-control" id="food" />
+        <label class="form-label" for="customFile">Upload</label>
+        <input type="file" class="form-control" id="customFile">
       </div>
       <div class="mb-3">
         <label for="food" class="form-label">Description:</label>
-        <input type="text" class="form-control" id="food" />
+        <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" id="food">
       </div>
       <div class="mb-3">
         <label for="Tags" class="form-label">Tags:</label>
@@ -27,6 +29,8 @@
 </template>
 
 <script>
+
+
 const API_URL = 'http://localhost:4000/'
 import axios from 'axios'
 
