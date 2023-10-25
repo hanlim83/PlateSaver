@@ -51,17 +51,30 @@
 
 <script setup>
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useFirebaseAuth } from 'vuefire'
+import { useFirebaseAuth, useCurrentUser } from 'vuefire'
 import { ref } from 'vue'
 import router from '@/router'
+import { useRoute } from 'vue-router'
 
 const auth = useFirebaseAuth()
 const emailAddress = ref('')
 const password = ref('')
+const user =  useCurrentUser()
+const route = useRoute()
+
+if (user && route.query.redirect) {
+  router.push(route.query.redirect)
+} else if (user.value != null){
+  router.push('/')
+}
 
 const handleLogin = () => {
   signInWithEmailAndPassword(auth, emailAddress.value, password.value).then(() => {
-    router.push('/')
+    if (route.query.redirect != null){
+      router.push(route.query.redirect)
+    } else {
+      router.push('/')
+    }
   })
 }
 </script>
