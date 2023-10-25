@@ -14,7 +14,6 @@ export default{
     name : 'App',
     components : {
         Map
-
     }
 }
 
