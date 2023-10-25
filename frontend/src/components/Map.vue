@@ -22,8 +22,10 @@
         created(){
             // get user's coordinates from browser request
             this.$getLocation({})
-                .then(coordinates =>
-                )
+                .then(coordinates =>{
+                    this.coordinates = coordinates;
+                })
+                .catch(error => alert(error));
         }
     }
 
