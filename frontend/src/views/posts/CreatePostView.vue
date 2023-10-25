@@ -1,30 +1,34 @@
-<style>
-.centerCropped {
-  object-fit: none; /* Do not scale the image */
-  object-position: center; /* Center the image within the element */
-  height: 100px;
-  width: 100%;
+<!--<style>
+input[type=text], input[type=file] {
+  border:1px solid black;
 }
-</style>
+
+</style>-->
 
 <template>
-  <div class="container-xxl display-3 text-center text-primary"><strong>Share your Food With Others</strong></div>
+  <div class="container-xxl display-3 text-center text-primary"><strong>Share your Food With Others!</strong></div>
   <br/>
   <br/>
   <div class="create-post">
-      <div class="flex mx-auto display-2 text-center text-dark fw-bold">
-        <img src="@/assets/fried_rice_banner.jpg" class="image-fluid ">
-        {{ titleHeaderforPost }}
+
+
+    <div class="card text-bg-dark">
+      <img src="@/assets/fried_rice_banner.png">
+      <div class="card-img-overlay">
+        <div class="card-title display-5 text-left align-middle text-dark fw-bold w-50 h-100 overflow-auto text-capitalize">
+          {{ title }}
+        </div>
       </div>
+    </div>
     <br/>
-    <form >
+    <form onsubmit="return false">
 
 
       <div class="row g-3">
       <div class="col"></div>
 
       <div class="col-4 mb-3">
-        <input type="text" class="form-control text-center" v-model="titleHeaderforPost" placeholder="Title" id="title"/>
+        <input type="text" class="form-control text-center" v-model="title" placeholder="Title" id="title"/>
       </div>
 
       <div class="col"></div>
@@ -34,7 +38,7 @@
       
       <div class="mb-3">
         <label for="description" class="form-label">Description:</label>
-        <textarea class="form-control" id="description" rows="3"></textarea>
+        <textarea class="form-control" id="description" rows="3" v-model="content"></textarea>
       </div>
 
 
@@ -45,9 +49,11 @@
           <label class="form-label mb-0" for="customFile">Upload An Image:</label>
           <input type="file" class="form-control" id="customFile">
         </div>
+
+
         <div class="col-4 mb-3">
           <label for="Tags" class="form-label mb-0">Hashtags:</label>
-          <input type="text" class="form-control" id="food" />
+          <input type="text" class="form-control" id="food" v-model="tags"/>
         </div>
 
         <div class="col"></div>
@@ -79,24 +85,29 @@ export default {
       location: '',
       tags: '',
       collectionStatus: true,
-      titleHeaderforPost:""
+      
     }
   },
   methods: {
     async createPost() {
-      console.log('post: ', this.post)
-      let response = await axios.post(API_URL + 'post', {
+      // Get the day the post was made
+      var today = new Date();
+      var now = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+      this.timeStamp=now;
+      
+      
+      let response = await axios.post(API_URL + 'posts', {
         title: this.title,
         foodImage: this.foodImage,
         content: this.content,
         userID: this.userID,
         timeStamp: this.timeStamp,
         location: this.location,
-        tags: this.tag,
-        status: true
-      })
-
-      console.log('Response: ', response)
+        tags: this.tags,
+        collectionStatus: this.collectionStatus
+      });
+      console.log('post: ', this.post)
+      console.log('Response: ', response);
     },
 
   }
