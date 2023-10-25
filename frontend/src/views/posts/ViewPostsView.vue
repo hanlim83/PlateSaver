@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <b-card-group deck>
       <template v-for="(post, index) in allposts" :key="index">
         <b-card v-if="post.status" :title="post.title" style="min-width: 20rem" class="mb-2" :img-src="post.foodImage" img-top>
@@ -24,7 +25,7 @@ const API_URL = 'http://localhost:4000/'
 import axios from 'axios'
 
 export default {
-  name: 'ViewPostView',
+  name: 'ViewPostsView',
   data() {
     return {
       title: '',
