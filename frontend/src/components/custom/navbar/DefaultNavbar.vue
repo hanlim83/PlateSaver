@@ -1,3 +1,31 @@
+<script setup>
+import { useCurrentUser, useFirebaseAuth, useDatabase, useDatabaseObject, useFirebaseStorage, useStorageFileUrl } from 'vuefire'
+import { signOut } from "firebase/auth"
+import { ref as dbRef } from 'firebase/database'
+import { ref as storageRef } from 'firebase/storage'
+import router from '@/router'
+const auth = useFirebaseAuth()
+const user =  useCurrentUser()
+const handleLogOut = () => {
+  signOut(auth).then(() => {
+    console.log('logged out')
+    router.push('/')
+  }).catch((error) => {
+    console.log(error)
+  })
+}
+const db = useDatabase()
+const storage = useFirebaseStorage()
+var userProfilePicUrl = ''
+var userProfilePicPath = 'user-profile-pictures/Untitled design.png'
+if (user != null){
+  console.log(user.uid)
+let extendedUserData = useDatabaseObject(dbRef(db, 'users', user.uid),{once:  true})
+console.log(extendedUserData.value)
+let  userProfilePicRef = storageRef(storage, userProfilePicPath)
+userProfilePicUrl = useStorageFileUrl(userProfilePicRef)
+}
+</script>
 <template>
   <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar}`">
     <!-- <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar} ${navbarHide.join('')}`"> -->
@@ -24,7 +52,7 @@
               Go Pro
             </a>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
               <icon-component type="dual-tone" icon-name="bell"></icon-component>
               <span class="bg-danger dots"></span>
@@ -90,8 +118,8 @@
                 </b-card-body>
               </b-card>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <!-- <li class="nav-item dropdown">
             <a href="#" class="nav-link" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <icon-component type="dual-tone" icon-name="message"></icon-component>
               <span class="bg-primary count-mail"></span>
@@ -162,24 +190,37 @@
                 </b-card-body>
               </b-card>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <li v-if="user" class="nav-item dropdown">
             <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="@/assets/images/avatars/01.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
-              <img src="@/assets/images/avatars/avtar_1.png" alt="User-Profile" class="theme-color-purple-img img-fluid avatar avatar-50 avatar-rounded" />
-              <img src="@/assets/images/avatars/avtar_2.png" alt="User-Profile" class="theme-color-blue-img img-fluid avatar avatar-50 avatar-rounded" />
-              <img src="@/assets/images/avatars/avtar_4.png" alt="User-Profile" class="theme-color-green-img img-fluid avatar avatar-50 avatar-rounded" />
-              <img src="@/assets/images/avatars/avtar_5.png" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded" />
-              <img src="@/assets/images/avatars/avtar_3.png" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img :src="userProfilePicUrl.url.value" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
               <div class="caption ms-3 d-none d-md-block">
-                <h6 class="mb-0 caption-title">Austin Robertson</h6>
-                <p class="mb-0 caption-sub-title">Marketing Administrator</p>
+                <h6 class="mb-0 caption-title">{{user.displayName}}</h6>
+                <!-- <p class="mb-0 caption-sub-title">Marketing Administrator</p> -->
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li><router-link class="dropdown-item" to="/">Profile</router-link></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><router-link class="dropdown-item" :to="{ name: 'auth.login' }">Logout</router-link></li>
+              <li><a class="dropdown-item"  href="#" @click="handleLogOut">Logout</a></li>
+            </ul>
+          </li>
+          <li v-else class="nav-item dropdown">
+            <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="@/assets/images/avatars/avtar_2.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
+              <!-- <img src="@/assets/images/avatars/01.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img src="@/assets/images/avatars/avtar_1.png" alt="User-Profile" class="theme-color-purple-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img src="@/assets/images/avatars/avtar_2.png" alt="User-Profile" class="theme-color-blue-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img src="@/assets/images/avatars/avtar_4.png" alt="User-Profile" class="theme-color-green-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img src="@/assets/images/avatars/avtar_5.png" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img src="@/assets/images/avatars/avtar_3.png" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded" /> -->
+              <div class="caption ms-3 d-none d-md-block">
+                <!-- <h6 class="mb-0 caption-title">{{user.displayName}}</h6> -->
+                <p class="mb-0 caption-sub-title">Guest User</p>
+              </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><router-link class="dropdown-item" :to="{ name: 'auth.login' }">Login</router-link></li>
             </ul>
           </li>
         </ul>
@@ -206,7 +247,6 @@ export default {
     const store = useStore()
     const headerNavbar = computed(() => store.getters['setting/header_navbar'])
     const isHidden = ref(false)
-
     const onscroll = () => {
       const yOffset = document.documentElement.scrollTop
       const navbar = document.querySelector('.navs-sticky')
@@ -218,7 +258,6 @@ export default {
         }
       }
     }
-
     const carts = computed(() => store.getters.carts)
 
     onMounted(() => {
