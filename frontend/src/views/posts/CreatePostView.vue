@@ -13,7 +13,7 @@
   <br/>
   <div class="create-post">
       <div class="flex mx-auto display-2 text-center text-dark fw-bold">
-        <img src="@/assets/frontpage.jpeg" class="centerCropped ">
+        <img src="@/assets/fried_rice_banner.jpg" class="image-fluid ">
         {{ titleHeaderforPost }}
       </div>
     <br/>
