@@ -3,7 +3,7 @@
     
     <b-card-group deck>
       <template v-for="(post, index) in allposts" :key="index">
-        <b-card v-if="post.status" :title="post.title" style="min-width: 20rem" class="mb-2" :img-src="post.foodImage" img-top>
+        <b-card v-if="post.collectionStatus" :title="post.title" style="min-width: 20rem" class="mb-2" :img-src="post.foodImage" img-top>
           <!--idk about the food image-->
 
           <b-card-text>{{ post.content }}</b-card-text>
@@ -13,7 +13,7 @@
           <template #footer>
             <small class="text-muted">Posted on: {{ post.timeStamp }}</small>
             <br />
-            <small class="text-muted">Posted on: {{ post.tag }}</small>
+            <small class="text-muted">Tags:{{ post.tags }}</small>
           </template>
         </b-card>
       </template>
@@ -35,7 +35,7 @@ export default {
       timeStamp: '',
       location: '',
       tags: '',
-      status: '',
+      collectionStatus: '',
       allposts: []
     }
   },
