@@ -27,8 +27,8 @@
           <div class="container">
               <div class="row">
                   <div class="col-lg-4" v-for="(value, key) in allposts" :key="key">
-                      <IndivPost :id="key" :foodImage="value.foodImage"
-                          timeStamp="December 26, 2022" :title="value.title" userID="Jiawei"
+                      <IndivPost :id="key" :foodImage="require('@/assets/images/avatars/01.png')"
+                          :timeStamp="value.timeStamp" :title="value.title" userID="Jiawei"
                           :content="value.content" />
                   </div>
               </div>
@@ -64,13 +64,15 @@ export default {
   created() {
       this.getPosts();
   },
-  components: {},
+  components: {
+      IndivPost
+  },
   methods: {
     async getPosts() {
       let response = await axios.get(API_URL + 'posts')
       this.allposts = response.data.data
       console.log('Posts: ', this.allposts)
-      //console.log(Object.keys(this.recipes)[0]);
+      
     }
   }
 }

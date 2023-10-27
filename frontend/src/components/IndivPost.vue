@@ -13,7 +13,7 @@
 
             </div>
             <p class="pt-2">{{ content }}</p>
-            <!--<router-link :to="{ path: '/recipe/view/' + id }" class="btn btn-primary">Read More</router-link>-->
+            <!--<router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary">Read More</router-link>-->
         </div>
     </div>
 </template>
