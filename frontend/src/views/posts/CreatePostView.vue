@@ -96,7 +96,7 @@ export default {
       this.timeStamp=now;
       
       
-      let response = await axios.post(API_URL + 'posts', {
+      let response = await axios.post(API_URL + 'post', {
         title: this.title,
         foodImage: this.foodImage,
         content: this.content,
