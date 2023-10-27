@@ -42,8 +42,8 @@
 
 <script>
 import { API_URL } from "@/config";
-import IndivPost from '@/components/IndivPost.vue'
-import axios from 'axios'
+import IndivPost from '@/components/IndivPost.vue';
+import axios from 'axios';
 
 export default {
   name: 'ViewPostsView',
@@ -70,7 +70,7 @@ export default {
       let response = await axios.get(API_URL + 'posts')
       this.allposts = response.data.data
       console.log('Posts: ', this.allposts)
-      console.log(Object.keys(this.recipes)[0]);
+      //console.log(Object.keys(this.recipes)[0]);
     }
   }
 }
