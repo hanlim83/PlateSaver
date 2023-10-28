@@ -1,29 +1,37 @@
 <script setup>
 import { useCurrentUser, useFirebaseAuth, useDatabase, useDatabaseObject, useFirebaseStorage, useStorageFileUrl } from 'vuefire'
-import { signOut } from "firebase/auth"
+import { signOut } from 'firebase/auth'
 import { ref as dbRef } from 'firebase/database'
 import { ref as storageRef } from 'firebase/storage'
 import router from '@/router'
+import { useRoute } from 'vue-router'
 const auth = useFirebaseAuth()
-const user =  useCurrentUser()
+const user = useCurrentUser()
+const route = useRoute()
 const handleLogOut = () => {
-  signOut(auth).then(() => {
-    console.log('logged out')
-    router.push('/')
-  }).catch((error) => {
-    console.log(error)
-  })
+  signOut(auth)
+    .then(() => {
+      console.log('logged out')
+      router.push({ name: 'home', query: { state: 'logout' } })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+const handleLogIn = () => {
+  console.log(route.path)
+  router.push({ name: 'auth.login' })
 }
 const db = useDatabase()
 const storage = useFirebaseStorage()
 var userProfilePicUrl = ''
 var userProfilePicPath = 'user-profile-pictures/Untitled design.png'
-if (user != null){
+if (user != null) {
   console.log(user.uid)
-let extendedUserData = useDatabaseObject(dbRef(db, 'users', user.uid),{once:  true})
-console.log(extendedUserData.value)
-let  userProfilePicRef = storageRef(storage, userProfilePicPath)
-userProfilePicUrl = useStorageFileUrl(userProfilePicRef)
+  let extendedUserData = useDatabaseObject(dbRef(db, 'users', user.uid), { once: true })
+  console.log(extendedUserData.value)
+  let userProfilePicRef = storageRef(storage, userProfilePicPath)
+  userProfilePicUrl = useStorageFileUrl(userProfilePicRef)
 }
 </script>
 <template>
@@ -195,14 +203,14 @@ userProfilePicUrl = useStorageFileUrl(userProfilePicRef)
             <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img :src="userProfilePicUrl.url.value" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
               <div class="caption ms-3 d-none d-md-block">
-                <h6 class="mb-0 caption-title">{{user.displayName}}</h6>
+                <h6 class="mb-0 caption-title">{{ user.displayName }}</h6>
                 <!-- <p class="mb-0 caption-sub-title">Marketing Administrator</p> -->
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li><router-link class="dropdown-item" to="/">Profile</router-link></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item"  href="#" @click="handleLogOut">Logout</a></li>
+              <li><a class="dropdown-item" href="#" @click.stop.prevent="handleLogOut">Logout</a></li>
             </ul>
           </li>
           <li v-else class="nav-item dropdown">
@@ -220,7 +228,7 @@ userProfilePicUrl = useStorageFileUrl(userProfilePicRef)
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" :to="{ name: 'auth.login' }">Login</router-link></li>
+              <li><a class="dropdown-item" href="#" @click.stop.prevent="handleLogIn">Login</a></li>
             </ul>
           </li>
         </ul>
