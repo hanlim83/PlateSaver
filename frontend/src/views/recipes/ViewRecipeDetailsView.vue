@@ -3,7 +3,7 @@
         <div class="col-xl-8 col-md-10 mx-auto">
             <div class="card mt-4">
                 <div class="card-body p-6">
-                    <p class="text-primary pt-3">20th September 2022</p>
+                    <p class="text-primary pt-3">{{ recipe.date_created }}</p>
                     <h1 class="mt-2 ">{{ recipe.name }}</h1>
                     <div class="d-flex align-items-center my-3">
                         <span class="badge bg-info py-1 mx-1 text-capitalize fs-5">Delicious</span>
@@ -48,7 +48,6 @@
                         <p class="">{{ value }}</p>
                     </div>
 
-                    //Todo card for nutritional info
                     <!-- Nutritional Details Section -->
                     <b-card class="card bg-soft-info mt-4" title="Nutritional Facts">
                         <div class="card-body p-3 pb-1 text-black-50">
@@ -108,7 +107,6 @@
                 </b-row>
                 <b-button class="btn-primary" @click="createComment()">Submit</b-button>
             </b-card>
-
         </div>
     </div>
 </template>
@@ -128,7 +126,7 @@ export default {
                 name: "",
                 email: "",
                 text: ""
-            }
+            },
         };
     },
     async created() {
@@ -148,21 +146,21 @@ export default {
         async createComment() {
             //get current date
             let current = new Date();
-            let dateNow = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+            let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
             let data = {
                 comment: {
                     name: this.comment.name,
                     email: this.comment.email,
                     text: this.comment.text,
-                    date: dateNow
+                    date: dateNow,
                 },
                 recipeId: this.id
             };
 
             let response = await axios.post(API_URL + "recipe/comment", data);
             console.log("response: ", response);
-            
+
             //Update new comments
             await this.getRecipe();
 

@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-lg-4" v-for="(value, key) in recipes" :key="key">
                         <RecipeOne :id="key" :recipeImage="require('@/assets/images/avatars/01.png')"
-                            recipeDate="December 26, 2022" :recipeTitle="value.name" recipeAuthor="Jiawei"
+                            :recipeDate="value.date_created" :recipeTitle="value.name" recipeAuthor="Jiawei"
                             :recipeDescription="value.description" />
                     </div>
                 </div>

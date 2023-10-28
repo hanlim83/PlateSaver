@@ -234,7 +234,7 @@
                                 </b-row>
                             </div>
 
-                            <b-button class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe">Submit</b-button>
+                            <b-button class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe()">Submit</b-button>
                             <b-button @click="changeTab(3)"
                                 class="btn btn-dark previous action-button-previous float-end me-1"
                                 value="Previous">Previous</b-button>
@@ -306,6 +306,10 @@ export default {
             console.log(this.directions);
         },
         async createRecipe() {
+            //get current date
+            let current = new Date();
+            let dateNow = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
             let data = {
                 name: this.name,
                 description: this.description,
@@ -315,6 +319,7 @@ export default {
                 ingredients: this.ingredients,
                 directions: this.directions,
                 nutritionDetails: this.nutritionDetails,
+                date_created: dateNow,
             }
 
             //Remove empty strings from arrays
