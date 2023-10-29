@@ -43,7 +43,11 @@ input[type=text], input[type=file] {
 
 
       <div class="row">
-        <div class="col"></div>
+
+        <div class="col-4 mb-3">
+          <label class="form-label mb-0" for="contact">Contact:</label>
+          <input type="text" class="form-control" id="contact">
+        </div>
 
         <div class="col-4 mb-3 ">
           <label class="form-label mb-0" for="customFile">Upload An Image:</label>
@@ -84,6 +88,7 @@ export default {
       timeStamp: '',
       location: '',
       tags: '',
+      contact:'',
       collectionStatus: true,
       
     }
@@ -104,6 +109,7 @@ export default {
         timeStamp: this.timeStamp,
         location: this.location,
         tags: this.tags,
+        contact: this.contact,
         collectionStatus: this.collectionStatus
       });
       console.log('post: ', this.post)
