@@ -77,9 +77,9 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ref as dbRef, set } from 'firebase/database'
 import { useFirebaseAuth, useDatabase } from 'vuefire'
-import { ref } from 'vue'
 import router from '@/router'
 import { toast } from 'vue3-toastify'
+import { ref } from 'vue'
 
 const auth = useFirebaseAuth()
 const fName = ref('')
@@ -89,8 +89,10 @@ const password = ref('')
 const cfmPassword = ref('')
 const age = ref('')
 const db = useDatabase()
+var userProfilePicUrl = ''
 
 const handleSignUp = () => {
+  console.log(userProfilePicUrl)
   if (password.value !== cfmPassword.value) {
     toast('Passwords do not match', {
       autoClose: 5000,
@@ -101,7 +103,7 @@ const handleSignUp = () => {
   createUserWithEmailAndPassword(auth, emailAddress.value, password.value)
     .then((userCredential) => {
       let newUser = userCredential.user
-      updateProfile(newUser, { displayName: fName.value + ' ' + lName.value })
+      updateProfile(newUser, { displayName: fName.value + ' ' + lName.value})
       set(dbRef(db, 'users/' + newUser.uid), {
         id: newUser.uid,
         firstName: fName.value,
@@ -109,7 +111,8 @@ const handleSignUp = () => {
         emailAddress: emailAddress.value,
         age: age.value,
         role: 'user',
-        photoPath: 'user-profile-pictures/Untitled design.png'
+        //photoPath: userProfilePicPath
+        photoPath: 'user-profile-pictures/generic.jpg'
       })
       router.push('/auth/verify')
     })
@@ -136,6 +139,7 @@ const handleSignUp = () => {
       })
     })
 }
-</script>
 
+toast.clearAll()
+</script>
 <style lang="scss" scoped></style>
