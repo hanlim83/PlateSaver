@@ -25,6 +25,12 @@ const baseChildRoutes = (prefix) => [
     name: prefix + 'RegisterView',
     meta: { requiresAuth: false, name: 'register user', isBanner: false },
     component: () => import('@/views/RegisterView.vue')
+  },
+  {
+    path: '/profile',
+    name: prefix + 'ProfileView',
+    meta: { requiresAuth: true, name: 'user profile', isBanner: false },
+    component: () => import('@/views/UserProfileView.vue')
   }
 ]
 
@@ -133,7 +139,6 @@ const router = createRouter({
 })
 router.beforeEach(async (to) => {
   let currentUser = await getCurrentUser()
-  console.log(currentUser)
   if (to.meta.requiresAuth && currentUser == null) {
     return {
       path: '/auth/login',

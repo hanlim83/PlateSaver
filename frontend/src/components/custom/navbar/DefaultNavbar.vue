@@ -1,13 +1,16 @@
 <script setup>
-import { useCurrentUser, useFirebaseAuth, useDatabase, useDatabaseObject, useFirebaseStorage, useStorageFileUrl } from 'vuefire'
+import { useCurrentUser, useFirebaseAuth, useDatabase, useFirebaseStorage } from 'vuefire'
 import { signOut } from 'firebase/auth'
-import { ref as dbRef } from 'firebase/database'
-import { ref as storageRef } from 'firebase/storage'
+import { ref as dbRef, onValue } from 'firebase/database'
+import { ref as storageRef, getDownloadURL } from 'firebase/storage'
 import router from '@/router'
 import { useRoute } from 'vue-router'
 const auth = useFirebaseAuth()
 const user = useCurrentUser()
 const route = useRoute()
+const storage = useFirebaseStorage()
+var userProfilePicPath = 'user-profile-pictures/generic.jpg'
+var userProfilePicUrl = ref('https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media')
 const handleLogOut = () => {
   signOut(auth)
     .then(() => {
@@ -23,16 +26,41 @@ const handleLogIn = () => {
   router.push({ name: 'auth.login' })
 }
 const db = useDatabase()
-const storage = useFirebaseStorage()
-var userProfilePicUrl = ''
-var userProfilePicPath = 'user-profile-pictures/Untitled design.png'
-if (user != null) {
-  console.log(user.uid)
-  let extendedUserData = useDatabaseObject(dbRef(db, 'users', user.uid), { once: true })
-  console.log(extendedUserData.value)
-  let userProfilePicRef = storageRef(storage, userProfilePicPath)
-  userProfilePicUrl = useStorageFileUrl(userProfilePicRef)
+if (auth.currentUser != undefined) {
+  console.log(user)
+  onValue(
+    dbRef(db, '/users/' + auth.currentUser.uid),
+    (snapshot) => {
+      console.log(snapshot.val())
+      userProfilePicPath = snapshot.val().photoPath
+      console.log(userProfilePicPath)
+      getDownloadURL(storageRef(storage, userProfilePicPath))
+        .then((url) => {
+          console.log(url)
+          userProfilePicUrl.value = url
+          console.log(userProfilePicUrl)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    {
+      onlyOnce: true
+    }
+  )
+} else {
+  console.log(userProfilePicPath)
+  getDownloadURL(storageRef(storage, userProfilePicPath))
+    .then((url) => {
+      console.log(url)
+      userProfilePicUrl.value = url
+      console.log(userProfilePicUrl)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
 }
+console.log(userProfilePicUrl)
 </script>
 <template>
   <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar}`">
@@ -201,14 +229,14 @@ if (user != null) {
           </li> -->
           <li v-if="user" class="nav-item dropdown">
             <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img :src="userProfilePicUrl.url.value" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img :src="userProfilePicUrl" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
               <div class="caption ms-3 d-none d-md-block">
                 <h6 class="mb-0 caption-title">{{ user.displayName }}</h6>
                 <!-- <p class="mb-0 caption-sub-title">Marketing Administrator</p> -->
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" to="/">Profile</router-link></li>
+              <li><router-link class="dropdown-item" :to="{ name: 'ProfileView' }">Profile</router-link></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="#" @click.stop.prevent="handleLogOut">Logout</a></li>
             </ul>
