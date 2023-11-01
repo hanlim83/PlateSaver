@@ -135,10 +135,10 @@
         console.log('post: ', this.post)
         console.log('Response: ', response);
       },
-      changeImgDisplay(){ ///function to change the displayed food image of the post
-        imgdisplay=document.getElementById('imgDisplay')
-        imgdisplay.src=this.foodImage;
-      }
+      //changeImgDisplay(){ //function to change the displayed food image of the post
+       /// imgdisplay=document.getElementById('imgDisplay')
+        //imgdisplay.src=this.foodImage;
+      //}
     }
   }
   </script>
