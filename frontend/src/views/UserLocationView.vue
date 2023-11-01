@@ -1,4 +1,5 @@
 <template>
+  
   <div class="m-auto">
     <h4>Your Position</h4>
     Latitude : {{ currPos.lat.toFixed(2) }}, longitude {{ currPos.lng.toFixed(2) }}
@@ -6,11 +7,13 @@
   <div ref="mapDiv" style="width : 100%; height : 80vh" />
 </template>
 
+
 <script>
 /*eslint-disable no-undef*/
 import { computed, ref, onMounted } from 'vue'
 import { useGeoLocation } from '@/components/useGeolocation'
 import { Loader } from '@googlemaps/js-api-loader'
+
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyBHv4JD1OQx8TgqAgiing9nRP6HM72zAB4'
 
@@ -47,6 +50,7 @@ export default {
           url: "http://maps.gstatic.com/mapfiles/markers2/measle_blue.png", // url
           scaledSize: new google.maps.Size(14, 14), // scaled size
       };
+
       const infowindow = new google.maps.InfoWindow();
       const geocoder = new google.maps.Geocoder();
       geocoder
@@ -58,7 +62,6 @@ export default {
               map: map, 
               icon : icon
             });
-
 
             infowindow.setContent(response.results[0].formatted_address);
             infowindow.open(map, marker); //Don't Need for Radar Page
@@ -74,6 +77,10 @@ export default {
   }
 
 }
-
-
 </script>
+
+<style>
+    .gm-style-iw button {
+      display:none !important;
+    }
+</style>

@@ -76,7 +76,7 @@ export default {
 
       var markers = [ //Need Backend collection to insert here
           ['Shun Li Industrial Park', 1.3367, 103.9112],
-          [1.332058104, 103.913595064]
+          ['Mcdonald',1.332058104, 103.913595064]
       ];
 
       for(var i = 0; i < markers.length; i++ ) {
@@ -92,7 +92,7 @@ export default {
       google.maps.event.addListener(marker2, 'click', (function(marker2, i)
       {
           return function() {
-              var content = markers[i][0];
+              var content = markers[i][0] + "<br/>" + markers[i][1]+"," + markers[i][2];
               infowindow2.setContent(content);
               infowindow2.open(map, marker2);
           }
@@ -123,6 +123,7 @@ export default {
         // Setup the click event listeners: simply set the map to Chicago.
         controlButton.addEventListener('click', () => {
           map.setCenter(currPos.value);
+          map.setZoom(16);
         });
 
         return controlButton;
@@ -142,5 +143,4 @@ export default {
   }
 
 }
-
 </script>
