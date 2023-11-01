@@ -6,3 +6,25 @@
     </div>
   </div>
 </template>
+<script setup>
+import { useRoute } from 'vue-router'
+import { toast } from 'vue3-toastify'
+const route = useRoute()
+
+if (route.query.state != null && route.query.state === 'logout') {
+  toast('Logged Out Successfully', {
+    autoClose: 5000,
+    type: 'success'
+  })
+} else if (route.query.state != null && route.query.state === 'login') {
+  toast('Logged In Successfully', {
+    autoClose: 5000,
+    type: 'success'
+  })
+} else if (route.query.state != null && route.query.state === 'verified') {
+  toast('Email Verified Successfully', {
+    autoClose: 5000,
+    type: 'success'
+  })
+}
+</script>
