@@ -31,6 +31,12 @@ const baseChildRoutes = (prefix) => [
     name: prefix + 'UserLocationView',
     meta: { requiresAuth: false, name: 'User Location View', isBanner: false },
     component: () => import('@/views/UserLocationView.vue')
+  },
+  {
+    path: '/UserLocationViewRadar',
+    name: prefix + 'UserLocationViewRadar',
+    meta: { requiresAuth: false, name: 'User Location View Radar', isBanner: false },
+    component: () => import('@/views/UserLocationViewRadar.vue')
   }
 ]
 

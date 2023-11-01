@@ -4,21 +4,6 @@
     Latitude : {{ currPos.lat.toFixed(2) }}, longitude {{ currPos.lng.toFixed(2) }}
   </div>
   <div ref="mapDiv" style="width : 100%; height : 80vh" />
-  <b-row>
-    <b-col sm="12">
-      <b-card no-body>
-        <b-card-header header-class="d-flex justify-content-between">
-          <div class="header-title">
-            <h4 class="card-title">Basic</h4>
-          </div>
-        </b-card-header>
-        <b-card-body>
-          <p>Creating basic google map</p>
-          <iframe id="link1" loading="lazy" class="w-100" :src="url" height="500" allowfullscreen=""></iframe>
-        </b-card-body>
-      </b-card>
-    </b-col>
-  </b-row>
 </template>
 
 <script>
@@ -35,7 +20,7 @@ function sleep(ms) {
 
 export default {
   setup() {
-    const { coords } = useGeoLocation()
+    const { coords } = useGeoLocation() // Need Replace this with coordinates of backend
     const currPos = computed(() => ({
       lat: coords.value.latitude,
       lng: coords.value.longitude
@@ -58,12 +43,31 @@ export default {
         zoom:18, /* how zoomed in is the map */
 
       })
+      const icon = {
+          url: "http://maps.gstatic.com/mapfiles/markers2/measle_blue.png", // url
+          scaledSize: new google.maps.Size(14, 14), // scaled size
+      };
+      const infowindow = new google.maps.InfoWindow();
+      const geocoder = new google.maps.Geocoder();
+      geocoder
+        .geocode({ location: currPos.value })
+        .then((response) => {
+          if (response.results[0]) {
+            const marker = new google.maps.Marker({
+              position: currPos.value,
+              map: map, 
+              icon : icon
+            });
 
-      new google.maps.Marker({
-        position: currPos.value, /* centre the map */
-        map
-    
-      })
+
+            infowindow.setContent(response.results[0].formatted_address);
+            infowindow.open(map, marker); //Don't Need for Radar Page
+          } else {
+            window.alert("No results found");
+          }
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
+        
     })
     return { currPos, mapDiv }
 
