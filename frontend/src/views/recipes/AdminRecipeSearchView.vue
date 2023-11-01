@@ -1,6 +1,6 @@
 @@ -0,0 +1,62 @@
 <template>
-    <b-modal scrollable size="xl" v-model="modalShow" title="Import Recipe Details">
+    <b-modal scrollable size="xl" v-model="modalShow" title="Import Recipe Details" ok-title="Import" @ok="onImport()">
         <RecipePopUp :recipeImage="currentRecipe.image" :recipeName="currentRecipe.label"
             :recipeIngredients="currentRecipe.ingredientLines" :recipeSourceURL="currentRecipe.url"
             :recipeShareURL="currentRecipe.shareAs" :recipeCuisineType="currentRecipe.cuisineType"
@@ -8,6 +8,13 @@
             :recipeNutrition="currentRecipe.totalNutrients" :recipeServings="currentRecipe.yield"
             :recipeSource="currentRecipe.source">
         </RecipePopUp>
+        <template #modal-footer="{test}">
+            <!-- <button v-b-modal.modal-close_visit class="btn btn-danger btn-sm m-1">Close</button>
+            <button v-b-modal.modal-close_visit class="btn btn-success btn-sm m-1">AA</button> -->
+            <b-button size="sm" variant="outline-secondary" @click="test('forget')">AAA</b-button>
+
+        </template>
+
     </b-modal>
 
     <div>
@@ -66,16 +73,31 @@ export default {
     },
     methods: {
         async getEdamaneRecipes() {
-            console.log("Button Clicked");
             let response = await axios.get(API_URL + "edamane/search", { params: { query: this.searchInput } });
             this.recipeData = response.data.data;
         },
         displayRecipeDetails(index) {
-            console.log("index: ", index);
             this.currentRecipe = this.recipeData[index].recipe;
             this.modalShow = false;
             this.modalShow = true;
         },
+        onImport(){
+            let data = {
+                name : this.currentRecipe.label,
+                image : this.currentRecipe.image,
+                ingredientLines : this.currentRecipe.ingredientLines,
+                url : this.currentRecipe.url,
+                shareAs : this.currentRecipe.shareAs,
+                cuisineType : this.currentRecipe.cuisineType,
+                dishType : this.currentRecipe.dishType,
+                calories : this.currentRecipe.calories,
+                totalNutrients : this.currentRecipe.totalNutrients,
+                yield : this.currentRecipe.yield,
+                source : this.currentRecipe.source,
+            };
+            sessionStorage.setItem("importedRecipe", JSON.stringify(data));
+            this.$router.push({ name: "recipe.create" });
+        }
     },
 };
 

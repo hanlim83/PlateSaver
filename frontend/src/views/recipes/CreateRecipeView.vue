@@ -207,8 +207,8 @@
                                     </b-col>
                                     <b-col md="6">
                                         <b-form-group label="Fat:">
-                                            <b-form-input type="text" class="form-control" name="fat"
-                                                placeholder="e.g. 14g" v-model="nutritionDetails.fat" />
+                                            <b-form-input type="text" class="form-control" name="fat" placeholder="e.g. 14g"
+                                                v-model="nutritionDetails.fat" />
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
@@ -230,11 +230,12 @@
                                         </b-form-group>
                                     </b-col>
 
-                        
+
                                 </b-row>
                             </div>
 
-                            <b-button class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe()">Submit</b-button>
+                            <b-button class="btn btn-success me-1 float-end" value="Previous"
+                                @click="createRecipe()">Submit</b-button>
                             <b-button @click="changeTab(3)"
                                 class="btn btn-dark previous action-button-previous float-end me-1"
                                 value="Previous">Previous</b-button>
@@ -291,6 +292,22 @@ export default {
 
         };
     },
+    created() {
+        //Receive imported recipe from session storage
+        let importedData = JSON.parse(sessionStorage.getItem("importedRecipe"));
+        if (importedData) {
+            this.name = importedData.name;
+            this.servings = importedData.yield;
+            this.ingredients = importedData.ingredientLines;
+            this.nutritionDetails.calories = importedData.calories.toFixed() + " kcal";
+            this.nutritionDetails.carbohydrates = importedData.totalNutrients.CHOCDF.quantity.toFixed() + " " + importedData.totalNutrients.CHOCDF.unit;
+            this.nutritionDetails.fat = importedData.totalNutrients.FAT.quantity.toFixed() + " " + importedData.totalNutrients.FAT.unit;
+            this.nutritionDetails.protein = importedData.totalNutrients.PROCNT.quantity.toFixed() + " " + importedData.totalNutrients.PROCNT.unit;
+            this.nutritionDetails.sodium = importedData.totalNutrients.NA.quantity.toFixed() + " " + importedData.totalNutrients.NA.unit;
+            this.nutritionDetails.cholestrol = importedData.totalNutrients.CHOLE.quantity.toFixed() + " " + importedData.totalNutrients.CHOLE.unit;
+            sessionStorage.removeItem("importedRecipe");
+        }
+    },
     components: {
         IconComponent
     },
@@ -303,12 +320,11 @@ export default {
         },
         addDirections() {
             this.directions.push("");
-            console.log(this.directions);
         },
         async createRecipe() {
             //get current date
             let current = new Date();
-            let dateNow = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+            let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
             let data = {
                 name: this.name,
@@ -328,11 +344,10 @@ export default {
             });
             data.directions = data.directions.filter(function (el) {
                 return el != "";
-            });      
+            });
 
-            console.log("Sending a request");
             let response = await axios.post(API_URL + "recipe", data);
-            console.log("Status: ",response.status);
+            console.log("response: ", response);
             //Todo After done redirect to view recipe page
         },
     },

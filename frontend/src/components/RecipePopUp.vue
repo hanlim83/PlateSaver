@@ -85,8 +85,6 @@
                     </div>
                 </div>
             </b-card>
-
-            <button @click=" test()">Test</button>
             <p class="pt-2"></p>
         </div>
     </div>
@@ -109,9 +107,7 @@ export default {
         // recipe: { type: Object, default: () => { } },
     },
     methods: {
-        test() {
-            console.log("Recipe: ", this.recipe);
-        }
+
     }
 }
 </script>
