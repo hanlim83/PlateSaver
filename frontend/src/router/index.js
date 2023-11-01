@@ -87,7 +87,7 @@ const postsChildRoutes = (prefix) => [
     component: () => import('@/views/posts/ViewPostsView.vue')
   },
   {
-    path: "readPost",
+    path: "readPost/:id",
     name: prefix + '.readpost',
     meta: { auth: true, name: 'Read A Post' },
     component: () => import('@/views/posts/ReadPostView.vue')

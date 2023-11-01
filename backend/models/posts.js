@@ -22,10 +22,11 @@ async function getPosts() {
     });
 }
 
-async function getPost() {
+async function getPost(req) {
+    let postId = req.params.id;
     return new Promise((resolve) => {
         var db = firebase.database();
-        var ref = db.ref("/Posts");  //Set the current directory you are working in
+        var ref = db.ref("/Posts/" + postId);  //Set the current directory you are working in        
         ref.once("value", function (snapshot) {
             var response = snapshot.val();
             resolve(response);
@@ -33,6 +34,5 @@ async function getPost() {
 
     });
 }
-
 
 module.exports = { createPost, getPosts };

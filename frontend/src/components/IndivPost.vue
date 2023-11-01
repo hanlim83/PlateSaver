@@ -29,7 +29,7 @@ p {
             <div class="my-2">
                 <span class="text-primary pt-3 ml-1">{{ timeStamp }}</span>
             </div>
-            <router-link :to="{ path: '/recipe/view/' + id }" class="my-3 h5">{{ title }}</router-link>
+            <router-link :to="{ path: '/posts/readPost/' + id }" class="my-3 h5">{{ title }}</router-link>
             <div class="me-3">{{ "by" + userID }}</div>
             <div class="row my-2 justify-content-center">
                 
@@ -40,7 +40,7 @@ p {
             
         </b-card-text>
         <div class="d-grid  d-flex justify-content-end">
-            <router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary btn-sm">Read More</router-link>
+            <router-link :to="{ path: '/posts/readPost/' + id }" class="btn btn-primary btn-sm">Read More</router-link>
         </div>
         
     </b-card>
