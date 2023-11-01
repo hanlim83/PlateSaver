@@ -1,7 +1,16 @@
 @@ -0,0 +1,62 @@
 <template>
-    <div>
+    <b-modal scrollable size="xl" v-model="modalShow" title="Import Recipe Details">
+        <RecipePopUp :recipeImage="currentRecipe.image" :recipeName="currentRecipe.label"
+            :recipeIngredients="currentRecipe.ingredientLines" :recipeSourceURL="currentRecipe.url"
+            :recipeShareURL="currentRecipe.shareAs" :recipeCuisineType="currentRecipe.cuisineType"
+            :recipeDishType="currentRecipe.dishType" :recipeCalories="currentRecipe.calories"
+            :recipeNutrition="currentRecipe.totalNutrients" :recipeServings="currentRecipe.yield"
+            :recipeSource="currentRecipe.source">
+        </RecipePopUp>
+    </b-modal>
 
+    <div>
         <h1>Search Edaman Recipe</h1>
 
         <b-row class="my-4 px-5">
@@ -23,15 +32,14 @@
                         <img :src="item.recipe.images.THUMBNAIL.url" class="card-img-top">
                         <b-card-text class="text-capitalize my-2">By {{ item.recipe.source }}</b-card-text>
                         <div class="my-2">
-                            <span class="badge bg-info mx-1 text-capitalize">{{ item.recipe.dishType[0]}}</span>
+                            <span class="badge bg-info mx-1 text-capitalize">{{ item.recipe.dishType[0] }}</span>
                             <span class="badge bg-warning mx-1 text-capitalize">{{ item.recipe.cuisineType[0] }}</span>
                         </div>
                         <!-- <h6 class="card-title mt-2">{{ item.recipe.label }}</h6> -->
-                        <b-button class="btn btn-primary">View Details</b-button>
+                        <b-button class="btn btn-primary" @click="displayRecipeDetails(index)">View Details</b-button>
                     </b-card>
                 </b-col>
             </div>
-
         </b-row>
     </div>
 </template>
@@ -39,6 +47,7 @@
 <script>
 import axios from "axios";
 import { API_URL } from "@/config";
+import RecipePopUp from '@/components/RecipePopUp.vue'
 
 export default {
     name: "AdminSearchView",
@@ -46,18 +55,34 @@ export default {
         return {
             searchInput: "chicken",
             recipeData: [],
-            imgURL: ""
+            currentRecipe: {},
+            imgURL: "",
+            modalShow: false,
+            selectedIndex: -1,
         };
     },
-    components: {},
+    components: {
+        RecipePopUp
+    },
     methods: {
         async getEdamaneRecipes() {
             console.log("Button Clicked");
             let response = await axios.get(API_URL + "edamane/search", { params: { query: this.searchInput } });
             this.recipeData = response.data.data;
-            console.log(this.recipeData);
+        },
+        displayRecipeDetails(index) {
+            console.log("index: ", index);
+            this.currentRecipe = this.recipeData[index].recipe;
+            this.modalShow = false;
+            this.modalShow = true;
         },
     },
 };
 
 </script>
+
+<style>
+.modal-backdrop {
+    z-Index: -1;
+}
+</style>

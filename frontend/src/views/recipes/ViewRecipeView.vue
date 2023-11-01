@@ -38,9 +38,6 @@ export default {
         async getRecipes() {
             let response = await axios.get(API_URL + "recipes");
             this.recipes = response.data.data;
-            console.log("recipes: ", this.recipes);
-            //get keys from array
-            console.log(Object.keys(this.recipes)[0]);
         },
     }
 };
