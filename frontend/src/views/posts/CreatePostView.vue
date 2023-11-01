@@ -21,7 +21,7 @@ input[type=text], input[type=file] {
       </div>
     </div>
     <br/>
-    <form onsubmit="return false">
+    <form>
 
 
       <div class="row g-3">
@@ -87,7 +87,7 @@ export default {
       userID: '',
       timeStamp: '',
       location: '',
-      tags: '',
+      tags: [],
       contact:'',
       collectionStatus: true,
       
@@ -108,7 +108,7 @@ export default {
         userID: this.userID,
         timeStamp: this.timeStamp,
         location: this.location,
-        tags: this.tags,
+        tags: this.tags.split("#").slice(1),
         contact: this.contact,
         collectionStatus: this.collectionStatus
       });

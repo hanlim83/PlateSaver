@@ -54,7 +54,7 @@
             
           <div class="col-4 mb-3 ">
             <label class="form-label mb-0" for="customFile">Upload An Image:</label>
-            <input type="file" class="form-control" id="customFile" @="changeImgDisplay"> <!--cant use v-model for files-->
+            <input type="file" class="form-control" id="customFile"> <!-- @="changeImgDisplay" cant use v-model for files-->
           </div>
   
   
@@ -105,7 +105,7 @@
         userID: '',
         timeStamp: '',
         location: '',
-        tags: '',
+        tags: [],
         contact:'',
         collectionStatus: true,
         

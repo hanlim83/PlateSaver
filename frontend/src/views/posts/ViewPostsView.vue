@@ -22,25 +22,27 @@
 </template>
 -->
 <template>
-  <b-row>
+  
+  <div class="row" data-masonry='{"percentPosition": true }'>
       <div class="inner-box">
           <div class="container">
-              <div class="row">
-                  <div class="col-lg-4" v-for="(value, key) in allposts" :key="key">
-                      <IndivPost :id="key" :foodImage="require('@/assets/images/avatars/01.png')"
+              <b-card-group columns>
+                  
+                      <IndivPost v-for="(value, key) in allposts" :key="key" :id="key" :foodImage="require('@/assets/images/avatars/01.png')"
                           :timeStamp="value.timeStamp" :title="value.title" userID="Jiawei"
-                          :content="value.content" />
-                  </div>
-              </div>
+                          :content="value.content" :tags="value.tags"/>
+                  
+              </b-card-group>
           </div>
       </div>
-  </b-row>
-
+  </div>
   
 </template>
 
 
-<script>
+<script >
+
+  
 import { API_URL } from "@/config";
 import IndivPost from '@/components/IndivPost.vue';
 import axios from 'axios';
@@ -55,7 +57,7 @@ export default {
       userID: '',
       timeStamp: '',
       location: '',
-      tags: '',
+      tags: [],
       collectionStatus: '',
       allposts: []
     }
