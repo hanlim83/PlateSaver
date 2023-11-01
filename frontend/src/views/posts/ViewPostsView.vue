@@ -28,9 +28,9 @@
           <div class="container">
               <b-card-group columns>
                   
-                      <IndivPost v-for="(value, key) in allposts" :key="key" :id="key" :foodImage="require('@/assets/images/avatars/01.png')"
-                          :timeStamp="value.timeStamp" :title="value.title" userID="Jiawei"
-                          :content="value.content" :tags="value.tags"/>
+                      <IndivPost v-for="(post, ind) in allposts" :key="ind" :id="ind" :foodImage="require('@/assets/images/avatars/01.png')"
+                          :timeStamp="post.timeStamp" :title="post.title" userID="Jiawei"
+                          :content="post.content" :tags="post.tags"/>
                   
               </b-card-group>
           </div>

@@ -37,8 +37,12 @@ p {
                 
             </div>
             <p class="pt-2">{{ content }}</p>
-            <!--<router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary">Read More</router-link>-->
+            
         </b-card-text>
+        <div class="d-grid  d-flex justify-content-end">
+            <router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary btn-sm">Read More</router-link>
+        </div>
+        
     </b-card>
 </template>
   
