@@ -27,10 +27,18 @@ const baseChildRoutes = (prefix) => [
     component: () => import('@/views/RegisterView.vue')
   },
   {
+
     path: '/UserLocationView',
     name: prefix + 'UserLocationView',
     meta: { requiresAuth: false, name: 'User Location View', isBanner: false },
     component: () => import('@/views/UserLocationView.vue')
+},
+  {  
+    path: '/profile',
+    name: prefix + 'ProfileView',
+    meta: { requiresAuth: true, name: 'user profile', isBanner: false },
+    component: () => import('@/views/UserProfileView.vue')
+
   }
 ]
 
@@ -58,37 +66,49 @@ const authChildRoutes = (prefix) => [
     name: prefix + '.verify',
     meta: { requiresAuth: false, name: 'Verify Email' },
     component: () => import('@/views/auth/VerifyEmail.vue')
+  },
+  {
+    path: 'set-password',
+    name: prefix + '.set-password',
+    meta: { requiresAuth: false, name: 'Set Password' },
+    component: () => import('@/views/auth/SetPassword.vue')
+  },
+  {
+    path: 'token',
+    name: prefix + '.token',
+    meta: { requiresAuth: false, name: 'Token' },
+    component: () => import('@/views/auth/InvalidToken.vue')
   }
-];
+]
 
 const postsChildRoutes = (prefix) => [
   {
-    path: "createPost",
+    path: 'createPost',
     name: prefix + '.createpost',
     meta: { requiresAuth: true, name: 'Create Post' },
     component: () => import('@/views/posts/CreatePostView.vue')
   },
   {
-    path: "viewPosts",
+    path: 'viewPosts',
     name: prefix + '.viewpost',
     meta: { requiresAuth: true, name: 'View Post' },
     component: () => import('@/views/posts/ViewPostsView.vue')
-  },
+  }
 ]
 
 const recipeChildRoutes = (prefix) => [
   {
-    path: "create",
+    path: 'create',
     name: prefix + '.create',
     meta: { requiresAuth: false, name: 'Create Recipe' },
     component: () => import('@/views/CreateRecipeView.vue')
   },
   {
-    path: "search",
+    path: 'search',
     name: prefix + '.search',
     meta: { requiresAuth: false, name: 'Search Recipe' },
     component: () => import('@/views/AdminRecipeSearchView.vue')
-  },
+  }
 ]
 
 const routes = [
@@ -115,7 +135,7 @@ const routes = [
     name: 'recipes',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: recipeChildRoutes('recipe')
-  },
+  }
 ]
 
 const router = createRouter({
@@ -127,12 +147,11 @@ const router = createRouter({
 })
 router.beforeEach(async (to) => {
   let currentUser = await getCurrentUser()
-  console.log(currentUser)
   if (to.meta.requiresAuth && currentUser == null) {
-      return {
+    return {
       path: '/auth/login',
       query: {
-        redirect: to.fullPath,
+        redirect: to.fullPath
       }
     }
   }
