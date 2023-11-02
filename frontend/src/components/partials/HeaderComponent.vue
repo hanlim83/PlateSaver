@@ -24,7 +24,7 @@ export default {
   setup() {
     const store = useStore()
     const carts = computed(() => store.getters.carts)
-    const headerNavbar = computed(() => store.getters['setting/header_navbar'])
+    const headerNavbar = computed(() => 'default')
     const sidebarType = computed(() => store.getters['setting/sidebar_type'])
     const themeSchemeDirection = computed(() => store.getters['setting/theme_scheme_direction'])
     const fullScreen = ref(false)

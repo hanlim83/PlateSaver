@@ -1,7 +1,7 @@
 @@ -0,0 +1,174 @@
 <template>
     <b-row>
-        <b-col sm="12">
+        <b-col>
             <b-card no-body class="my-4 mx-2">
                 <b-card-header class="d-flex justify-content-between">
                     <div class="header-title">
@@ -193,24 +193,49 @@
                                     </div>
                                 </b-row>
                                 <b-row>
-                                    <b-form-group>
-                                        <label>Share the nutritional facts per serving.</label>
-                                    </b-form-group>
-                                    <b-col md="12" v-for="(value, key) in nutritionDetails" :key="key">
-                                        <b-form-group>
-                                            <b-form-input type="text" class="form-control"
-                                                :placeholder="'e.g. ' + nutritionPlaceHolders[key % nutritionPlaceHolders.length]"
-                                                v-model="nutritionDetails[key]" />
+                                    <b-col md="6">
+                                        <b-form-group label="Calories:">
+                                            <b-form-input type="text" class="form-control" name="calroies"
+                                                placeholder="e.g. 228 kcal" v-model="nutritionDetails.calories" />
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col md="6">
+                                        <b-form-group label="Carbohydrates:">
+                                            <b-form-input type="text" class="form-control" name="carbs"
+                                                placeholder="e.g. 22g" v-model="nutritionDetails.carbohydrates" />
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col md="6">
+                                        <b-form-group label="Fat:">
+                                            <b-form-input type="text" class="form-control" name="fat" placeholder="e.g. 14g"
+                                                v-model="nutritionDetails.fat" />
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col md="6">
+                                        <b-form-group label="Protein:">
+                                            <b-form-input type="text" class="form-control" name="protein"
+                                                placeholder="e.g. 10g" v-model="nutritionDetails.protein" />
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col md="6">
+                                        <b-form-group label="Sodium:">
+                                            <b-form-input type="text" class="form-control" name="sodium"
+                                                placeholder="e.g. 368mg" v-model="nutritionDetails.sodium" />
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col md="6">
+                                        <b-form-group label="Cholesterol:">
+                                            <b-form-input type="text" class="form-control" name="cholestrol"
+                                                placeholder="e.g. 0mg" v-model="nutritionDetails.cholestrol" />
                                         </b-form-group>
                                     </b-col>
 
-                                    <b-col md="6" class="order-last">
-                                        <b-button class="btn btn-info" @click="addNutrition()">Add Row</b-button>
-                                    </b-col>
+
                                 </b-row>
                             </div>
 
-                            <b-button class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe">Submit</b-button>
+                            <b-button class="btn btn-success me-1 float-end" value="Previous"
+                                @click="createRecipe()">Submit</b-button>
                             <b-button @click="changeTab(3)"
                                 class="btn btn-dark previous action-button-previous float-end me-1"
                                 value="Previous">Previous</b-button>
@@ -225,7 +250,7 @@
 
 <script>
 import axios from "axios";
-import { API_URL } from "../config";
+import { API_URL } from "@/config";
 import IconComponent from '@/components/icons/IconComponent.vue'
 
 export default {
@@ -256,19 +281,32 @@ export default {
                 "Beat in the eggs, one at a time, then stir in the vanilla.",
                 "Combine flour and baking powder, add to the creamed mixture and mix well.",],
             //Page 4
-            nutritionDetails: ["", "", ""],
-            nutritionPlaceHolders: [
-                "Calories: 240 kcal",
-                "Carbohydrates: 4.6g",
-                "Protein: 8.5g",
-                "Fat: 20.3g",
-                "Saturated Fat: 12.2g",
-                "Cholesterol: 67.9mg",
-                "Sodium: 240mg",
-                "Potassium: 217mg",
-                "Fiber: 0.1g",
-            ]
+            nutritionDetails: {
+                calories: "",
+                carbohydrates: "",
+                fat: "",
+                protein: "",
+                sodium: "",
+                cholestrol: "",
+            },
+
         };
+    },
+    created() {
+        //Receive imported recipe from session storage
+        let importedData = JSON.parse(sessionStorage.getItem("importedRecipe"));
+        if (importedData) {
+            this.name = importedData.name;
+            this.servings = importedData.yield;
+            this.ingredients = importedData.ingredientLines;
+            this.nutritionDetails.calories = importedData.calories.toFixed() + " kcal";
+            this.nutritionDetails.carbohydrates = importedData.totalNutrients.CHOCDF.quantity.toFixed() + " " + importedData.totalNutrients.CHOCDF.unit;
+            this.nutritionDetails.fat = importedData.totalNutrients.FAT.quantity.toFixed() + " " + importedData.totalNutrients.FAT.unit;
+            this.nutritionDetails.protein = importedData.totalNutrients.PROCNT.quantity.toFixed() + " " + importedData.totalNutrients.PROCNT.unit;
+            this.nutritionDetails.sodium = importedData.totalNutrients.NA.quantity.toFixed() + " " + importedData.totalNutrients.NA.unit;
+            this.nutritionDetails.cholestrol = importedData.totalNutrients.CHOLE.quantity.toFixed() + " " + importedData.totalNutrients.CHOLE.unit;
+            sessionStorage.removeItem("importedRecipe");
+        }
     },
     components: {
         IconComponent
@@ -282,13 +320,12 @@ export default {
         },
         addDirections() {
             this.directions.push("");
-            console.log(this.directions);
-        },
-        addNutrition() {
-            this.nutrition.push("");
-            console.log(this.nutrition);
         },
         async createRecipe() {
+            //get current date
+            let current = new Date();
+            let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+
             let data = {
                 name: this.name,
                 description: this.description,
@@ -298,6 +335,7 @@ export default {
                 ingredients: this.ingredients,
                 directions: this.directions,
                 nutritionDetails: this.nutritionDetails,
+                date_created: dateNow,
             }
 
             //Remove empty strings from arrays
@@ -307,13 +345,9 @@ export default {
             data.directions = data.directions.filter(function (el) {
                 return el != "";
             });
-            data.nutritionDetails = data.nutritionDetails.filter(function (el) {
-                return el != "";
-            });
 
-            console.log("Sending a request");
             let response = await axios.post(API_URL + "recipe", data);
-            console.log("Status: ",response.status);
+            console.log("response: ", response);
             //Todo After done redirect to view recipe page
         },
     },

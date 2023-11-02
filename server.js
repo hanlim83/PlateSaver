@@ -5,23 +5,17 @@ const app = express();
 const { logger } = require("firebase-functions");
 const { onRequest } = require("firebase-functions/v2/https");
 
-const vuePath = __dirname + "/../frontend/dist/";
-
+const vuePath = __dirname + "/frontend/dist/";
 
 //Imports from models
 const { createPost, getPosts } = require('./models/posts.js');
 const { createUser, getUsers } = require('./models/users.js');
-const { createRecipe, getRecipes } = require('./models/recipes.js');
+const { createRecipe, getRecipes, getRecipe, createComment } = require('./models/recipes.js');
 const { search } = require('./models/edamane.js');
 
 app.use(express.json())
 app.use(cors());
 app.use(express.static(vuePath));
-
-
-app.get('/', (req, res) => {
-    res.sendFile(vuePath + "index.html");
-});
 
 //Users
 app.post('/user', async (req, res) => {
@@ -89,8 +83,25 @@ app.get('/recipes', async (req, res) => {
         data: response
     });
 });
+
+app.get('/recipe/:id', async (req, res) => {
+    let response = await getRecipe(req);
+    res.json({
+        status: 200,
+        message: "Success",
+        data: response
+    });
+});
+
 app.post('/recipe', async (req, res) => {
     let response = await createRecipe(req.body);
+    res.json({
+        status: 200,
+        message: "Success"
+    })
+});
+app.post('/recipe/comment', async (req, res) => {
+    let response = await createComment(req.body);
     res.json({
         status: 200,
         message: "Success"
@@ -107,6 +118,9 @@ app.get('/edamane/search', async (req, res) => {
     });
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(vuePath + "index.html");
+});
 
 //Keep this last
 const port = process.env.PORT || 4000;

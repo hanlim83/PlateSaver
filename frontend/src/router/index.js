@@ -27,10 +27,24 @@ const baseChildRoutes = (prefix) => [
     component: () => import('@/views/RegisterView.vue')
   },
   {
+
+    path: '/UserLocationView',
+    name: prefix + 'UserLocationView',
+    meta: { requiresAuth: false, name: 'User Location View', isBanner: false },
+    component: () => import('@/views/UserLocationView.vue')
+  },
+  {
+    path: '/UserLocationViewRadar',
+    name: prefix + 'UserLocationViewRadar',
+    meta: { requiresAuth: false, name: 'User Location View Radar', isBanner: false },
+    component: () => import('@/views/UserLocationViewRadar.vue')
+  },
+  {  
     path: '/profile',
     name: prefix + 'ProfileView',
     meta: { requiresAuth: true, name: 'user profile', isBanner: false },
     component: () => import('@/views/UserProfileView.vue')
+
   }
 ]
 
@@ -110,15 +124,27 @@ const recipeChildRoutes = (prefix) => [
   {
     path: 'create',
     name: prefix + '.create',
-    meta: { requiresAuth: false, name: 'Create Recipe' },
-    component: () => import('@/views/CreateRecipeView.vue')
+    meta: { auth: false, name: 'Create Recipe' },
+    component: () => import('@/views/recipes/CreateRecipeView.vue')
   },
   {
     path: 'search',
     name: prefix + '.search',
-    meta: { requiresAuth: false, name: 'Search Recipe' },
-    component: () => import('@/views/AdminRecipeSearchView.vue')
-  }
+    meta: { auth: false, name: 'Search Recipe' },
+    component: () => import('@/views/recipes/AdminRecipeSearchView.vue')
+  },
+  {
+    path: 'view',
+    name: prefix + '.view',
+    meta: { auth: false, name: 'View Recipe' },
+    component: () => import('@/views/recipes/ViewRecipeView.vue')
+  },
+  {
+    path: 'view/:id',
+    name: prefix + '.viewDetails',
+    meta: { auth: false, name: 'View Recipe Details' },
+    component: () => import('@/views/recipes/ViewRecipeDetailsView.vue')
+  },
 ]
 
 const routes = [

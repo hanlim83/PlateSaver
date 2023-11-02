@@ -1,6 +1,6 @@
 {
-  "name": "is216-project",
-  "version": "0.0.0",
+  "name": "PlateSaver",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -15,6 +15,7 @@
     "@fullcalendar/list": "^5.11.0",
     "@fullcalendar/timegrid": "^5.11.0",
     "@fullcalendar/vue3": "^5.11.1",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@popperjs/core": "^2.11.5",
     "@vueform/slider": "^2.0.10",
     "@vuelidate/core": "^2.0.0-alpha.41",
@@ -29,6 +30,7 @@
     "datatables.net-bs5": "^1.11.2",
     "firebase": "^10.4.0",
     "fslightbox-vue": "^2.1.1-2",
+    "functions": "file:..",
     "jquery": "^3.6.4",
     "js-circle-progress": "^0.2.4",
     "leaflet": "^1.7.1",

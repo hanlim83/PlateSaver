@@ -29,3 +29,41 @@
 		margin-top: -6.25rem;
 	}
 }
+
+.outerlayer{
+	position : relative;
+	text-align : center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.box{
+	position : absolute;
+	background-color: black;
+	top : 45%;
+	width : 8%;
+	height : 15%;
+	border-radius : 12px;
+	border : 2px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size : 40px;
+
+}
+.word{
+	position : absolute;
+	top : 33%;
+	text-align : center;
+	background-color: white;
+	padding : 10px;
+	border-radius : 12px;
+	text-decoration: underline;
+	font-size : 60px;
+
+}
+.text-responsive
+{
+	font-size: calc(95% + 1vw + 1vh);
+}
+
