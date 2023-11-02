@@ -13,16 +13,16 @@
             </router-link>
             <h2 class="mb-2">Reset Password</h2>
             <p>Enter your email address and we'll send you an email with instructions to reset your password.</p>
-            <form>
+            <form @submit.prevent="handleReset">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="floating-label form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" " />
+                    <input v-model="emailAddress" type="email" class="form-control" id="email" aria-describedby="email" placeholder=" " />
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">Reset</button>
+              <button type="submit" class="btn btn-primary">Reset Password</button>
             </form>
           </div>
         </div>
@@ -30,3 +30,45 @@
     </div>
   </section>
 </template>
+<script setup>
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { useFirebaseAuth } from 'vuefire'
+import { ref } from 'vue'
+import { toast } from 'vue3-toastify'
+
+const auth = useFirebaseAuth()
+const emailAddress = ref('')
+
+const handleReset = () => {
+  sendPasswordResetEmail(auth, emailAddress.value)
+    .then(() => {
+      toast('Password Reset Email Sent!', {
+        autoClose: 5000,
+        type: 'success'
+      })
+    })
+    .catch((error) => {
+      let errorMessage = ''
+      switch (error.code) {
+        case 'auth/invalid-login-credentials':
+          errorMessage = 'Invalid credentials'
+          break
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email address'
+          break
+        case 'auth/user-not-found':
+          errorMessage = 'User not found'
+          break
+        default:
+          errorMessage = 'An error occurred'
+          break
+      }
+      console.log(error.code, error.message)
+      toast(errorMessage, {
+        autoClose: 5000,
+        type: 'error'
+      })
+    })
+}
+toast.clearAll()
+</script>

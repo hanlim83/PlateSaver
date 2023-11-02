@@ -1,5 +1,69 @@
+<script setup>
+import { useCurrentUser, useFirebaseAuth, useDatabase, useFirebaseStorage } from 'vuefire'
+import { signOut } from 'firebase/auth'
+import { ref as dbRef, onValue } from 'firebase/database'
+import { ref as storageRef, getDownloadURL } from 'firebase/storage'
+import router from '@/router'
+import { useRoute } from 'vue-router'
+const auth = useFirebaseAuth()
+const user = useCurrentUser()
+const route = useRoute()
+const storage = useFirebaseStorage()
+var userProfilePicPath = 'user-profile-pictures/generic.jpg'
+var userProfilePicUrl = ref('https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media')
+const handleLogOut = () => {
+  signOut(auth)
+    .then(() => {
+      console.log('logged out')
+      router.push({ name: 'home', query: { state: 'logout' } })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+const handleLogIn = () => {
+  console.log(route.path)
+  router.push({ name: 'auth.login' })
+}
+const db = useDatabase()
+if (auth.currentUser != undefined) {
+  console.log(user)
+  onValue(
+    dbRef(db, '/users/' + auth.currentUser.uid),
+    (snapshot) => {
+      console.log(snapshot.val())
+      userProfilePicPath = snapshot.val().photoPath
+      console.log(userProfilePicPath)
+      getDownloadURL(storageRef(storage, userProfilePicPath))
+        .then((url) => {
+          console.log(url)
+          userProfilePicUrl.value = url
+          console.log(userProfilePicUrl)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    {
+      onlyOnce: true
+    }
+  )
+} else {
+  console.log(userProfilePicPath)
+  getDownloadURL(storageRef(storage, userProfilePicPath))
+    .then((url) => {
+      console.log(url)
+      userProfilePicUrl.value = url
+      console.log(userProfilePicUrl)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+console.log(userProfilePicUrl)
+</script>
 <template>
-  <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar}`">
+  <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar default`">
     <!-- <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar} ${navbarHide.join('')}`"> -->
     <div class="container-fluid navbar-inner">
       <slot></slot>
@@ -24,7 +88,7 @@
               Go Pro
             </a>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
               <icon-component type="dual-tone" icon-name="bell"></icon-component>
               <span class="bg-danger dots"></span>
@@ -90,8 +154,8 @@
                 </b-card-body>
               </b-card>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <!-- <li class="nav-item dropdown">
             <a href="#" class="nav-link" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <icon-component type="dual-tone" icon-name="message"></icon-component>
               <span class="bg-primary count-mail"></span>
@@ -162,24 +226,37 @@
                 </b-card-body>
               </b-card>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <li v-if="user" class="nav-item dropdown">
             <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="@/assets/images/avatars/01.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img :src="userProfilePicUrl" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
+              <div class="caption ms-3 d-none d-md-block">
+                <h6 class="mb-0 caption-title">{{ user.displayName }}</h6>
+                <!-- <p class="mb-0 caption-sub-title">Marketing Administrator</p> -->
+              </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><router-link class="dropdown-item" :to="{ name: 'ProfileView' }">Profile</router-link></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#" @click.stop.prevent="handleLogOut">Logout</a></li>
+            </ul>
+          </li>
+          <li v-else class="nav-item dropdown">
+            <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="@/assets/images/avatars/avtar_2.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
+              <!-- <img src="@/assets/images/avatars/01.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" />
               <img src="@/assets/images/avatars/avtar_1.png" alt="User-Profile" class="theme-color-purple-img img-fluid avatar avatar-50 avatar-rounded" />
               <img src="@/assets/images/avatars/avtar_2.png" alt="User-Profile" class="theme-color-blue-img img-fluid avatar avatar-50 avatar-rounded" />
               <img src="@/assets/images/avatars/avtar_4.png" alt="User-Profile" class="theme-color-green-img img-fluid avatar avatar-50 avatar-rounded" />
               <img src="@/assets/images/avatars/avtar_5.png" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded" />
-              <img src="@/assets/images/avatars/avtar_3.png" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded" />
+              <img src="@/assets/images/avatars/avtar_3.png" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded" /> -->
               <div class="caption ms-3 d-none d-md-block">
-                <h6 class="mb-0 caption-title">Austin Robertson</h6>
-                <p class="mb-0 caption-sub-title">Marketing Administrator</p>
+                <!-- <h6 class="mb-0 caption-title">{{user.displayName}}</h6> -->
+                <p class="mb-0 caption-sub-title">Guest User</p>
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" to="/">Profile</router-link></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><router-link class="dropdown-item" :to="{ name: 'auth.login' }">Logout</router-link></li>
+              <li><a class="dropdown-item" href="#" @click.stop.prevent="handleLogIn">Login</a></li>
             </ul>
           </li>
         </ul>
@@ -204,9 +281,9 @@ export default {
   },
   setup(props, { emit }) {
     const store = useStore()
-    const headerNavbar = computed(() => store.getters['setting/header_navbar'])
+    // const headerNavbar = computed(() => store.getters['setting/header_navbar'])
+    const headerNavbar = computed(() => 'default')
     const isHidden = ref(false)
-
     const onscroll = () => {
       const yOffset = document.documentElement.scrollTop
       const navbar = document.querySelector('.navs-sticky')
@@ -218,7 +295,6 @@ export default {
         }
       }
     }
-
     const carts = computed(() => store.getters.carts)
 
     onMounted(() => {

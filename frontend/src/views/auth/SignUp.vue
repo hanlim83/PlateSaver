@@ -19,42 +19,42 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="first-name" class="form-label">First Name</label>
-                        <input v-model="fName" type="text" class="form-control" id="first-name" placeholder=" " />
+                        <input v-model="fName" type="text" class="form-control" id="first-name" placeholder=" " required />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="last-name" class="form-label">Last Name</label>
-                        <input v-model="lName" type="text" class="form-control" id="last-name" placeholder=" " />
+                        <input v-model="lName" type="text" class="form-control" id="last-name" placeholder=" " required />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="email" class="form-label">Email</label>
-                        <input v-model="emailAddress" type="email" class="form-control" id="email" placeholder=" " />
+                        <input v-model="emailAddress" type="email" class="form-control" id="email" placeholder=" " required />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="password" class="form-label">Password</label>
-                        <input v-model="password" type="password" class="form-control" id="password" placeholder=" " />
+                        <input v-model="password" type="password" class="form-control" id="password" placeholder=" " required />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="confirm-password" class="form-label">Confirm Password</label>
-                        <input v-model="cfmPassword" type="password" class="form-control" id="confirm-password" placeholder=" " />
+                        <input v-model="cfmPassword" type="password" class="form-control" id="confirm-password" placeholder=" " required />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="age" class="form-label">Age</label>
-                        <input v-model="age" type="number" class="form-control" id="age" placeholder=" " />
+                        <input v-model="age" type="number" class="form-control" id="age" placeholder=" " min="1" max="150" required />
                       </div>
                     </div>
                     <div class="col-lg-12 d-flex justify-content-center">
                       <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input" id="customCheck1" />
+                        <input type="checkbox" class="form-check-input" id="customCheck1" required />
                         <label class="form-check-label" for="customCheck1">I agree with the terms of use</label>
                       </div>
                     </div>
@@ -77,8 +77,9 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { ref as dbRef, set } from 'firebase/database'
 import { useFirebaseAuth, useDatabase } from 'vuefire'
-import { ref } from 'vue'
 import router from '@/router'
+import { toast } from 'vue3-toastify'
+import { ref } from 'vue'
 
 const auth = useFirebaseAuth()
 const fName = ref('')
@@ -88,20 +89,57 @@ const password = ref('')
 const cfmPassword = ref('')
 const age = ref('')
 const db = useDatabase()
+var userProfilePicUrl = ''
 
 const handleSignUp = () => {
-  createUserWithEmailAndPassword(auth, emailAddress.value, password.value).then((userCredential) => {
-    let newUser = userCredential.user
-    updateProfile(newUser, { displayName: fName.value + ' ' + lName.value })
-    set(dbRef(db, 'users/' + newUser.uid), {
-      firstName: fName.value,
-      lastName: lName.value,
-      emailAddress: emailAddress.value,
-      age: age.value
+  console.log(userProfilePicUrl)
+  if (password.value !== cfmPassword.value) {
+    toast('Passwords do not match', {
+      autoClose: 5000,
+      type: 'error'
     })
-    router.push('/auth/verify')
-  })
+    return
+  }
+  createUserWithEmailAndPassword(auth, emailAddress.value, password.value)
+    .then((userCredential) => {
+      let newUser = userCredential.user
+      updateProfile(newUser, { displayName: fName.value + ' ' + lName.value})
+      set(dbRef(db, 'users/' + newUser.uid), {
+        id: newUser.uid,
+        firstName: fName.value,
+        lastName: lName.value,
+        emailAddress: emailAddress.value,
+        age: age.value,
+        role: 'user',
+        //photoPath: userProfilePicPath
+        photoPath: 'user-profile-pictures/generic.jpg'
+      })
+      router.push('/auth/verify')
+    })
+    .catch((error) => {
+      let errorMessage = ''
+      switch (error.code) {
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email address'
+          break
+        case 'auth/email-already-in-use':
+          errorMessage = 'You already have an account'
+          break
+        case 'auth/weak-password':
+          errorMessage = 'Please choose a stronger password'
+          break
+        default:
+          errorMessage = 'An error occurred'
+          break
+      }
+      console.log(error.code, error.message)
+      toast(errorMessage, {
+        autoClose: 5000,
+        type: 'error'
+      })
+    })
 }
-</script>
 
+toast.clearAll()
+</script>
 <style lang="scss" scoped></style>

@@ -3,13 +3,14 @@
 </template>
 
 <script>
+import 'vue3-toastify/dist/index.css'
 import { onMounted, onUnmounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import '@/plugins/styles'
 export default {
   name: 'App',
   created() {
-    document.title = "PlateSavers!";
+    document.title = 'PlateSavers!'
   },
   setup() {
     const store = useStore()

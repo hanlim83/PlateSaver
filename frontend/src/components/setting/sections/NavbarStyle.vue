@@ -36,7 +36,7 @@ export default {
   },
   setup() {
     const store = useStore()
-    const headerNavbar = computed(() => store.getters['setting/header_navbar'])
+    const headerNavbar = computed(() => 'default')
     const updateRadio = (value, name) => {
       store.dispatch(`setting/${name}`, value)
     }

@@ -5,7 +5,7 @@ const app = express();
 const { logger } = require("firebase-functions");
 const { onRequest } = require("firebase-functions/v2/https");
 
-const vuePath = __dirname + "/../frontend/dist/";
+const vuePath = __dirname + "/frontend/dist/";
 
 
 //Imports from models
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.static(vuePath));
 
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(vuePath + "index.html");
 });
 

@@ -16,13 +16,13 @@
                   <div class="col-lg-12">
                     <div class="form-group">
                       <label for="email" class="form-label">Email</label>
-                      <input v-model="emailAddress" type="email" class="form-control" id="email" aria-describedby="email" placeholder=" " />
+                      <input v-model="emailAddress" type="email" class="form-control" id="email" aria-describedby="email" placeholder=" " required />
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
                       <label for="password" class="form-label">Password</label>
-                      <input v-model="password" type="password" class="form-control" id="password" aria-describedby="password" placeholder=" " />
+                      <input v-model="password" type="password" class="form-control" id="password" aria-describedby="password" placeholder=" " required />
                     </div>
                   </div>
                   <div class="col-lg-12 d-flex justify-content-between">
@@ -35,6 +35,14 @@
                 </div>
                 <div class="d-flex justify-content-center">
                   <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+                <p class="text-center my-3">or sign in with another account?</p>
+                <div class="d-flex justify-content-center">
+                  <ul class="list-group list-group-horizontal list-group-flush">
+                    <li class="list-group-item border-0 pb-0">
+                      <a href="#"><img src="@/assets/images/brands/gm.svg" alt="gm" loading="lazy" /></a>
+                    </li>
+                  </ul>
                 </div>
                 <p class="mt-3 text-center">Don’t have an account? <a href="/auth/register" class="text-underline">Click here to sign up.</a></p>
               </form>
@@ -50,20 +58,81 @@
 </template>
 
 <script setup>
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useFirebaseAuth } from 'vuefire'
+import { signInWithEmailAndPassword, signOut, sendEmailVerification } from 'firebase/auth'
+import { useFirebaseAuth, useCurrentUser } from 'vuefire'
 import { ref } from 'vue'
 import router from '@/router'
+import { useRoute } from 'vue-router'
+import { toast } from 'vue3-toastify'
 
 const auth = useFirebaseAuth()
 const emailAddress = ref('')
 const password = ref('')
+const user = useCurrentUser()
+const route = useRoute()
 
-const handleLogin = () => {
-  signInWithEmailAndPassword(auth, emailAddress.value, password.value).then(() => {
-    router.push('/')
+if (user && route.query.redirect) {
+  router.push(route.query.redirect)
+} else if (user.value != null) {
+  router.push({
+    name: 'home',
+    query: {
+      state: 'login'
+    }
   })
 }
+
+const handleLogin = () => {
+  signInWithEmailAndPassword(auth, emailAddress.value, password.value)
+    .then((userCredential) => {
+      if (!userCredential.user.emailVerified) {
+        sendEmailVerification(userCredential.user)
+        signOut(auth)
+        toast('You must verify your email first before you are able to login. Check your email inbox', {
+          autoClose: 10000,
+          type: 'info'
+        })
+      } else if (route.query.redirect != null) {
+        router.push(route.query.redirect)
+      } else {
+        router.push({
+          name: 'home',
+          query: {
+            state: 'login'
+          }
+        })
+      }
+    })
+    .catch((error) => {
+      let errorMessage = ''
+      switch (error.code) {
+        case 'auth/invalid-login-credentials':
+          errorMessage = 'Invalid credentials'
+          break
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email address'
+          break
+        case 'auth/user-disabled':
+          errorMessage = 'User account disabled'
+          break
+        case 'auth/user-not-found':
+          errorMessage = 'User not found'
+          break
+        case 'auth/wrong-password':
+          errorMessage = 'Invalid password'
+          break
+        default:
+          errorMessage = 'An error occurred'
+          break
+      }
+      console.log(error.code, error.message)
+      toast(errorMessage, {
+        autoClose: 5000,
+        type: 'error'
+      })
+    })
+}
+toast.clearAll()
 </script>
 
 <style lang="scss" scoped></style>
