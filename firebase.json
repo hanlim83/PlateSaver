@@ -4,20 +4,5 @@
   },
   "remoteconfig": {
     "template": "remoteconfig.template.json"
-  },
-  "functions": [
-    {
-      "source": "backend",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
-    }
-  ]
+  }
 }

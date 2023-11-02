@@ -63,7 +63,7 @@ if (auth.currentUser != undefined) {
 console.log(userProfilePicUrl)
 </script>
 <template>
-  <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar}`">
+  <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar default`">
     <!-- <nav :class="`nav navbar navbar-expand-xl navbar-light iq-navbar ${headerNavbar} ${navbarHide.join('')}`"> -->
     <div class="container-fluid navbar-inner">
       <slot></slot>
@@ -281,7 +281,8 @@ export default {
   },
   setup(props, { emit }) {
     const store = useStore()
-    const headerNavbar = computed(() => store.getters['setting/header_navbar'])
+    // const headerNavbar = computed(() => store.getters['setting/header_navbar'])
+    const headerNavbar = computed(() => 'default')
     const isHidden = ref(false)
     const onscroll = () => {
       const yOffset = document.documentElement.scrollTop
