@@ -7,7 +7,6 @@ const { onRequest } = require("firebase-functions/v2/https");
 
 const vuePath = __dirname + "/frontend/dist/";
 
-
 //Imports from models
 const { createPost, getPosts } = require('./models/posts.js');
 const { createUser, getUsers } = require('./models/users.js');
@@ -17,11 +16,6 @@ const { search } = require('./models/edamane.js');
 app.use(express.json())
 app.use(cors());
 app.use(express.static(vuePath));
-
-
-app.get('*', (req, res) => {
-    res.sendFile(vuePath + "index.html");
-});
 
 //Users
 app.post('/user', async (req, res) => {
@@ -124,6 +118,9 @@ app.get('/edamane/search', async (req, res) => {
     });
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(vuePath + "index.html");
+});
 
 //Keep this last
 const port = process.env.PORT || 4000;
