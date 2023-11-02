@@ -11,7 +11,7 @@ const vuePath = __dirname + "/frontend/dist/";
 //Imports from models
 const { createPost, getPosts } = require('./models/posts.js');
 const { createUser, getUsers } = require('./models/users.js');
-const { createRecipe, getRecipes } = require('./models/recipes.js');
+const { createRecipe, getRecipes, getRecipe, createComment } = require('./models/recipes.js');
 const { search } = require('./models/edamane.js');
 
 app.use(express.json())
@@ -89,8 +89,25 @@ app.get('/recipes', async (req, res) => {
         data: response
     });
 });
+
+app.get('/recipe/:id', async (req, res) => {
+    let response = await getRecipe(req);
+    res.json({
+        status: 200,
+        message: "Success",
+        data: response
+    });
+});
+
 app.post('/recipe', async (req, res) => {
     let response = await createRecipe(req.body);
+    res.json({
+        status: 200,
+        message: "Success"
+    })
+});
+app.post('/recipe/comment', async (req, res) => {
+    let response = await createComment(req.body);
     res.json({
         status: 200,
         message: "Success"
