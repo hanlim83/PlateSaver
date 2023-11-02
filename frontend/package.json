@@ -1,6 +1,6 @@
 {
-  "name": "is216-project",
-  "version": "0.0.0",
+  "name": "PlateSaver",
+  "version": "1.0",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
