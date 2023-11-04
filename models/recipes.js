@@ -4,8 +4,12 @@ async function createRecipe(data) {
     return new Promise((resolve) => {
         var db = firebase.database();
         var ref = db.ref("/recipes");  //Set the current directory you are working in
-        ref.push(data);
-        resolve("Success");
+        ref.push(data).then((res) => {
+            // console.log("KEY: ", res.key);
+            resolve(res.key);
+        }
+
+        );
     });
 }
 
@@ -34,7 +38,7 @@ async function getRecipe(req) {
     });
 }
 
-async function createComment(data){
+async function createComment(data) {
     let recipeId = data.recipeId;
     let comment = data.comment;
     return new Promise((resolve) => {
@@ -46,4 +50,13 @@ async function createComment(data){
 
 }
 
-module.exports = { createRecipe, getRecipes, getRecipe, createComment};
+async function updateImage(data) {
+    return new Promise((resolve) => {
+        var db = firebase.database();
+        var ref = db.ref("/recipes/" + data.recipeId);  //Set the current directory you are working in
+        ref.update({ imagePath: data.imagePath });
+        resolve("Success");
+    });
+}
+
+module.exports = { createRecipe, getRecipes, getRecipe, createComment, updateImage };

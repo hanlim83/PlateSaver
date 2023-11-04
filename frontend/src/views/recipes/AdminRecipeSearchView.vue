@@ -8,7 +8,7 @@
             :recipeNutrition="currentRecipe.totalNutrients" :recipeServings="currentRecipe.yield"
             :recipeSource="currentRecipe.source">
         </RecipePopUp>
-        <template #modal-footer="{test}">
+        <template #modal-footer="{ test }">
             <!-- <button v-b-modal.modal-close_visit class="btn btn-danger btn-sm m-1">Close</button>
             <button v-b-modal.modal-close_visit class="btn btn-success btn-sm m-1">AA</button> -->
             <b-button size="sm" variant="outline-secondary" @click="test('forget')">AAA</b-button>
@@ -42,7 +42,6 @@
                             <span class="badge bg-info mx-1 text-capitalize">{{ item.recipe.dishType[0] }}</span>
                             <span class="badge bg-warning mx-1 text-capitalize">{{ item.recipe.cuisineType[0] }}</span>
                         </div>
-                        <!-- <h6 class="card-title mt-2">{{ item.recipe.label }}</h6> -->
                         <b-button class="btn btn-primary" @click="displayRecipeDetails(index)">View Details</b-button>
                     </b-card>
                 </b-col>
@@ -81,19 +80,19 @@ export default {
             this.modalShow = false;
             this.modalShow = true;
         },
-        onImport(){
+        onImport() {
             let data = {
-                name : this.currentRecipe.label,
-                image : this.currentRecipe.image,
-                ingredientLines : this.currentRecipe.ingredientLines,
-                url : this.currentRecipe.url,
-                shareAs : this.currentRecipe.shareAs,
-                cuisineType : this.currentRecipe.cuisineType,
-                dishType : this.currentRecipe.dishType,
-                calories : this.currentRecipe.calories,
-                totalNutrients : this.currentRecipe.totalNutrients,
-                yield : this.currentRecipe.yield,
-                source : this.currentRecipe.source,
+                name: this.currentRecipe.label,
+                image: this.currentRecipe.image,
+                ingredientLines: this.currentRecipe.ingredientLines,
+                url: this.currentRecipe.url,
+                shareAs: this.currentRecipe.shareAs,
+                cuisineType: this.currentRecipe.cuisineType,
+                dishType: this.currentRecipe.dishType,
+                calories: this.currentRecipe.calories,
+                totalNutrients: this.currentRecipe.totalNutrients,
+                yield: this.currentRecipe.yield,
+                source: this.currentRecipe.source,
             };
             sessionStorage.setItem("importedRecipe", JSON.stringify(data));
             this.$router.push({ name: "recipe.create" });

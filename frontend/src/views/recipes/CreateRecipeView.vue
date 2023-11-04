@@ -105,7 +105,9 @@
                                     <b-col md="6" class="order-last">
                                         <div class="form-group">
                                             <label class="form-label">Choose a photo:</label>
-                                            <input type="file" class="form-control" name="pic" accept="image/*" />
+                                            <input type="file" class="form-control" name="pic" accept="image/*"
+                                                @change="uploadImage" ref="image" />
+                                            <button @click="test()">TEST</button>
                                         </div>
                                     </b-col>
                                 </b-row>
@@ -252,6 +254,11 @@
 import axios from "axios";
 import { API_URL } from "@/config";
 import IconComponent from '@/components/icons/IconComponent.vue'
+import { useFirebaseAuth, useFirebaseStorage } from 'vuefire'
+import { ref as storageRef, uploadBytes } from 'firebase/storage'
+
+const auth = useFirebaseAuth()
+const storage = useFirebaseStorage()
 
 export default {
     name: "CreateRecipeView",
@@ -265,6 +272,7 @@ export default {
             preptime: "",
             cooktime: "",
             servings: "",
+            files: [],
             //Page 2
             ingredients: ["", "", ""],
             ingredientPlaceHolder: ["2 cups flour sifted",
@@ -292,7 +300,7 @@ export default {
 
         };
     },
-    created() {
+    async created() {
         //Receive imported recipe from session storage
         let importedData = JSON.parse(sessionStorage.getItem("importedRecipe"));
         if (importedData) {
@@ -305,6 +313,9 @@ export default {
             this.nutritionDetails.protein = importedData.totalNutrients.PROCNT.quantity.toFixed() + " " + importedData.totalNutrients.PROCNT.unit;
             this.nutritionDetails.sodium = importedData.totalNutrients.NA.quantity.toFixed() + " " + importedData.totalNutrients.NA.unit;
             this.nutritionDetails.cholestrol = importedData.totalNutrients.CHOLE.quantity.toFixed() + " " + importedData.totalNutrients.CHOLE.unit;
+
+            //Image
+            //Cannot fix because of CORS issue
             sessionStorage.removeItem("importedRecipe");
         }
     },
@@ -336,6 +347,7 @@ export default {
                 directions: this.directions,
                 nutritionDetails: this.nutritionDetails,
                 date_created: dateNow,
+                username: auth.currentUser.displayName
             }
 
             //Remove empty strings from arrays
@@ -347,8 +359,33 @@ export default {
             });
 
             let response = await axios.post(API_URL + "recipe", data);
-            console.log("response: ", response);
+            if (response.data.status == 200) {
+                let recipeId = response.data.data;
+                console.log("response code: ", recipeId);
+                //Upload image
+                let imagePath = 'recipes/' + recipeId + "/" + this.files[0].name;
+                let newFileRef = storageRef(storage, imagePath);
+                uploadBytes(newFileRef, this.files[0])
+                    .then(async () => {
+                        //Send Image Path to db
+                        let data = {
+                            recipeId: recipeId,
+                            imagePath: imagePath
+                        }
+                        let response = await axios.post(API_URL + "recipe/image", data);
+                        //Redirect to recipe view page
+                        this.$router.push({ name: "recipe.viewDetails", params: { id: recipeId } })
+
+                    })
+
+            } else {
+                console.log("Error in creating recipe");
+            }
             //Todo After done redirect to view recipe page
+        },
+        uploadImage(event) {
+            this.files = event.target.files;
+            console.log("Files: ", this.files);
         },
     },
 };

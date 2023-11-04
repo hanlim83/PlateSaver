@@ -9,9 +9,9 @@
                         <span class="badge bg-info py-1 mx-1 text-capitalize fs-5">Delicious</span>
                         <span class="badge bg-warning py-1 mx-1 text-capitalize fs-5">Popular</span>
                     </div>
-                    <h6 class="">By: Jiawei </h6>
+                    <h6 class="">By: {{ recipe.username }} </h6>
                     <p class="mt-3">{{ recipe.description }}</p>
-                    <!-- <img src="@/assets/images/avatars/01.png" :alt="id" class="img-fluid rounded" loading="lazy" /> -->
+                    <img :src="imageURL" class="img-fluid rounded" loading="lazy" />
 
                     <!-- Details Section -->
                     <div class="card bg-soft-info mt-4 ">
@@ -114,6 +114,10 @@
 <script>
 import axios from "axios";
 import { API_URL } from "@/config";
+import { ref as storageRef, getDownloadURL } from 'firebase/storage'
+import { useFirebaseStorage } from 'vuefire'
+
+const storage = useFirebaseStorage()
 
 export default {
     name: "ViewRecipeDetailsView",
@@ -121,7 +125,8 @@ export default {
         return {
             id: this.$route.params.id,
             commentsNo: 0,
-            recipe: "",
+            recipe: {},
+            imageURL: "",
             comment: {
                 name: "",
                 email: "",
@@ -131,6 +136,14 @@ export default {
     },
     async created() {
         await this.getRecipe();
+        let imagePath = this.recipe.imagePath;
+        getDownloadURL(storageRef(storage, imagePath))
+            .then((url) => {
+                this.imageURL = url
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     },
     components: {
     },
