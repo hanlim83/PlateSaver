@@ -1,3 +1,11 @@
+<script setup>
+import { useDatabaseList, useDatabase } from 'vuefire'
+import { ref as dbRef } from 'firebase/database'
+import IndivPost from '@/components/IndivPost.vue'
+
+const db = useDatabase()
+const allposts = useDatabaseList(dbRef(db, 'Posts'))
+</script>
 <!--<template>
   <div>
     
@@ -22,112 +30,13 @@
 </template>
 -->
 <template>
-  
   <div class="row" data-masonry='{"percentPosition": true }'>
-      <div class="inner-box">
-          <div class="container">
-              <b-card-group columns>
-                  
-                      <IndivPost v-for="(post, ind) in allposts" :key="ind" :id="ind" :foodImage="require('@/assets/images/avatars/01.png')"
-                          :timeStamp="post.timeStamp" :title="post.title" userID="Jiawei"
-                          :content="post.content" :tags="post.tags"/>
-                  
-              </b-card-group>
-          </div>
+    <div class="inner-box">
+      <div class="container">
+        <b-card-group columns>
+          <IndivPost v-for="(post, ind) in allposts" :key="ind" :id="ind" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title" :userID="post.userID" :content="post.content" :tags="post.tags" />
+        </b-card-group>
       </div>
+    </div>
   </div>
-  
 </template>
-
-
-<script >
-
-  
-import { API_URL } from "@/config";
-import IndivPost from '@/components/IndivPost.vue';
-import axios from 'axios';
-
-export default {
-  name: 'ViewPostsView',
-  data() {
-    return {
-      title: '',
-      foodImage: '',
-      content: '',
-      userID: '',
-      timeStamp: '',
-      location: '',
-      tags: [],
-      collectionStatus: '',
-      allposts: []
-    }
-
-  },
-  created() {
-      this.getPosts();
-  },
-  components: {
-      IndivPost
-  },
-  methods: {
-    async getPosts() {
-      let response = await axios.get(API_URL + 'posts')
-      this.allposts = response.data.data
-      console.log('Posts: ', this.allposts)
-      
-    }
-  }
-}
-</script>
-
-<!--
-<template>
-  <b-row>
-      <div class="inner-box">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-4" v-for="(value, key) in recipes" :key="key">
-                      <RecipeOne :id="key" :recipeImage="require('@/assets/images/avatars/01.png')"
-                          recipeDate="December 26, 2022" :recipeTitle="value.name" recipeAuthor="Jiawei"
-                          :recipeDescription="value.description" />
-                  </div>
-              </div>
-          </div>
-      </div>
-  </b-row>
-
-  
-</template>
-
-<script>
-import axios from "axios";
-import { API_URL } from "@/config";
-import RecipeOne from '@/components/RecipeOne.vue'
-
-export default {
-  name: "ViewRecipeView",
-  data() {
-      return {
-          recipes: []
-      };
-  },
-  created() {
-      this.getRecipes();
-  },
-  components: {
-      RecipeOne
-  },
-  methods: {
-      async getRecipes() {
-          let response = await axios.get(API_URL + "recipes");
-          this.recipes = response.data.data;
-          console.log("recipes: ", this.recipes);
-          //get keys from array
-          console.log(Object.keys(this.recipes)[0]);
-      },
-  }
-};
-
-
-</script>
--->
