@@ -143,10 +143,10 @@ watch(files, (newFile) => {
             console.log(error)
           })
         update(dbRef(db, 'users/' + auth.currentUser.uid), {
-          photoPath: 'user-profile-pictures/' + auth.currentUser.uid + '/' + newFile[0].name,
           updatedTimestamp: Date.now()
+          photoPath: snapshot.ref.fullPath
         }).then(() => {
-          photoPath.value = 'user-profile-pictures/' + auth.currentUser.uid + '/' + newFile[0].name
+          photoPath.value = snapshot.ref.fullPath
           toast('Profile Picture Changed Successfully', {
             autoClose: 5000,
             type: 'success'
