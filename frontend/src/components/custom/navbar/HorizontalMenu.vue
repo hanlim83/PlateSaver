@@ -9,7 +9,11 @@ var userRole = ref('')
 
 if (auth.currentUser != null) {
   onValue(dbRef(db, '/users/' + auth.currentUser.uid), (snapshot) => {
-    userRole.value = snapshot.val().role
+    if (snapshot.val() == null) {
+      userRole.value = ''
+    } else {
+      userRole.value = snapshot.val().role
+    }
   })
 } else {
   userRole.value = ''

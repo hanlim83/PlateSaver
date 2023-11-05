@@ -33,17 +33,21 @@ if (auth.currentUser != null) {
     dbRef(db, '/users/' + auth.currentUser.uid),
     (snapshot) => {
       console.log(snapshot.val())
-      userProfilePicPath = snapshot.val().photoPath
-      console.log(userProfilePicPath)
-      getDownloadURL(storageRef(storage, userProfilePicPath))
-        .then((url) => {
-          console.log(url)
-          userProfilePicUrl.value = url
-          console.log(userProfilePicUrl)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      if (snapshot.val() == null) {
+        userProfilePicPath = auth.currentUser.photoURL
+      } else {
+        userProfilePicPath = snapshot.val().photoPath
+        console.log(userProfilePicPath)
+        getDownloadURL(storageRef(storage, userProfilePicPath))
+          .then((url) => {
+            console.log(url)
+            userProfilePicUrl.value = url
+            console.log(userProfilePicUrl)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     },
     {
       onlyOnce: true
