@@ -44,23 +44,32 @@
               <label for="phoneNumber" class="form-label">Phone Number</label>
               <input v-model="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder=" " pattern="^[89]\d{7}$" required />
             </div>
-            <div class="form-group">
-              <label for="password" class="form-label">Current Password</label>
-              <input v-model="password" type="password" class="form-control" id="password" required />
+            <div v-if="auth.currentUser.providerData[0].providerId != 'google.com' || auth.currentUser.providerData.length == 2">
+              <div class="form-group">
+                <label for="password" class="form-label">Current Password</label>
+                <input v-model="password" type="password" class="form-control" id="password" required />
+              </div>
+              <hr />
+              <h4>Change Password</h4>
+              <br />
+              <div class="form-group">
+                <label for="new-password" class="form-label">New Password</label>
+                <input v-model="newPassword" type="password" class="form-control" id="new-password" />
+              </div>
+              <div class="form-group">
+                <label for="confirm-new-password" class="form-label">Confirm New Password</label>
+                <input v-model="cfmNewPassword" type="password" class="form-control" id="confirm-new-password" />
+              </div>
+              <button type="submit" class="btn btn-primary">Update Profile</button>
+              <button type="button" class="btn btn-secondary" @click="handleReset">Reset Changes</button>
+              <button type="button" class="btn btn-danger" @click="handleDelete">Delete Acccount</button>
             </div>
-            <hr />
-            <h4>Change Password</h4>
-            <div class="form-group">
-              <label for="new-password" class="form-label">New Password</label>
-              <input v-model="newPassword" type="password" class="form-control" id="new-password" />
+            <div v-else>
+              <div class="form-group">
+                <p>To edit your profile details, please set a password</p>
+                <button type="button" class="btn btn-primary" @click="handleSetPassword">Set Password</button>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="confirm-new-password" class="form-label">Confirm New Password</label>
-              <input v-model="cfmNewPassword" type="password" class="form-control" id="confirm-new-password" />
-            </div>
-            <button type="submit" class="btn btn-primary">Update Profile</button>
-            <button type="button" class="btn btn-secondary" @click="handleReset">Reset Changes</button>
-            <button type="button" class="btn btn-danger" @click="handleDelete">Delete Acccount</button>
           </form>
         </b-card-body>
       </b-card>
@@ -68,7 +77,7 @@
   </b-row>
 </template>
 <script setup>
-import { updateProfile, updateEmail, signInWithEmailAndPassword, updatePassword, signOut, deleteUser } from 'firebase/auth'
+import { updateProfile, updateEmail, signInWithEmailAndPassword, updatePassword, signOut, deleteUser, sendPasswordResetEmail } from 'firebase/auth'
 import { ref as dbRef, onValue, update, remove } from 'firebase/database'
 import { useFirebaseAuth, useDatabase, useFirebaseStorage } from 'vuefire'
 import { ref as storageRef, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage'
@@ -103,15 +112,19 @@ const handleReset = () => {
       emailAddress.value = auth.currentUser.email
       phoneNumber.value = snapshot.val().phoneNumber
       photoPath.value = snapshot.val().photoPath
-      getDownloadURL(storageRef(storage, photoPath.value))
-        .then((url) => {
-          console.log(url)
-          userProfilePicUrl.value = url
-          console.log(userProfilePicUrl)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      if (snapshot.val().photoPath != null) {
+        getDownloadURL(storageRef(storage, photoPath.value))
+          .then((url) => {
+            console.log(url)
+            userProfilePicUrl.value = url
+            console.log(userProfilePicUrl)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      } else {
+        userProfilePicUrl.value = auth.currentUser.photoURL
+      }
       console.log(extendedUserData)
     },
     {
@@ -130,7 +143,11 @@ watch(files, (newFile) => {
     uploadBytes(newPhotoFileRef, newFile[0])
       .then((snapshot) => {
         console.log(snapshot)
-        if (photoPath.value != 'user-profile-pictures/generic.jpg') {
+        if (photoPath.value == null) {
+          updateProfile(auth.currentUser, {
+            photoURL: null
+          })
+        } else if (photoPath.value != 'user-profile-pictures/generic.jpg') {
           deleteObject(storageRef(storage, photoPath.value))
         }
         getDownloadURL(newPhotoFileRef)
@@ -323,7 +340,7 @@ const handleDelete = () => {
     signInWithEmailAndPassword(auth, auth.currentUser.email, password.value)
       .then((userCredential) => {
         remove(dbRef(db, 'users/' + auth.currentUser.uid))
-        if (photoPath.value != 'user-profile-pictures/generic.jpg') {
+        if (photoPath.value != 'user-profile-pictures/generic.jpg' && photoPath.value != null) {
           deleteObject(storageRef(storage, photoPath.value))
         }
         deleteUser(userCredential.user).then(() => {
@@ -372,6 +389,38 @@ const handleDelete = () => {
         }
       })
   }
+}
+
+const handleSetPassword = () => {
+  sendPasswordResetEmail(auth, auth.currentUser.email)
+    .then(() => {
+      toast('Please check your email to set your password', {
+        autoClose: 5000,
+        type: 'success'
+      })
+    })
+    .catch((error) => {
+      let errorMessage = ''
+      switch (error.code) {
+        case 'auth/invalid-login-credentials':
+          errorMessage = 'Invalid credentials'
+          break
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email address'
+          break
+        case 'auth/user-not-found':
+          errorMessage = 'User not found'
+          break
+        default:
+          errorMessage = 'An error occurred'
+          break
+      }
+      console.log(error.code, error.message)
+      toast(errorMessage, {
+        autoClose: 5000,
+        type: 'error'
+      })
+    })
 }
 
 toast.clearAll()
