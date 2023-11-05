@@ -143,7 +143,7 @@ watch(files, (newFile) => {
             console.log(error)
           })
         update(dbRef(db, 'users/' + auth.currentUser.uid), {
-          updatedTimestamp: Date.now()
+          updatedTimestamp: Date.now(),
           photoPath: snapshot.ref.fullPath
         }).then(() => {
           photoPath.value = snapshot.ref.fullPath
@@ -233,7 +233,10 @@ const handleUpdateData = () => {
           })
       }
       if (fName.value !== extendedUserData.firstName || lName.value !== extendedUserData.lastName || phoneNumber.value !== extendedUserData.phoneNumber) {
-        updateProfile(userCredential.user, { displayName: fName.value + ' ' + lName.value })
+        updateProfile(userCredential.user, {
+          displayName: fName.value + ' ' + lName.value,
+          phoneNumber: '+65' + phoneNumber.value
+        })
         update(dbRef(db, 'users/' + userCredential.user.uid), {
           firstName: fName.value,
           lastName: lName.value,

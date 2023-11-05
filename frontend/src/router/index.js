@@ -27,7 +27,6 @@ const baseChildRoutes = (prefix) => [
     component: () => import('@/views/RegisterView.vue')
   },
   {
-
     path: '/UserLocationView',
     name: prefix + 'UserLocationView',
     meta: { requiresAuth: false, name: 'User Location View', isBanner: false },
@@ -39,12 +38,11 @@ const baseChildRoutes = (prefix) => [
     meta: { requiresAuth: false, name: 'User Location View Radar', isBanner: false },
     component: () => import('@/views/UserLocationViewRadar.vue')
   },
-  {  
+  {
     path: '/profile',
     name: prefix + 'ProfileView',
     meta: { requiresAuth: true, name: 'user profile', isBanner: false },
     component: () => import('@/views/UserProfileView.vue')
-
   }
 ]
 
@@ -126,7 +124,16 @@ const recipeChildRoutes = (prefix) => [
     name: prefix + '.viewDetails',
     meta: { auth: false, name: 'View Recipe Details' },
     component: () => import('@/views/recipes/ViewRecipeDetailsView.vue')
-  },
+  }
+]
+
+const adminChildRoutes = (prefix) => [
+  {
+    path: 'users',
+    name: prefix + '.allusers',
+    meta: { auth: true, name: 'View All Users' },
+    component: () => import('@/views/admin/ListUsers.vue')
+  }
 ]
 
 const routes = [
@@ -153,6 +160,21 @@ const routes = [
     name: 'recipes',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: recipeChildRoutes('recipe')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: adminChildRoutes('admin')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    meta: { requiresAuth: false, name: 'Not Found' },
+    components: {
+      layout: import('@/layouts/BlankLayout.vue'),
+      default: import('@/views/Error404Page.vue')
+    }
   }
 ]
 

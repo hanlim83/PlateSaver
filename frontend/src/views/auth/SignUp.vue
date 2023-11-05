@@ -103,7 +103,10 @@ const handleSignUp = () => {
   createUserWithEmailAndPassword(auth, emailAddress.value, password.value)
     .then((userCredential) => {
       let newUser = userCredential.user
-      updateProfile(newUser, { displayName: fName.value + ' ' + lName.value})
+      updateProfile(newUser, {
+        displayName: fName.value + ' ' + lName.value,
+        phoneNumber: '+65' + phoneNumber.value
+      })
       set(dbRef(db, 'users/' + newUser.uid), {
         id: newUser.uid,
         firstName: fName.value,
