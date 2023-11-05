@@ -36,6 +36,12 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input v-model="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder=" " pattern="^[89]\d{7}$" required />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
                         <label for="password" class="form-label">Password</label>
                         <input v-model="password" type="password" class="form-control" id="password" placeholder=" " required />
                       </div>
@@ -44,12 +50,6 @@
                       <div class="form-group">
                         <label for="confirm-password" class="form-label">Confirm Password</label>
                         <input v-model="cfmPassword" type="password" class="form-control" id="confirm-password" placeholder=" " required />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label for="age" class="form-label">Age</label>
-                        <input v-model="age" type="number" class="form-control" id="age" placeholder=" " min="1" max="150" required />
                       </div>
                     </div>
                     <div class="col-lg-12 d-flex justify-content-center">
@@ -87,7 +87,7 @@ const lName = ref('')
 const emailAddress = ref('')
 const password = ref('')
 const cfmPassword = ref('')
-const age = ref('')
+const phoneNumber = ref('')
 const db = useDatabase()
 var userProfilePicUrl = ''
 
@@ -103,16 +103,21 @@ const handleSignUp = () => {
   createUserWithEmailAndPassword(auth, emailAddress.value, password.value)
     .then((userCredential) => {
       let newUser = userCredential.user
-      updateProfile(newUser, { displayName: fName.value + ' ' + lName.value})
+      updateProfile(newUser, {
+        displayName: fName.value + ' ' + lName.value,
+        phoneNumber: '+65' + phoneNumber.value
+      })
       set(dbRef(db, 'users/' + newUser.uid), {
         id: newUser.uid,
         firstName: fName.value,
         lastName: lName.value,
         emailAddress: emailAddress.value,
-        age: age.value,
+        phoneNumber: phoneNumber.value,
         role: 'user',
         //photoPath: userProfilePicPath
-        photoPath: 'user-profile-pictures/generic.jpg'
+        photoPath: 'user-profile-pictures/generic.jpg',
+        createdTimestamp: Date.now(),
+        updatedTimestamp: Date.now()
       })
       router.push('/auth/verify')
     })

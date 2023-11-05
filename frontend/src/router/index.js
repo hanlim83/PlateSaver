@@ -27,7 +27,6 @@ const baseChildRoutes = (prefix) => [
     component: () => import('@/views/RegisterView.vue')
   },
   {
-
     path: '/UserLocationView',
     name: prefix + 'UserLocationView',
     meta: { requiresAuth: false, name: 'User Location View', isBanner: false },
@@ -39,12 +38,11 @@ const baseChildRoutes = (prefix) => [
     meta: { requiresAuth: false, name: 'User Location View Radar', isBanner: false },
     component: () => import('@/views/UserLocationViewRadar.vue')
   },
-  {  
+  {
     path: '/profile',
     name: prefix + 'ProfileView',
     meta: { requiresAuth: true, name: 'user profile', isBanner: false },
     component: () => import('@/views/UserProfileView.vue')
-
   }
 ]
 
@@ -90,31 +88,31 @@ const authChildRoutes = (prefix) => [
 const postsChildRoutes = (prefix) => [
   {
     path: 'create',
-    name: prefix + '.createpost',
+    name: prefix + '.create',
     meta: { requiresAuth: true, name: 'Create Post' },
     component: () => import('@/views/posts/CreatePostView.vue')
   },
   {
     path: 'view',
-    name: prefix + '.viewpost',
+    name: prefix + '.view',
     meta: { requiresAuth: false, name: 'View Post' },
     component: () => import('@/views/posts/ViewPostsView.vue')
   },
   {
     path: "read/:id",
-    name: prefix + '.readpost',
+    name: prefix + '.read',
     meta: { auth: false, name: 'Read A Post' },
     component: () => import('@/views/posts/ReadPostView.vue')
   },
   {
     path: "edit",
-    name: prefix + '.editpost',
+    name: prefix + '.edit',
     meta: { requiresAuth: true, name: 'Edit Post' },
     component: () => import('@/views/posts/EditPostView.vue')
   },
   {
     path: "myPosts",
-    name: prefix + '.myposts',
+    name: prefix + '.own',
     meta: { requiresAuth: true, name: 'My Posts' },
     component: () => import('@/views/posts/MyPostsView.vue')
   },
@@ -124,7 +122,7 @@ const recipeChildRoutes = (prefix) => [
   {
     path: 'create',
     name: prefix + '.create',
-    meta: { auth: false, name: 'Create Recipe' },
+    meta: { auth: true, name: 'Create Recipe' },
     component: () => import('@/views/recipes/CreateRecipeView.vue')
   },
   {
@@ -144,7 +142,16 @@ const recipeChildRoutes = (prefix) => [
     name: prefix + '.viewDetails',
     meta: { auth: false, name: 'View Recipe Details' },
     component: () => import('@/views/recipes/ViewRecipeDetailsView.vue')
-  },
+  }
+]
+
+const adminChildRoutes = (prefix) => [
+  {
+    path: 'users',
+    name: prefix + '.allusers',
+    meta: { auth: true, name: 'View All Users' },
+    component: () => import('@/views/admin/ListUsers.vue')
+  }
 ]
 
 const routes = [
@@ -171,6 +178,21 @@ const routes = [
     name: 'recipes',
     component: () => import('@/layouts/HorizontalLayout.vue'),
     children: recipeChildRoutes('recipe')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/layouts/HorizontalLayout.vue'),
+    children: adminChildRoutes('admin')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    meta: { requiresAuth: false, name: 'Not Found' },
+    components: {
+      layout: import('@/layouts/BlankLayout.vue'),
+      default: import('@/views/Error404Page.vue')
+    }
   }
 ]
 

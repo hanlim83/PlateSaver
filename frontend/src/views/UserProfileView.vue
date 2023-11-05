@@ -41,8 +41,8 @@
               <input v-model="emailAddress" type="email" class="form-control" id="email" placeholder=" " required />
             </div>
             <div class="form-group">
-              <label for="age" class="form-label">Age</label>
-              <input v-model="age" type="number" class="form-control" id="age" placeholder=" " min="1" max="150" required />
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input v-model="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder=" " pattern="^[89]\d{7}$" required />
             </div>
             <div class="form-group">
               <label for="password" class="form-label">Current Password</label>
@@ -84,7 +84,7 @@ var emailAddress = ref('')
 const password = ref('')
 const newPassword = ref('')
 const cfmNewPassword = ref('')
-var age = ref('')
+var phoneNumber = ref('')
 const db = useDatabase()
 const storage = useFirebaseStorage()
 const { files, open, reset } = useFileDialog()
@@ -101,7 +101,7 @@ const handleReset = () => {
       fName.value = snapshot.val().firstName
       lName.value = snapshot.val().lastName
       emailAddress.value = auth.currentUser.email
-      age.value = snapshot.val().age
+      phoneNumber.value = snapshot.val().phoneNumber
       photoPath.value = snapshot.val().photoPath
       getDownloadURL(storageRef(storage, photoPath.value))
         .then((url) => {
@@ -143,9 +143,10 @@ watch(files, (newFile) => {
             console.log(error)
           })
         update(dbRef(db, 'users/' + auth.currentUser.uid), {
-          photoPath: 'user-profile-pictures/' + auth.currentUser.uid + '/' + newFile[0].name
+          updatedTimestamp: Date.now(),
+          photoPath: snapshot.ref.fullPath
         }).then(() => {
-          photoPath.value = 'user-profile-pictures/' + auth.currentUser.uid + '/' + newFile[0].name
+          photoPath.value = snapshot.ref.fullPath
           toast('Profile Picture Changed Successfully', {
             autoClose: 5000,
             type: 'success'
@@ -173,7 +174,8 @@ const handleUpdateData = () => {
               type: 'success'
             })
             update(dbRef(db, 'users/' + userCredential.user.uid), {
-              emailAddress: emailAddress.value
+              emailAddress: emailAddress.value,
+              updatedTimestamp: Date.now()
             })
             password.value = ''
             newPassword.value = ''
@@ -230,12 +232,16 @@ const handleUpdateData = () => {
             cfmNewPassword.value = ''
           })
       }
-      if (fName.value !== extendedUserData.firstName || lName.value !== extendedUserData.lastName || age.value !== extendedUserData.age) {
-        updateProfile(userCredential.user, { displayName: fName.value + ' ' + lName.value })
+      if (fName.value !== extendedUserData.firstName || lName.value !== extendedUserData.lastName || phoneNumber.value !== extendedUserData.phoneNumber) {
+        updateProfile(userCredential.user, {
+          displayName: fName.value + ' ' + lName.value,
+          phoneNumber: '+65' + phoneNumber.value
+        })
         update(dbRef(db, 'users/' + userCredential.user.uid), {
           firstName: fName.value,
           lastName: lName.value,
-          age: age.value
+          phoneNumber: phoneNumber.value,
+          updatedTimestamp: Date.now()
         })
           .then(() => {
             toast('Profile Details Updated Successfully', {

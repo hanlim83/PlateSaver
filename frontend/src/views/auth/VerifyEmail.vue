@@ -8,7 +8,8 @@
             <h4 class="logo-title ms-3 mb-0"><brand-name></brand-name></h4>
           </router-link>
           <h2 class="mt-3 mb-0">Success !</h2>
-          <p class="cnf-mail mb-1">A email has been sent to {{ user.email }} Please check for an email to verify your account.</p>
+          <p class="cnf-mail mb-1">A email has been sent to {{ user.email }}</p>
+          <p class="cnf-mail mb-1">Please check for an email to verify your account.</p>
           <div class="d-inline-block w-100">
             <router-link to="/" class="btn btn-primary mt-3">Back to Home</router-link>
           </div>
