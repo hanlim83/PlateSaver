@@ -160,7 +160,7 @@ onMounted(async () => {
     zoom: 18 /* how zoomed in is the map */
   })
   const icon = {
-    url: 'http://maps.gstatic.com/mapfiles/markers2/measle_blue.png', // url
+    url: 'https://maps.gstatic.com/mapfiles/markers2/measle_blue.png', // url
     scaledSize: new google.maps.Size(14, 14) // scaled size
   }
 

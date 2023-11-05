@@ -50,7 +50,7 @@ if (auth.currentUser != null) {
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><router-link class="dropdown-item" :to="{ name: 'posts.create' }">Create New Post</router-link></li>
             <li><router-link class="dropdown-item" :to="{ name: 'posts.view' }">View All Posts</router-link></li>
-            <li v-if="userRole == 'user'"><router-link class="dropdown-item" :to="{ name: 'posts.view' }">View My Own Posts</router-link></li>
+            <li v-if="userRole != ''"><router-link class="dropdown-item" :to="{ name: 'posts.own' }">View My Own Posts</router-link></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

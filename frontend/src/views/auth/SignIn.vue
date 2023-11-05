@@ -158,10 +158,6 @@ toast.clearAll()
                     </div>
                   </div>
                   <div class="col-lg-12 d-flex justify-content-between">
-                    <div class="form-check mb-3">
-                      <input type="checkbox" class="form-check-input" id="customCheck1" />
-                      <label class="form-check-label" for="customCheck1">Remember Me</label>
-                    </div>
                     <a href="/auth/reset-password">Forgot Password?</a>
                   </div>
                 </div>

@@ -169,7 +169,7 @@ watch(files, (newFile) => {
             type: 'success'
           })
           setTimeout(() => {
-            router.go(0)
+            router.push({ name: 'ProfileView' })
           }, 6000)
         })
       })

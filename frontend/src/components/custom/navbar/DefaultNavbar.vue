@@ -29,30 +29,24 @@ const handleLogIn = () => {
 
 if (auth.currentUser != null) {
   console.log(user)
-  onValue(
-    dbRef(db, '/users/' + auth.currentUser.uid),
-    (snapshot) => {
-      console.log(snapshot.val())
-      if (snapshot.val() == null) {
-        userProfilePicPath = auth.currentUser.photoURL
-      } else {
-        userProfilePicPath = snapshot.val().photoPath
-        console.log(userProfilePicPath)
-        getDownloadURL(storageRef(storage, userProfilePicPath))
-          .then((url) => {
-            console.log(url)
-            userProfilePicUrl.value = url
-            console.log(userProfilePicUrl)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      }
-    },
-    {
-      onlyOnce: true
+  onValue(dbRef(db, '/users/' + auth.currentUser.uid), (snapshot) => {
+    console.log(snapshot.val())
+    if (snapshot.val().photoPath == null) {
+      userProfilePicUrl.value = auth.currentUser.photoURL
+    } else {
+      userProfilePicPath = snapshot.val().photoPath
+      console.log(userProfilePicPath)
+      getDownloadURL(storageRef(storage, userProfilePicPath))
+        .then((url) => {
+          console.log(url)
+          userProfilePicUrl.value = url
+          console.log(userProfilePicUrl)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
-  )
+  })
 } else {
   console.log(userProfilePicPath)
   getDownloadURL(storageRef(storage, userProfilePicPath))

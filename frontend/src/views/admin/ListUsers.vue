@@ -18,22 +18,34 @@ onValue(dbRef(db, '/users'), (snapshot) => {
     if (childSnapshot.val().id == auth.currentUser.uid && childSnapshot.val().role != 'admin') {
       router.push({ name: 'not-found' })
     }
-    getDownloadURL(storageRef(storage, childSnapshot.val().photoPath))
-      .then((url) => {
-        console.log(url)
-        tableData.value.push({
-          id: childSnapshot.val().id,
-          image: url,
-          name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
-          contact: childSnapshot.val().phoneNumber,
-          email: childSnapshot.val().emailAddress,
-          date: childSnapshot.val().createdTimestamp,
-          role: childSnapshot.val().role
+    if (childSnapshot.val().photoPath != null) {
+      getDownloadURL(storageRef(storage, childSnapshot.val().photoPath))
+        .then((url) => {
+          console.log(url)
+          tableData.value.push({
+            id: childSnapshot.val().id,
+            image: url,
+            name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
+            contact: childSnapshot.val().phoneNumber,
+            email: childSnapshot.val().emailAddress,
+            date: childSnapshot.val().createdTimestamp,
+            role: childSnapshot.val().role
+          })
         })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      tableData.value.push({
+            id: childSnapshot.val().id,
+            image: 'https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media',
+            name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
+            contact: childSnapshot.val().phoneNumber,
+            email: childSnapshot.val().emailAddress,
+            date: childSnapshot.val().createdTimestamp,
+            role: childSnapshot.val().role
+          })
+    }
   })
 })
 
