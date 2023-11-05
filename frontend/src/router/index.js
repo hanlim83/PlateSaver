@@ -87,17 +87,35 @@ const authChildRoutes = (prefix) => [
 
 const postsChildRoutes = (prefix) => [
   {
-    path: 'createPost',
+    path: 'create',
     name: prefix + '.createpost',
     meta: { requiresAuth: true, name: 'Create Post' },
     component: () => import('@/views/posts/CreatePostView.vue')
   },
   {
-    path: 'viewPosts',
+    path: 'view',
     name: prefix + '.viewpost',
-    meta: { requiresAuth: true, name: 'View Post' },
+    meta: { requiresAuth: false, name: 'View Post' },
     component: () => import('@/views/posts/ViewPostsView.vue')
-  }
+  },
+  {
+    path: "read/:id",
+    name: prefix + '.readpost',
+    meta: { auth: false, name: 'Read A Post' },
+    component: () => import('@/views/posts/ReadPostView.vue')
+  },
+  {
+    path: "edit",
+    name: prefix + '.editpost',
+    meta: { requiresAuth: true, name: 'Edit Post' },
+    component: () => import('@/views/posts/EditPostView.vue')
+  },
+  {
+    path: "myPosts",
+    name: prefix + '.myposts',
+    meta: { requiresAuth: true, name: 'My Posts' },
+    component: () => import('@/views/posts/MyPostsView.vue')
+  },
 ]
 
 const recipeChildRoutes = (prefix) => [
