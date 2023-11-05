@@ -37,14 +37,14 @@ onValue(dbRef(db, '/users'), (snapshot) => {
         })
     } else {
       tableData.value.push({
-            id: childSnapshot.val().id,
-            image: 'https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media',
-            name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
-            contact: childSnapshot.val().phoneNumber,
-            email: childSnapshot.val().emailAddress,
-            date: childSnapshot.val().createdTimestamp,
-            role: childSnapshot.val().role
-          })
+        id: childSnapshot.val().id,
+        image: 'https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media',
+        name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
+        contact: childSnapshot.val().phoneNumber,
+        email: childSnapshot.val().emailAddress,
+        date: childSnapshot.val().createdTimestamp,
+        role: childSnapshot.val().role
+      })
     }
   })
 })
