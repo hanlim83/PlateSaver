@@ -96,6 +96,16 @@ watch(files, (newFile) => {
     uploadBytes(newPostPicRef, newFile[0]).then((snapshot) => {
       console.log(snapshot)
       imagePath = snapshot.ref.fullPath
+      toast('Image Updated Successfully', {
+        autoClose: 5000,
+        type: 'info'
+      })
+    }) .catch((error) => {
+      console.log(error)
+      toast('Image not uploaded', {
+        autoClose: 5000,
+        type: 'warning'
+      })
     })
   }
 })
@@ -112,7 +122,7 @@ const handleAddingPost = () => {
       userID: auth.currentUser.uid,
       timeStamp: new Date().toString(),
       location: location.value,
-      collectionStatus: true,
+      collectionStatus: false,
       lat: currPos.value.lat,
       long: currPos.value.lng
     })

@@ -99,23 +99,23 @@ const postsChildRoutes = (prefix) => [
     component: () => import('@/views/posts/ViewPostsView.vue')
   },
   {
-    path: "read/:id",
+    path: 'read/:id',
     name: prefix + '.read',
     meta: { auth: false, name: 'Read A Post' },
     component: () => import('@/views/posts/ReadPostView.vue')
   },
   {
-    path: "edit",
+    path: 'edit/:id',
     name: prefix + '.edit',
     meta: { requiresAuth: true, name: 'Edit Post' },
     component: () => import('@/views/posts/EditPostView.vue')
   },
   {
-    path: "myPosts",
+    path: 'myPosts',
     name: prefix + '.own',
     meta: { requiresAuth: true, name: 'My Posts' },
     component: () => import('@/views/posts/MyPostsView.vue')
-  },
+  }
 ]
 
 const recipeChildRoutes = (prefix) => [
