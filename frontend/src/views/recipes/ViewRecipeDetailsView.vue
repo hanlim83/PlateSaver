@@ -89,19 +89,31 @@
                     <b-col md="6">
                         <b-form-group label="Name:">
                             <b-form-input type="text" class="form-control " name="comement-name"
-                                placeholder="e.g. Mokkie Mok" v-model="comment.name" />
+                                placeholder="e.g. Mokkie Mok" v-model="v$.comment.name.$model"
+                                :class="{ 'is-invalid': v$.comment.name.$error }" />
+                            <div v-if="v$.comment.name.$error" class="text-danger">
+                                Name is required
+                            </div>
                         </b-form-group>
                     </b-col>
                     <b-col md="6" class="">
                         <b-form-group label="Email: ">
                             <b-form-input type="text" class="form-control" name="comment-email"
-                                placeholder="e.g. hungryman@email.com" v-model="comment.email" />
+                                placeholder="e.g. hungryman@email.com" v-model="v$.comment.email.$model"
+                                :class="{ 'is-invalid': v$.comment.email.$error }" />
+                            <div v-if="v$.comment.email.$error" class="text-danger">
+                                Invalid Email
+                            </div>
                         </b-form-group>
                     </b-col>
                     <b-col md="12">
                         <b-form-group label="Comment: ">
                             <b-form-textarea id="comment-text" placeholder="e.g. This was delicious!" rows="2" max-rows="12"
-                                v-model="comment.text"></b-form-textarea>
+                                v-model="v$.comment.text.$model"
+                                :class="{ 'is-invalid': v$.comment.text.$error }"></b-form-textarea>
+                            <div v-if="v$.comment.text.$error" class="text-danger">
+                                No comment
+                            </div>
                         </b-form-group>
                     </b-col>
                 </b-row>
@@ -112,15 +124,19 @@
 </template>
 
 <script>
-import axios from "axios";
-import { API_URL } from "@/config";
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
-import { useFirebaseStorage } from 'vuefire'
+import { useFirebaseStorage, useDatabaseObject, useDatabase } from 'vuefire'
+import { ref as dbRef, push } from 'firebase/database'
+import useVuelidate from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 
 const storage = useFirebaseStorage()
 
 export default {
     name: "ViewRecipeDetailsView",
+    setup() {
+        return { v$: useVuelidate() }
+    },
     data() {
         return {
             id: this.$route.params.id,
@@ -133,6 +149,15 @@ export default {
                 text: ""
             },
         };
+    },
+    validations() {
+        return {
+            comment: {
+                name: { required },
+                email: { required, email },
+                text: { required }
+            }
+        }
     },
     async created() {
         await this.getRecipe();
@@ -149,34 +174,42 @@ export default {
     },
     methods: {
         async getRecipe() {
-            let url = API_URL + "recipe/" + this.id;
-            let response = await axios.get(url);
-            this.recipe = response.data.data;
+            const db = useDatabase();
+            const { data: recipeData, promise: recipePromise } = useDatabaseObject(dbRef(db, 'recipes/' + this.id));
+            await recipePromise.value;
+            this.recipe = recipeData;
             if (typeof this.recipe.comments != "undefined") {
                 this.commentsNo = Object.keys(this.recipe.comments).length;
             }
         },
         async createComment() {
-            //get current date
+            //validate form
+            if (!await this.v$.comment.$validate()) {
+                return;
+            }
+
+            // get current date
             let current = new Date();
             let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
             let data = {
-                comment: {
-                    name: this.comment.name,
-                    email: this.comment.email,
-                    text: this.comment.text,
-                    date: dateNow,
-                },
-                recipeId: this.id
+                name: this.comment.name,
+                email: this.comment.email,
+                text: this.comment.text,
+                date: dateNow,
+
             };
-
-            let response = await axios.post(API_URL + "recipe/comment", data);
-            console.log("response: ", response);
-
+            const db = useDatabase();
+            const { promise: commentPromise } = push(dbRef(db, "/recipes/" + this.id + "/comments"), data)
+            await commentPromise;
+            //clear form
+            this.comment.name = "";
+            this.comment.email = "";
+            this.comment.text = "";
+            this.v$.$reset();
             //Update new comments
             await this.getRecipe();
-
+            
         }
     }
 };

@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4" v-for="(value, key) in recipes" :key="key">
-                        <RecipeOne :id="key" :recipeImage="value.imageURL" :recipeDate="value.date_created"
+                        <RecipeOne :id="value.id" :recipeImage="value.imageURL" :recipeDate="value.date_created"
                             :recipeTitle="value.name" :recipeAuthor="value.username"
                             :recipeDescription="value.description" />
                     </div>
@@ -15,12 +15,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import { API_URL } from "@/config";
 import RecipeOne from '@/components/RecipeOne.vue'
 
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
-import { useFirebaseStorage } from 'vuefire'
+import { useFirebaseStorage, useDatabaseList, useDatabase } from 'vuefire'
+import { ref as dbRef } from 'firebase/database'
 
 const storage = useFirebaseStorage()
 
@@ -51,8 +50,10 @@ export default {
     },
     methods: {
         async getRecipes() {
-            let response = await axios.get(API_URL + "recipes");
-            this.recipes = response.data.data;
+            const db = useDatabase();
+            const { data: recipeData, promise: recipePromise } = useDatabaseList(dbRef(db, 'recipes'));
+            await recipePromise.value;
+            this.recipes = recipeData;
         },
     }
 };

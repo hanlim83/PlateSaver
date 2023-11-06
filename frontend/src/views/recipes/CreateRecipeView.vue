@@ -44,7 +44,7 @@
                                     <span class="dark-wizard">Directions</span>
                                 </a>
                             </li>
-                            <li :class="`${currentindex == 4 ? 'active' : ''} ${currentindex > 4 ? 'done' : ''} col-lg-3 col-md-6 mb-2 text-start `"
+                            <li :class="`${currentindex == 4 ? 'active' : ''} ${currentindex > 4 ? 'done' : ''} col-lg-3 col-md-6 mb-2 text-start`"
                                 id="nutrition">
                                 <a @click="changeTab(4)">
                                     <div class="iq-icon me-3">
@@ -68,42 +68,66 @@
                                 <b-row>
                                     <b-col md="6">
                                         <b-form-group label="Recipe Name:">
-                                            <b-form-input type="text" class="form-control" name="name"
-                                                placeholder="e.g. Leftover Chicken Croquettes" v-model="name" />
+                                            <b-form-input type="text" class="form-control"
+                                                :class="{ 'is-invalid': v$.details.name.$error }"
+                                                placeholder="e.g. Leftover Chicken Croquettes"
+                                                v-model="v$.details.name.$model" />
+                                            <div v-if="v$.details.name.$error" class="text-danger">
+                                                Recipe name is required.
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6" class="order-1 order-md-3">
                                         <b-form-group label="Description: ">
                                             <b-form-textarea id="description"
                                                 placeholder="e.g. This easy recipe using leftover chicken is amazing."
-                                                rows="5" max-rows="12" v-model="description"></b-form-textarea>
+                                                :class="{ 'is-invalid': v$.details.description.$error }" rows="5"
+                                                max-rows="12" v-model="v$.details.description.$model"></b-form-textarea>
+                                            <div v-if="v$.details.description.$error" class="text-danger">
+                                                Description is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6" class="order-2">
                                         <b-form-group label="Prep Time:">
                                             <b-form-input type="text" class="form-control" name="preptime"
-                                                placeholder="e.g. 15 minutes" v-model="preptime" />
+                                                :class="{ 'is-invalid': v$.details.preptime.$error }"
+                                                placeholder="e.g. 15 minutes" v-model="v$.details.preptime.$model" />
+                                            <div v-if="v$.details.preptime.$error" class="text-danger">
+                                                Preptime is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6" class="order-4">
                                         <b-form-group label="Cooking Time:">
-                                            <b-form-input type="text" class="form-control" name="cooktime"
-                                                placeholder="e.g. 20 minutes" v-model="cooktime" />
+                                            <b-form-input type="text" class="form-control"
+                                                :class="{ 'is-invalid': v$.details.preptime.$error }" name="cooktime"
+                                                placeholder="e.g. 20 minutes" v-model="v$.details.cooktime.$model" />
+                                            <div v-if="v$.details.cooktime.$error" class="text-danger">
+                                                Cooktime is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6" class="order-4">
                                         <div class="form-group">
                                             <label class="form-label">Servings: </label>
                                             <b-form-input type="text" class="form-control" name="servings"
-                                                placeholder="e.g. 3 pax" v-model="servings" />
+                                                :class="{ 'is-invalid': v$.details.servings.$error }"
+                                                placeholder="e.g. 3 pax" v-model="v$.details.servings.$model" />
+                                            <div v-if="v$.details.servings.$error" class="text-danger">
+                                                Servings is required
+                                            </div>
                                         </div>
                                     </b-col>
                                     <b-col md="6" class="order-last">
                                         <div class="form-group">
-                                            <label class="form-label">Choose a photo:</label>
+                                            <label class="form-label">Upload a photo:</label>
                                             <input type="file" class="form-control" name="pic" accept="image/*"
-                                                @change="uploadImage" ref="image" />
-                                            <button @click="test()">TEST</button>
+                                                @change="uploadImage" ref="image"
+                                                :class="{ 'is-invalid': v$.details.files.$error }" />
+                                            <div v-if="v$.details.files.$error" class="text-danger">
+                                                A photo is required
+                                            </div>
                                         </div>
                                     </b-col>
                                 </b-row>
@@ -193,37 +217,61 @@
                                     <b-col md="6">
                                         <b-form-group label="Calories:">
                                             <b-form-input type="text" class="form-control" name="calroies"
-                                                placeholder="e.g. 228 kcal" v-model="nutritionDetails.calories" />
+                                                placeholder="e.g. 228 kcal" v-model="v$.nutritionDetails.calories.$model"
+                                                :class="{ 'is-invalid': v$.nutritionDetails.calories.$error }" />
+                                            <div v-if="v$.nutritionDetails.calories.$error" class="text-danger">
+                                                Calories is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
                                         <b-form-group label="Carbohydrates:">
                                             <b-form-input type="text" class="form-control" name="carbs"
-                                                placeholder="e.g. 22g" v-model="nutritionDetails.carbohydrates" />
+                                                placeholder="e.g. 22g" v-model="v$.nutritionDetails.carbohydrates.$model"
+                                                :class="{ 'is-invalid': v$.nutritionDetails.carbohydrates.$error }" />
+                                            <div v-if="v$.nutritionDetails.carbohydrates.$error" class="text-danger">
+                                                Carbohydrates is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
                                         <b-form-group label="Fat:">
                                             <b-form-input type="text" class="form-control" name="fat" placeholder="e.g. 14g"
-                                                v-model="nutritionDetails.fat" />
+                                                v-model="v$.nutritionDetails.fat.$model"
+                                                :class="{ 'is-invalid': v$.nutritionDetails.fat.$error }" />
+                                            <div v-if="v$.nutritionDetails.fat.$error" class="text-danger">
+                                                Fat is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
                                         <b-form-group label="Protein:">
                                             <b-form-input type="text" class="form-control" name="protein"
-                                                placeholder="e.g. 10g" v-model="nutritionDetails.protein" />
+                                                placeholder="e.g. 10g" v-model="v$.nutritionDetails.protein.$model"
+                                                :class="{ 'is-invalid': v$.nutritionDetails.protein.$error }" />
+                                            <div v-if="v$.nutritionDetails.protein.$error" class="text-danger">
+                                                Protein is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
                                         <b-form-group label="Sodium:">
                                             <b-form-input type="text" class="form-control" name="sodium"
-                                                placeholder="e.g. 368mg" v-model="nutritionDetails.sodium" />
+                                                placeholder="e.g. 368mg" v-model="v$.nutritionDetails.sodium.$model"
+                                                :class="{ 'is-invalid': v$.nutritionDetails.sodium.$error }" />
+                                            <div v-if="v$.nutritionDetails.sodium.$error" class="text-danger">
+                                                Sodium is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                     <b-col md="6">
                                         <b-form-group label="Cholesterol:">
                                             <b-form-input type="text" class="form-control" name="cholestrol"
-                                                placeholder="e.g. 0mg" v-model="nutritionDetails.cholestrol" />
+                                                placeholder="e.g. 0mg" v-model="v$.nutritionDetails.cholestrol.$model"
+                                                :class="{ 'is-invalid': v$.nutritionDetails.cholestrol.$error }" />
+                                            <div v-if="v$.nutritionDetails.cholestrol.$error" class="text-danger">
+                                                Cholesterol is required
+                                            </div>
                                         </b-form-group>
                                     </b-col>
                                 </b-row>
@@ -243,28 +291,35 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { API_URL } from '@/config'
 import IconComponent from '@/components/icons/IconComponent.vue'
-import { useFirebaseAuth, useFirebaseStorage } from 'vuefire'
+import { useFirebaseAuth, useFirebaseStorage, useDatabase } from 'vuefire'
 import { ref as storageRef, uploadBytes } from 'firebase/storage'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { toast } from 'vue3-toastify'
+import { ref as dbRef, push, update } from 'firebase/database'
 
 const auth = useFirebaseAuth()
 const storage = useFirebaseStorage()
 
 export default {
     name: "CreateRecipeView",
+    setup() {
+        return { v$: useVuelidate() }
+    },
     data() {
         return {
             iconSize: 25,
             currentindex: 1,
             //Page 1
-            name: "",
-            description: "",
-            preptime: "",
-            cooktime: "",
-            servings: "",
-            files: [],
+            details: {
+                name: "",
+                description: "",
+                preptime: "",
+                cooktime: "",
+                servings: "",
+                files: [],
+            },
             //Page 2
             ingredients: ["", "", ""],
             ingredientPlaceHolder: ["2 cups flour sifted",
@@ -296,8 +351,8 @@ export default {
         //Receive imported recipe from session storage
         let importedData = JSON.parse(sessionStorage.getItem("importedRecipe"));
         if (importedData) {
-            this.name = importedData.name;
-            this.servings = importedData.yield;
+            this.details.name = importedData.name;
+            this.details.servings = importedData.yield;
             this.ingredients = importedData.ingredientLines;
             this.nutritionDetails.calories = importedData.calories.toFixed() + " kcal";
             this.nutritionDetails.carbohydrates = importedData.totalNutrients.CHOCDF.quantity.toFixed() + " " + importedData.totalNutrients.CHOCDF.unit;
@@ -314,9 +369,30 @@ export default {
     components: {
         IconComponent
     },
+    validations() {
+        return {
+            details: {
+                name: { required, $lazy: true },
+                preptime: { required, $lazy: true },
+                cooktime: { required, $lazy: true },
+                servings: { required, $lazy: true },
+                description: { required, $lazy: true },
+                files: { required, $lazy: true },
+            },
+            nutritionDetails: {
+                calories: { required, $lazy: true },
+                carbohydrates: { required, $lazy: true },
+                fat: { required, $lazy: true },
+                protein: { required, $lazy: true },
+                sodium: { required, $lazy: true },
+                cholestrol: { required, $lazy: true },
+            }
+        }
+    },
     methods: {
-        changeTab(val) {
+        async changeTab(val) {
             this.currentindex = val;
+
         },
         addIngredient() {
             this.ingredients.push("");
@@ -325,16 +401,34 @@ export default {
             this.directions.push("");
         },
         async createRecipe() {
+            //validate form
+            if (!await this.v$.details.$validate()) {
+                toast('Details not complete', {
+                    autoClose: 5000,
+                    type: "error"
+                })
+                this.changeTab(1);
+                return;
+            }
+            if (!await this.v$.nutritionDetails.$validate()) {
+                toast('Nutritional Details not complete', {
+                    autoClose: 5000,
+                    type: "error"
+                })
+                this.changeTab(4);
+                return;
+            }
+
             //get current date
             let current = new Date();
             let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
             let data = {
-                name: this.name,
-                description: this.description,
-                preptime: this.preptime,
-                cooktime: this.cooktime,
-                servings: this.servings,
+                name: this.details.name,
+                description: this.details.description,
+                preptime: this.details.preptime,
+                cooktime: this.details.cooktime,
+                servings: this.details.servings,
                 ingredients: this.ingredients,
                 directions: this.directions,
                 nutritionDetails: this.nutritionDetails,
@@ -350,35 +444,29 @@ export default {
                 return el != ''
             })
 
-            let response = await axios.post(API_URL + "recipe", data);
-            if (response.data.status == 200) {
-                let recipeId = response.data.data;
-                console.log("response code: ", recipeId);
-                //Upload image
-                let imagePath = 'recipes/' + recipeId + "/" + this.files[0].name;
-                let newFileRef = storageRef(storage, imagePath);
-                uploadBytes(newFileRef, this.files[0])
-                    .then(async () => {
-                        //Send Image Path to db
-                        let data = {
-                            recipeId: recipeId,
-                            imagePath: imagePath
-                        }
-                        let response = await axios.post(API_URL + "recipe/image", data);
-                        console.log("RESPONSE: ", response);
-                        //Redirect to recipe view page
-                        this.$router.push({ name: "recipe.viewDetails", params: { id: recipeId } })
+            const db = useDatabase();
+            push(dbRef(db, "/recipes"), data)
+                .then((res) => {
+                    let id = res.key;
+                    //Upload image
+                    let imagePath = 'recipes/' + id + "/" + this.details.files[0].name;
+                    let newFileRef = storageRef(storage, imagePath);
+                    uploadBytes(newFileRef, this.details.files[0])
+                        .then(async () => {
+                            //Send Image Path to db
+                            update(dbRef(db, "/recipes/" + id), { imagePath: imagePath })
+                                .then(() => {
+                                    this.$router.push({ name: "recipe.viewDetails", params: { id: id } });
+                                })
 
-                    })
 
-            } else {
-                console.log("Error in creating recipe");
-            }
-            //Todo After done redirect to view recipe page
+
+                        });
+                });
         },
         uploadImage(event) {
-            this.files = event.target.files;
-            console.log("Files: ", this.files);
+            this.details.files = event.target.files;
+            // console.log("Files: ", this.details.files);
         },
     },
 };
