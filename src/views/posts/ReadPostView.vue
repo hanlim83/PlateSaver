@@ -20,7 +20,7 @@ body {
   <div class="container-fluid py-5">
     <div class="card mb-3" style="max-width: 100%">
       <div class="row g-0">
-        <div class="col-md-12 col-lg-4"><img :src="imageURL" class="img-fluid" style="width: 100%;" /></div>
+        <div class="col-md-12 col-lg-4"><img :src="imageURL" class="img-fluid" style="width: 100%" /></div>
         <div class="col-lg-8">
           <div class="card-body">
             <h5 class="card-title">{{ title }}</h5>

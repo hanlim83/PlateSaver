@@ -8,20 +8,20 @@
 */
 
 // Configuration
-@import "./bootstrap/functions";
+@import './bootstrap/functions';
 // Variables
-@import "./hope-ui-design-system/variable";
-@import "./hope-ui-design-system/variables/index";
-@import "./bootstrap/variables";
+@import './hope-ui-design-system/variable';
+@import './hope-ui-design-system/variables/index';
+@import './bootstrap/variables';
 
-@import "./bootstrap/mixins";
+@import './bootstrap/mixins';
 
 // Hope Ui Design System Mixin And Helper
-@import "./hope-ui-design-system/helper/functions";
-@import "./hope-ui-design-system/helper/mixins";
-@import "./hope-ui-design-system/helper/reboot";
+@import './hope-ui-design-system/helper/functions';
+@import './hope-ui-design-system/helper/mixins';
+@import './hope-ui-design-system/helper/reboot';
 
-@import "./custom/auth/authentication";
-@import "./custom/kanban/kanban";
-@import "./custom/pricing/pricing";
-@import "./custom/ui-kit/ui-kit";
+@import './custom/auth/authentication';
+@import './custom/kanban/kanban';
+@import './custom/pricing/pricing';
+@import './custom/ui-kit/ui-kit';

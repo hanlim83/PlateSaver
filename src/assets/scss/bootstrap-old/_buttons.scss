@@ -17,7 +17,7 @@
   --#{$prefix}btn-border-radius: #{$btn-border-radius};
   --#{$prefix}btn-box-shadow: #{$btn-box-shadow};
   --#{$prefix}btn-disabled-opacity: #{$btn-disabled-opacity};
-  --#{$prefix}btn-focus-box-shadow: 0 0 0 #{$btn-focus-width} rgba(var(--#{$prefix}btn-focus-shadow-rgb), .5);
+  --#{$prefix}btn-focus-box-shadow: 0 0 0 #{$btn-focus-width} rgba(var(--#{$prefix}btn-focus-shadow-rgb), 0.5);
   // scss-docs-end btn-css-vars
 
   display: inline-block;
@@ -95,7 +95,6 @@
   }
 }
 
-
 //
 // Alternate buttons
 //
@@ -103,24 +102,10 @@
 // scss-docs-start btn-variant-loops
 @each $color, $value in $theme-colors {
   .btn-#{$color} {
-    @if $color == "light" {
-      @include button-variant(
-        $value,
-        $value,
-        $hover-background: shade-color($value, $btn-hover-bg-shade-amount),
-        $hover-border: shade-color($value, $btn-hover-border-shade-amount),
-        $active-background: shade-color($value, $btn-active-bg-shade-amount),
-        $active-border: shade-color($value, $btn-active-border-shade-amount)
-      );
-    } @else if $color == "dark" {
-      @include button-variant(
-        $value,
-        $value,
-        $hover-background: tint-color($value, $btn-hover-bg-tint-amount),
-        $hover-border: tint-color($value, $btn-hover-border-tint-amount),
-        $active-background: tint-color($value, $btn-active-bg-tint-amount),
-        $active-border: tint-color($value, $btn-active-border-tint-amount)
-      );
+    @if $color == 'light' {
+      @include button-variant($value, $value, $hover-background: shade-color($value, $btn-hover-bg-shade-amount), $hover-border: shade-color($value, $btn-hover-border-shade-amount), $active-background: shade-color($value, $btn-active-bg-shade-amount), $active-border: shade-color($value, $btn-active-border-shade-amount));
+    } @else if $color == 'dark' {
+      @include button-variant($value, $value, $hover-background: tint-color($value, $btn-hover-bg-tint-amount), $hover-border: tint-color($value, $btn-hover-border-tint-amount), $active-background: tint-color($value, $btn-active-bg-tint-amount), $active-border: tint-color($value, $btn-active-border-tint-amount));
     } @else {
       @include button-variant($value, $value);
     }
@@ -133,7 +118,6 @@
   }
 }
 // scss-docs-end btn-variant-loops
-
 
 //
 // Link buttons
@@ -171,7 +155,6 @@
 
   // No need for an active state here
 }
-
 
 //
 // Button Sizes

@@ -36,7 +36,9 @@
           <label for="Tags" class="form-label mb-0">Hashtags:</label>
           <input type="text" class="form-control" id="food" v-model="tags" required />
         </div>
-        <div class="col-4 mb-3">
+      </div>
+      <div class="row">
+        <div class="col">
           <h4>Your Position</h4>
           Latitude : {{ currPos.lat.toFixed(2) }}, longitude {{ currPos.lng.toFixed(2) }}
         </div>
@@ -52,8 +54,8 @@
 
 <script setup>
 /*eslint-disable no-undef*/
-import { ref as dbRef, update } from 'firebase/database'
-import { useFirebaseAuth, useDatabase} from 'vuefire'
+import { ref as dbRef, update, onValue } from 'firebase/database'
+import { useFirebaseAuth, useDatabase } from 'vuefire'
 import { computed, ref, onMounted } from 'vue'
 import router from '@/router'
 import { toast } from 'vue3-toastify'
@@ -73,7 +75,7 @@ const lat = ref(0)
 const long = ref(0)
 
 onValue(
-  dbRef(db, '/users/' + auth.currentUser.uid),
+  dbRef(db, '/Posts/' + id),
   (snapshot) => {
     console.log(snapshot.val())
     if (snapshot.val().userID != auth.currentUser.uid) {
@@ -97,19 +99,14 @@ const handleUpdatingPost = () => {
       title: title.value,
       content: content.value,
       tags: tags.value.split('#').slice(1),
-      contact: contact.value,
-      timeStamp: new Date().toString(),
-      location: location.value,
-      collectionStatus: true,
-      lat: currPos.value.lat,
-      long: currPos.value.lng
+      contact: contact.value
     })
     toast('Post Updated Successfully', {
       autoClose: 5000,
       type: 'success'
     })
     setTimeout(() => {
-      router.push({ name: 'posts.myposts' })
+      router.push({ name: 'posts.own' })
     }, 6000)
   } catch (error) {
     console.log(error)

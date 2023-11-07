@@ -1,4 +1,3 @@
-
 // Vanila DatePicker
 
 $grey-dark: lighten($black, 25%) !default;
@@ -8,8 +7,8 @@ $grey-lighter: darken($light, 10%) !default;
 $dp-background-color: $white !default;
 $dp-border-color: $border-color !default;
 
-$dp-border-radius:            $border-radius-lg !default;
-$dp-border-radius-small:      $border-radius-lg !default;
+$dp-border-radius: $border-radius-lg !default;
+$dp-border-radius-small: $border-radius-lg !default;
 
 $dp-line-height-base: 1.5 !default;
 $dp-font-size-normal: 1rem !default;
@@ -30,8 +29,8 @@ $dp-cell-disabled-color: $grey-lighter !default;
 $dp-cell-selected-background-color: $primary !default;
 $dp-cell-selected-color: #fff !default; // link(blue)-invert
 $dp-cell-selected-font-weight: 600 !default;
-$dp-cell-today-background-color: hsl(171, 100%, 41%) !default;  // turquoise (primary)
-$dp-cell-today-color: #fff !default;  // turquoise-invert
+$dp-cell-today-background-color: hsl(171, 100%, 41%) !default; // turquoise (primary)
+$dp-cell-today-color: #fff !default; // turquoise-invert
 $dp-cell-highlighted-background-color: $light !default;
 
 $dp-range-start-end-background-color: $grey-light !default;

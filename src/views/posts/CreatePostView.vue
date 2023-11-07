@@ -93,20 +93,22 @@ watch(files, (newFile) => {
   if (newFile.length == 1) {
     console.log(newFile[0])
     let newPostPicRef = storageRef(storage, 'posts-media/' + id + '/' + newFile[0].name)
-    uploadBytes(newPostPicRef, newFile[0]).then((snapshot) => {
-      console.log(snapshot)
-      imagePath = snapshot.ref.fullPath
-      toast('Image Updated Successfully', {
-        autoClose: 5000,
-        type: 'info'
+    uploadBytes(newPostPicRef, newFile[0])
+      .then((snapshot) => {
+        console.log(snapshot)
+        imagePath = snapshot.ref.fullPath
+        toast('Image Updated Successfully', {
+          autoClose: 5000,
+          type: 'info'
+        })
       })
-    }) .catch((error) => {
-      console.log(error)
-      toast('Image not uploaded', {
-        autoClose: 5000,
-        type: 'warning'
+      .catch((error) => {
+        console.log(error)
+        toast('Image not uploaded', {
+          autoClose: 5000,
+          type: 'warning'
+        })
       })
-    })
   }
 })
 
