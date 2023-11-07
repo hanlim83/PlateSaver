@@ -1,12 +1,6 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
-  },
   "hosting": {
-    "public": "frontend/dist",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
