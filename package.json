@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.22.15",
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@fullcalendar/bootstrap": "^5.11.0",
     "@fullcalendar/core": "^5.11.0",
     "@fullcalendar/daygrid": "^5.11.0",

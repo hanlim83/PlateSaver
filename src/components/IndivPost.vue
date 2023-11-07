@@ -31,10 +31,11 @@ p {
       </div>
       <router-link :to="{ path: '/posts/readPost/' + id }" class="my-3 h5">{{ title }}</router-link>
       <div class="me-3">{{ 'by ' + displayName }}</div>
-      <div class="row my-2 justify-content-center">
-        <span class="col-3 col-md-1 badge bg-info mx-1 my-1 text-capitalize d-inline-block text-truncate" v-for="(hashtag, key) in tags" :key="key">{{ hashtag }}</span>
+      <div class="d-flex align-items-center my-2">
+        <span class="badge bg-warning mx-1 text-capitalize" v-if="isCollected">Collected</span>
+        <span class="badge bg-info mx-1 text-capitalize" v-for="(hashtag, key) in tags" :key="key">{{ hashtag }}</span>
       </div>
-      <p class="pt-2">{{ content }}</p>
+      <p class="pt-2 line-break">{{ content.replace(/\n/g, "\n") }}</p>
     </b-card-text>
     <div class="d-grid d-flex justify-content-end">
       <router-link :to="{ path: '/posts/read/' + id }" class="btn btn-primary btn-sm">Read More</router-link>
@@ -53,7 +54,9 @@ const props = defineProps({
   userID: { type: String, default: '' },
   title: { type: String, default: '' },
   content: { type: String, default: '' },
-  tags: { type: Array, default: () => [] }
+  tags: { type: Array, default: () => [] },
+  cameFrom: { type: String, default: '' },
+  isCollected: { type: Boolean, default: false }
 })
 console.log(props.foo)
 
@@ -71,3 +74,9 @@ getDownloadURL(storageRef(storage, props.foodImage)).then((url) => {
   console.log(foodImageURL.value)
 })
 </script>
+
+<style>
+.line-break {
+  white-space: pre-line;
+}
+</style>

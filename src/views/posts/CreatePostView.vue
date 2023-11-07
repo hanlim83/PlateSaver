@@ -59,10 +59,18 @@ input[type=text], input[type=file] {
                     <div v-if="v$.files.$error" class="text-danger">A photo is required</div>
                   </div>
                 </b-col>
+                <b-col md="4" class="">
+                  <b-form-group label="Tags:">
+                    <b-form-input type="text" v-model="tags" class="form-control" name="tags" placeholder="#Awesome" />
+                  </b-form-group>
+                </b-col>
                 <b-col md="12">
                   <b-form-group label="Collection Location:">
                     Latitude : {{ latitude }}, longitude {{ longitude }}
-                    <div ref="mapDiv" style="width: 100%; height: 25vh"></div>
+                    <GMapMap :center="center" :zoom="18" map-type-id="terrain" style="width: 100%; height: 300px"
+                      ref="mapRef">
+                      <GMapMarker :position="center" />
+                    </GMapMap>
                   </b-form-group>
                 </b-col>
                 <!----
@@ -131,14 +139,14 @@ input[type=text], input[type=file] {
 
 <script>
 /*eslint-disable no-undef*/
-import { ref as dbRef, push } from 'firebase/database'
+import { ref as dbRef, push, update } from 'firebase/database'
 import { useFirebaseAuth, useDatabase, useFirebaseStorage } from 'vuefire'
 import { ref as storageRef, uploadBytes } from 'firebase/storage'
 import router from '@/router'
 import { toast } from 'vue3-toastify'
 // import { useFileDialog } from '@vueuse/core'
 // import { useGeoLocation } from '@/components/useGeolocation'
-import { Loader } from '@googlemaps/js-api-loader'
+// import { Loader } from '@googlemaps/js-api-loader'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
@@ -146,7 +154,6 @@ const auth = useFirebaseAuth()
 const storage = useFirebaseStorage()
 const db = useDatabase()
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBHv4JD1OQx8TgqAgiing9nRP6HM72zAB4'
 
 export default {
   name: 'CreatePostView',
@@ -160,27 +167,21 @@ export default {
       tags: '',
       contact: '',
       location: '',
-      files: '',
-      currentCoords: {},
+      files: [],
       latitude: 0,
       longitude: 0,
-      mapDiv: {}
+      center: { lat: 0, lng: 0 },
+      address: ""
     }
   },
   validations() {
     return {
       title: { required },
       description: { required },
-      tags: { required },
+      // tags: { required },
       contact: { required },
-      location: { required },
+      // location: { required },
       files: { required }
-    }
-  },
-  computed: {
-    currPos() {
-      console.log("Current Coords: ", this.currentCoords.coords)
-      return {}
     }
   },
   async mounted() {
@@ -189,42 +190,41 @@ export default {
       console.log("REACHED HERE")
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
+      this.center = { lat: this.latitude, lng: this.longitude }
+      console.log("MAPREF: ", this.$refs.mapRef)
 
-      // Do something with the position
-      let loader = new Loader({ apiKey: GOOGLE_MAPS_API_KEY })
-      loader.load()
-      console.log('centering map on coords')
-
-      const map = new google.maps.Map(this.mapDiv.value, {
-        center: {
-          lat: this.latitude,
-          lng: this.longitude
-        } /* centre the map */,
-        zoom: 18 /* how zoomed in is the map */
-      })
-      const icon = {
-        url: 'https://maps.gstatic.com/mapfiles/markers2/measle_blue.png', // url
-        scaledSize: new google.maps.Size(14, 14) // scaled size
-      }
-
-      const infowindow = new google.maps.InfoWindow()
-      const geocoder = new google.maps.Geocoder()
-      geocoder
-        .geocode({ location: currPos.value })
-        .then((response) => {
-          if (response.results[0]) {
-            const marker = new google.maps.Marker({
-              position: currPos.value,
-              map: map,
-              icon: icon
+      this.$refs.mapRef.$mapPromise.then((mapObject) => {
+        console.log('map is loaded now', mapObject);
+        const geocoder = new google.maps.Geocoder()
+        geocoder
+          .geocode({ location: this.center })
+          .then((response) => {
+            if (response.results[0]) {
+              const marker = new google.maps.Marker({
+                position: { lat: this.latitude, lng: this.longitude },
+                map: mapObject
+              })
+              const infowindow = new google.maps.InfoWindow()
+              this.address = response.results[0].formatted_address
+              infowindow.setContent(this.address)
+              infowindow.open(mapObject, marker)
+              console.log("Address: ", this.address)
+            } else {
+              toast('Address cannot be found', {
+                autoClose: 5000,
+                type: 'failure'
+              })
+            }
+          })
+          .catch((error) => {
+            console.log("ERROR: ", error);
+            toast('Cannot get location', {
+              autoClose: 5000,
+              type: 'failure'
             })
-            infowindow.setContent(response.results[0].formatted_address)
-            infowindow.open(map, marker) //Don't Need for Radar Page
-          } else {
-            window.alert('No results found')
-          }
-        })
-        .catch((e) => window.alert('Geocoder failed due to: ' + e))
+          })
+      });
+
     };
 
     const error = (err) => {
@@ -235,14 +235,15 @@ export default {
     navigator.geolocation.getCurrentPosition(success, error);
   },
 
-  methds: {
+  methods: {
     async handleAddingPost() {
       console.log('Adding Post')
       try {
         //validate form
-        console.log("description Errors: ", v$.description)
-        console.log("Files Errors: ", v$.files)
-        if (!(await v$.value.$validate())) {
+        console.log("description Errors: ", this.description)
+        console.log("Files Errors: ", this.files)
+        if (!(await this.v$.$validate())) {
+          console.log("Fields: ", this.v$.$errors)
           toast('Invalid Fields', {
             autoClose: 5000,
             type: 'error'
@@ -254,41 +255,37 @@ export default {
         let current = new Date()
         let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`
 
-        let imagePath = 'posts/' + id + '/' + v$.files[0].name
-
         let data = {
-          title: v$.title,
-          content: v$.descripiton,
-          tags: v$.tags.split('#').slice(1),
-          contact: v$.contact,
-          foodImage: imagePath,
+          title: this.title,
+          content: this.description,
+          tags: this.tags.split('#').slice(1),
+          contact: this.contact,
           userID: auth.currentUser.uid,
           userName: auth.currentUser.displayName,
           timeStamp: dateNow,
-          location: location.value,
           collectionStatus: false,
-          lat: currPos.value.lat,
-          long: currPos.value.lng
+          lat: this.latitude,
+          long: this.longitude,
+          address: this.address
         }
 
         push(dbRef(db, '/posts'), data).then((res) => {
           let id = res.key
+          let imagePath = 'posts/' + id + '/' + this.files[0].name
           let newFileRef = storageRef(storage, imagePath)
-          uploadBytes(newFileRef, v$.files[0]).then(async () => {
+          uploadBytes(newFileRef, this.files[0]).then(async () => {
             //Send Image Path to db
-            update(dbRef(db, '/posts/' + id), { imagePath: imagePath }).then(() => {
-              // this.$router.push({ name: 'recipe.viewDetails', params: { id: id } })
+            update(dbRef(db, '/posts/' + id), { foodImage: imagePath }).then(() => {
+              toast('Post Created Successfully', {
+                autoClose: 1000,
+                type: 'success'
+              })
+              router.push({ name: 'posts.own' })
             })
           })
         })
 
-        toast('Post Created Successfully', {
-          autoClose: 5000,
-          type: 'success'
-        })
-        setTimeout(() => {
-          router.push({ name: 'posts.myPosts' })
-        }, 6000)
+
       } catch (error) {
         console.log("ERROR: ", error)
         toast('An Error Occurred', {
@@ -298,16 +295,12 @@ export default {
       }
     },
     uploadImage(event) {
-      v$.files = event.target.files
-      console.log("Files: ", v$.files)
+      this.files = event.target.files
+      console.log("Files: ", this.files)
     }
 
   }
 }
-
-
-
-
 // watch(files, (newFile) => {
 //   console.log(newFile)
 //   if (newFile.length == 1) {

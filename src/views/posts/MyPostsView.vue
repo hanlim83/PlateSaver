@@ -6,9 +6,9 @@ import { computed } from 'vue'
 
 const auth = useFirebaseAuth()
 const db = useDatabase()
-const allposts = useDatabaseList(dbRef(db, 'Posts'))
+const allposts = useDatabaseList(dbRef(db, 'posts'))
 const myposts = computed(() => {
-  console.log(myposts)
+  console.log("POSTS: ", myposts)
   return allposts.value.filter((item) => item.userID == auth.currentUser.uid)
 })
 </script>
@@ -18,7 +18,8 @@ const myposts = computed(() => {
       <div class="container">
         <div class="row">
           <div class="col-lg-4" v-for="(post, ind) in myposts" :key="ind">
-            <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title" :userID="post.userID" :content="post.content" :tags="post.tags" />
+            <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title"
+              :userID="post.userID" :content="post.content" :tags="post.tags" :is-collected="post.collectionStatus" />
           </div>
         </div>
       </div>
