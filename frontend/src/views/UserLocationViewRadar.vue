@@ -3,7 +3,7 @@
     <h4>Your Position</h4>
     Latitude : {{ currPos.lat.toFixed(2) }}, longitude {{ currPos.lng.toFixed(2) }}
   </div>
-  <div ref="mapDiv" style="width : 100%; height : 80vh" />
+  <div ref="mapDiv" style="width : 100%; height : 50vh" />
 
 </template>
 
@@ -60,6 +60,7 @@ export default {
             new google.maps.Marker({
               position: currPos.value,
               map: map,
+              animation: google.maps.Animation.BOUNCE,
               icon : icon 
             });
             
