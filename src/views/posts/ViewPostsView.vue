@@ -37,9 +37,11 @@ const uncollectedPosts = computed(() => {
   <div class="row" data-masonry='{"percentPosition": true }'>
     <div class="inner-box">
       <div class="container">
-        <b-card-group columns>
-          <IndivPost v-for="(post, ind) in uncollectedPosts" :key="ind" :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title" :userID="post.userID" :content="post.content" :tags="post.tags" />
-        </b-card-group>
+        <div class="row">
+          <div class="col-lg-4" v-for="(post, ind) in uncollectedPosts" :key="ind">
+            <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title" :userID="post.userID" :content="post.content" :tags="post.tags" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
