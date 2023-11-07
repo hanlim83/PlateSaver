@@ -15,12 +15,12 @@ export const initialState = {
     theme_style_appearance: {
       value: ['theme-default']
     },
-     theme_color: {
+    theme_color: {
       colors: {
-        "--{{prefix}}primary": "#3a57e8",
-        "--{{prefix}}info": "#08B1BA"
+        '--{{prefix}}primary': '#3a57e8',
+        '--{{prefix}}info': '#08B1BA'
       },
-      value: "theme-color-default"
+      value: 'theme-color-default'
     },
     theme_font_size: {
       value: 'theme-fs-sm'
@@ -69,22 +69,15 @@ export const defaultState = {
       type: 'layout_design',
       value: 'light'
     },
-      theme_color: {
-      target: "body",
-      choices: [
-        "theme-color-blue",
-        "theme-color-gray",
-        "theme-color-red",
-        "theme-color-yellow",
-        "theme-color-pink",
-        "theme-color-default",
-      ],
-      type: "default",
+    theme_color: {
+      target: 'body',
+      choices: ['theme-color-blue', 'theme-color-gray', 'theme-color-red', 'theme-color-yellow', 'theme-color-pink', 'theme-color-default'],
+      type: 'default',
       colors: {
-        "--{{prefix}}primary": "#3a57e8",
-        "--{{prefix}}info": "#08B1BA",
+        '--{{prefix}}primary': '#3a57e8',
+        '--{{prefix}}info': '#08B1BA'
       },
-      value: "theme-color-default",
+      value: 'theme-color-default'
     },
     theme_font_size: {
       target: 'html',

@@ -9,15 +9,11 @@
         <label for="age" class="form-label">Age</label>
         <input type="text" class="form-control" id="age" v-model="age" />
       </div>
-      <button type="submit" class="btn btn-primary" @click="createUser()">
-        Submit
-      </button>
+      <button type="submit" class="btn btn-primary" @click="createUser()">Submit</button>
     </form>
 
     <br />
-    <button type="button" class="btn btn-primary" @click="getUsers()">
-      Get Users
-    </button>
+    <button type="button" class="btn btn-primary" @click="getUsers()">Get Users</button>
     <br />
 
     <div>
@@ -38,36 +34,36 @@
 </template>
 
 <script>
-import axios from "axios";
-import { API_URL } from "../config";
+import axios from 'axios'
+import { API_URL } from '../config'
 
 export default {
-  name: "CreateUserView",
+  name: 'CreateUserView',
   data() {
     return {
-      name: "",
-      age: "",
+      name: '',
+      age: '',
       users: [],
-      canViewTable: false,
-    };
+      canViewTable: false
+    }
   },
   components: {},
   methods: {
     async getUsers() {
-      let response = await axios.get(API_URL + "users");
-      this.users = response.data.data;
-      this.canViewTable = true;
-      console.log("Users: ", this.users);
+      let response = await axios.get(API_URL + 'users')
+      this.users = response.data.data
+      this.canViewTable = true
+      console.log('Users: ', this.users)
     },
     async createUser() {
-      console.log("Name: ", this.name);
-      console.log("Age: ", this.age);
-      let response = await axios.post(API_URL + "user", {
+      console.log('Name: ', this.name)
+      console.log('Age: ', this.age)
+      let response = await axios.post(API_URL + 'user', {
         name: this.name,
-        age: this.age,
-      });
-      console.log("Response: ", response);
-    },
-  },
-};
+        age: this.age
+      })
+      console.log('Response: ', response)
+    }
+  }
+}
 </script>

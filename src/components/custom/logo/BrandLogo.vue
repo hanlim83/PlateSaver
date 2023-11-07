@@ -1,7 +1,7 @@
 <template>
   <!--Logo start-->
   <div class="logo-main">
-    <img src="@/assets/logo.png" alt="Logo" style="width: 10vh;" />
+    <img src="@/assets/logo.png" alt="Logo" style="width: 10vh" />
   </div>
   <!--Logo End-->
 </template>

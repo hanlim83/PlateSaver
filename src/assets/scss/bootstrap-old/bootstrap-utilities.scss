@@ -1,15 +1,15 @@
-@import "mixins/banner";
+@import 'mixins/banner';
 @include bsBanner(Utilities);
 
 // Configuration
-@import "functions";
-@import "variables";
-@import "maps";
-@import "mixins";
-@import "utilities";
+@import 'functions';
+@import 'variables';
+@import 'maps';
+@import 'mixins';
+@import 'utilities';
 
 // Helpers
-@import "helpers";
+@import 'helpers';
 
 // Utilities
-@import "utilities/api";
+@import 'utilities/api';

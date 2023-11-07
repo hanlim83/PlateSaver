@@ -1,4 +1,4 @@
-@mixin bsBanner($file, $suffix:"") {
+@mixin bsBanner($file, $suffix: '') {
   /*!
    * Bootstrap #{$file} v5.2.0 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors
@@ -6,4 +6,3 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
 }
-

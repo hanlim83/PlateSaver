@@ -36,8 +36,8 @@
           <label for="Tags" class="form-label mb-0">Hashtags:</label>
           <input type="text" class="form-control" id="food" v-model="tags" required />
         </div>
-        </div>
-        <div class="row">
+      </div>
+      <div class="row">
         <div class="col">
           <h4>Your Position</h4>
           Latitude : {{ currPos.lat.toFixed(2) }}, longitude {{ currPos.lng.toFixed(2) }}
@@ -55,7 +55,7 @@
 <script setup>
 /*eslint-disable no-undef*/
 import { ref as dbRef, update, onValue } from 'firebase/database'
-import { useFirebaseAuth, useDatabase} from 'vuefire'
+import { useFirebaseAuth, useDatabase } from 'vuefire'
 import { computed, ref, onMounted } from 'vue'
 import router from '@/router'
 import { toast } from 'vue3-toastify'

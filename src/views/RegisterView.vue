@@ -1,7 +1,7 @@
 <template>
   <div class="create-user bg-warning">
     <form>
-      <div class = "text-start">
+      <div class="text-start">
         <div class="mb-3">
           <label for="name" class="form-label">First Name</label>
           <input type="text" class="form-control" id="name" v-model="name" />
@@ -22,17 +22,12 @@
           <label for="age" class="form-label">Age</label>
           <input type="number" class="form-control" id="age" v-model="age" />
         </div>
-
       </div>
-        <button type="submit" class="btn btn-primary" @click="createUser()">
-          Submit
-        </button>
+      <button type="submit" class="btn btn-primary" @click="createUser()">Submit</button>
     </form>
- 
+
     <br />
-    <button type="button" class="btn btn-primary" @click="getUsers()">
-      Get Users
-    </button>
+    <button type="button" class="btn btn-primary" @click="getUsers()">Get Users</button>
     <br />
 
     <div>
@@ -45,7 +40,7 @@
         </thead>
         <tbody>
           <tr v-for="(user, index) in users" :key="index">
-            <th scope="col">{{ user.name + "" + user.nameLast }}</th>
+            <th scope="col">{{ user.name + '' + user.nameLast }}</th>
             <th scope="col">{{ user.userName }}</th>
             <th scope="col">{{ user.password }}</th>
             <th scope="col">{{ user.age }}</th>
@@ -54,46 +49,45 @@
       </table>
     </div>
   </div>
-
 </template>
 
 <script>
-const API_URL = "http://localhost:4000/";
-import axios from "axios";
+const API_URL = 'http://localhost:4000/'
+import axios from 'axios'
 
 export default {
-  name: "RegisterView",
+  name: 'RegisterView',
   data() {
     return {
-      name: "",
-      nameLast : "",
-      userName: "",
-      password : "",
-      age : "",
+      name: '',
+      nameLast: '',
+      userName: '',
+      password: '',
+      age: '',
       users: [],
-      canViewTable: false,
-    };
+      canViewTable: false
+    }
   },
   components: {},
   methods: {
     async getUsers() {
-      let response = await axios.get(API_URL + "users");
-      this.users = response.data.data;
-      this.canViewTable = true;
-      console.log("Users: ", this.users);
+      let response = await axios.get(API_URL + 'users')
+      this.users = response.data.data
+      this.canViewTable = true
+      console.log('Users: ', this.users)
     },
     async createUser() {
-      console.log("Name: ", this.name);
-      console.log("Age: ", this.age);
-      let response = await axios.post(API_URL + "user", {
+      console.log('Name: ', this.name)
+      console.log('Age: ', this.age)
+      let response = await axios.post(API_URL + 'user', {
         name: this.name,
-        nameLast : this.nameLast,
-        userName : this.userName,
-        password : this.password,
-        age: this.age,
-      });
-      console.log("Response: ", response);
-    },
-  },
-};
+        nameLast: this.nameLast,
+        userName: this.userName,
+        password: this.password,
+        age: this.age
+      })
+      console.log('Response: ', response)
+    }
+  }
+}
 </script>
