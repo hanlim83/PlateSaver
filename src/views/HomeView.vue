@@ -27,7 +27,7 @@ if (route.query.state != null && route.query.state === 'logout') {
 </script>
 <template>
   <div class="home">
-    <h1>Welcome to Your Vue.js App</h1>
+    <!-- <h1>Welcome to Your Vue.js App</h1> -->
 
     <div class="outerlayer">
       <img src="@/assets/frontpage.jpeg" style="width: 100%" />
