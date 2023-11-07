@@ -1,12 +1,5 @@
-<!--<style>
-input[type=text], input[type=file] {
-  border:1px solid black;
-}
-
-</style>-->
-
 <template>
-  <div class="container-xxl display-3 text-center text-primary"><strong>Share your Food With Others!</strong></div>
+  <div class="container-xxl display-3 text-center text-primary"><strong>Edit Your Post</strong></div>
   <br />
   <br />
   <div class="create-post">
@@ -19,7 +12,7 @@ input[type=text], input[type=file] {
       </div>
     </div>
     <br />
-    <form @submit.prevent="handleAddingPost">
+    <form @submit.prevent="handleUpdatingPost">
       <div class="row g-3">
         <div class="col"></div>
         <div class="col-4 mb-3">
@@ -39,12 +32,6 @@ input[type=text], input[type=file] {
           <label class="form-label mb-0" for="contact">Contact:</label>
           <input type="text" class="form-control" id="contact" required />
         </div>
-
-        <div class="col-4 mb-3">
-          <label class="form-label mb-0" for="customFile">Upload An Image:</label>
-          <button type="button" class="form-control" id="customFile" @click="open({ accept: 'image/*', multiple: false })">Choose Image</button>
-        </div>
-
         <div class="col-4 mb-3">
           <label for="Tags" class="form-label mb-0">Hashtags:</label>
           <input type="text" class="form-control" id="food" v-model="tags" required />
@@ -58,7 +45,6 @@ input[type=text], input[type=file] {
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
     <br />
     <br />
   </div>
@@ -66,57 +52,59 @@ input[type=text], input[type=file] {
 
 <script setup>
 /*eslint-disable no-undef*/
-import { ref as dbRef, set } from 'firebase/database'
-import { useFirebaseAuth, useDatabase, useFirebaseStorage } from 'vuefire'
-import { ref as storageRef, uploadBytes } from 'firebase/storage'
-import { computed, ref, onMounted, watch } from 'vue'
+import { ref as dbRef, update } from 'firebase/database'
+import { useFirebaseAuth, useDatabase} from 'vuefire'
+import { computed, ref, onMounted } from 'vue'
 import router from '@/router'
 import { toast } from 'vue3-toastify'
-import { useFileDialog } from '@vueuse/core'
 import { useGeoLocation } from '@/components/useGeolocation'
 import { Loader } from '@googlemaps/js-api-loader'
+import { useRoute } from 'vue-router'
 
 const auth = useFirebaseAuth()
-const storage = useFirebaseStorage()
 const db = useDatabase()
-const id = (Math.random() + 1).toString(36).substring(2)
-const { files, open } = useFileDialog()
+const route = useRoute()
+const id = route.params.id
 const title = ref('')
 const content = ref('')
 const tags = ref('')
 const contact = ref('')
-const location = ref('')
-var imagePath = ''
+const lat = ref(0)
+const long = ref(0)
 
-watch(files, (newFile) => {
-  console.log(newFile)
-  if (newFile.length == 1) {
-    console.log(newFile[0])
-    let newPostPicRef = storageRef(storage, 'posts-media/' + id + '/' + newFile[0].name)
-    uploadBytes(newPostPicRef, newFile[0]).then((snapshot) => {
-      console.log(snapshot)
-      imagePath = snapshot.ref.fullPath
-    })
+onValue(
+  dbRef(db, '/users/' + auth.currentUser.uid),
+  (snapshot) => {
+    console.log(snapshot.val())
+    if (snapshot.val().userID != auth.currentUser.uid) {
+      router.push({ name: 'not-found' })
+    }
+    title.value = snapshot.val().title
+    content.value = snapshot.val().content
+    tags.value = '#' + snapshot.val().tags.join('#')
+    lat.value = snapshot.val().lat
+    long.value = snapshot.val().long
+  },
+  {
+    onlyOnce: true
   }
-})
+)
 
-const handleAddingPost = () => {
-  console.log('Adding Post')
+const handleUpdatingPost = () => {
+  console.log('Updating Post')
   try {
-    set(dbRef(db, 'Posts/' + id), {
+    update(dbRef(db, 'Posts/' + id), {
       title: title.value,
       content: content.value,
       tags: tags.value.split('#').slice(1),
       contact: contact.value,
-      foodImage: imagePath,
-      userID: auth.currentUser.uid,
       timeStamp: new Date().toString(),
       location: location.value,
       collectionStatus: true,
       lat: currPos.value.lat,
       long: currPos.value.lng
     })
-    toast('Post Created Successfully', {
+    toast('Post Updated Successfully', {
       autoClose: 5000,
       type: 'success'
     })

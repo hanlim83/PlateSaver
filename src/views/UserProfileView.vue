@@ -60,9 +60,11 @@
                 <label for="confirm-new-password" class="form-label">Confirm New Password</label>
                 <input v-model="cfmNewPassword" type="password" class="form-control" id="confirm-new-password" />
               </div>
-              <button type="submit" class="btn btn-primary">Update Profile</button>
-              <button type="button" class="btn btn-secondary" @click="handleReset">Reset Changes</button>
-              <button type="button" class="btn btn-danger" @click="handleDelete">Delete Acccount</button>
+              <div class="btn-group" role="group" aria-label="Profile Actions">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <button type="button" class="btn btn-secondary" @click="handleReset">Reset Changes</button>
+                <button type="button" class="btn btn-danger" @click="handleDelete">Delete Acccount</button>
+              </div>
             </div>
             <div v-else>
               <div class="form-group">

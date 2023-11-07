@@ -8,13 +8,6 @@
             :recipeNutrition="currentRecipe.totalNutrients" :recipeServings="currentRecipe.yield"
             :recipeSource="currentRecipe.source">
         </RecipePopUp>
-        <template #modal-footer="{ test }">
-            <!-- <button v-b-modal.modal-close_visit class="btn btn-danger btn-sm m-1">Close</button>
-            <button v-b-modal.modal-close_visit class="btn btn-success btn-sm m-1">AA</button> -->
-            <b-button size="sm" variant="outline-secondary" @click="test('forget')">AAA</b-button>
-
-        </template>
-
     </b-modal>
 
     <div>
@@ -52,7 +45,6 @@
 
 <script>
 import axios from "axios";
-import { API_URL } from "@/config";
 import RecipePopUp from '@/components/RecipePopUp.vue'
 
 export default {
@@ -72,8 +64,22 @@ export default {
     },
     methods: {
         async getEdamaneRecipes() {
-            let response = await axios.get(API_URL + "edamane/search", { params: { query: this.searchInput } });
-            this.recipeData = response.data.data;
+            //Application Keys
+            const app_id = '037ad2a2'
+            const app_key = 'd01dafa0c089f340f1969037b6ceffa2';
+
+            const options = {
+                method: 'GET',
+                url: 'https://api.edamam.com/api/recipes/v2',
+                params: {
+                    type: 'public',
+                    app_key: app_key,
+                    app_id: app_id,
+                    q: this.searchInput,
+                }
+            }
+            const response = await axios.request(options);
+            this.recipeData = response.data.hits;
         },
         displayRecipeDetails(index) {
             this.currentRecipe = this.recipeData[index].recipe;
@@ -81,6 +87,7 @@ export default {
             this.modalShow = true;
         },
         onImport() {
+            console.log("Test: ", this.currentRecipe);
             let data = {
                 name: this.currentRecipe.label,
                 image: this.currentRecipe.image,
