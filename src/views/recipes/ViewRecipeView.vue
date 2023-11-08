@@ -2,8 +2,8 @@
   <b-row>
     <div class="inner-box">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-4" v-for="(value, key) in recipes" :key="key">
+        <div class="row ">
+          <div class="col-xl-4 col-lg-6" v-for="(value, key) in recipes" :key="key">
             <RecipeOne :id="value.id" :recipeImage="value.imageURL" :recipeDate="value.date_created" :recipeTitle="value.name" :recipeAuthor="value.username" :recipeDescription="value.description" />
           </div>
         </div>

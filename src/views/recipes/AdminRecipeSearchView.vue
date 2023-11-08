@@ -1,7 +1,12 @@
 @@ -0,0 +1,62 @@
 <template>
   <b-modal scrollable size="xl" v-model="modalShow" title="Import Recipe Details" ok-title="Import" @ok="onImport()">
-    <RecipePopUp :recipeImage="currentRecipe.image" :recipeName="currentRecipe.label" :recipeIngredients="currentRecipe.ingredientLines" :recipeSourceURL="currentRecipe.url" :recipeShareURL="currentRecipe.shareAs" :recipeCuisineType="currentRecipe.cuisineType" :recipeDishType="currentRecipe.dishType" :recipeCalories="currentRecipe.calories" :recipeNutrition="currentRecipe.totalNutrients" :recipeServings="currentRecipe.yield" :recipeSource="currentRecipe.source"> </RecipePopUp>
+    <RecipePopUp :recipeImage="currentRecipe.image" :recipeName="currentRecipe.label"
+      :recipeIngredients="currentRecipe.ingredientLines" :recipeSourceURL="currentRecipe.url"
+      :recipeShareURL="currentRecipe.shareAs" :recipeCuisineType="currentRecipe.cuisineType"
+      :recipeDishType="currentRecipe.dishType" :recipeCalories="currentRecipe.calories"
+      :recipeNutrition="currentRecipe.totalNutrients" :recipeServings="currentRecipe.yield"
+      :recipeSource="currentRecipe.source"> </RecipePopUp>
   </b-modal>
 
   <div>
@@ -23,7 +28,9 @@
       <div v-for="(item, index) in recipeData" v-bind:key="index">
         <b-col>
           <b-card class="mb-4 rounded-3" :header="item.recipe.label">
-            <img :src="item.recipe.images.THUMBNAIL.url" class="card-img-top" />
+            <div style="max-height:300px">
+              <img :src="item.recipe.image" class="h-100 img-fluid" />
+            </div>
             <b-card-text class="text-capitalize my-2">By {{ item.recipe.source }}</b-card-text>
             <div class="my-2">
               <span class="badge bg-info mx-1 text-capitalize">{{ item.recipe.dishType[0] }}</span>
@@ -102,8 +109,6 @@ export default {
 }
 </script>
 
-<style>
-.modal-backdrop {
+<style>.modal-backdrop {
   z-index: -1;
-}
-</style>
+}</style>
