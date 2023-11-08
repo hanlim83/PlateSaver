@@ -3,7 +3,8 @@
     <div class="col-xl-8 col-md-10 mx-auto">
       <div class="card mt-4">
         <div class="card-body p-6">
-          <a @click="backBtn"><icon-component type="outlined" icon-name="arrow-circle-left" />
+          <a @click="backBtn"
+            ><icon-component type="outlined" icon-name="arrow-circle-left" />
             Recipes
           </a>
           <p class="text-primary pt-3">{{ recipe.date_created }}</p>
@@ -89,22 +90,19 @@
         <b-row>
           <b-col md="6">
             <b-form-group label="Name:">
-              <b-form-input type="text" class="form-control" name="comement-name" placeholder="e.g. Mokkie Mok"
-                v-model="v$.comment.name.$model" :class="{ 'is-invalid': v$.comment.name.$error }" />
+              <b-form-input type="text" class="form-control" name="comement-name" placeholder="e.g. Mokkie Mok" v-model="v$.comment.name.$model" :class="{ 'is-invalid': v$.comment.name.$error }" />
               <div v-if="v$.comment.name.$error" class="text-danger">Name is required</div>
             </b-form-group>
           </b-col>
           <b-col md="6" class="">
             <b-form-group label="Email: ">
-              <b-form-input type="text" class="form-control" name="comment-email" placeholder="e.g. hungryman@email.com"
-                v-model="v$.comment.email.$model" :class="{ 'is-invalid': v$.comment.email.$error }" />
+              <b-form-input type="text" class="form-control" name="comment-email" placeholder="e.g. hungryman@email.com" v-model="v$.comment.email.$model" :class="{ 'is-invalid': v$.comment.email.$error }" />
               <div v-if="v$.comment.email.$error" class="text-danger">Invalid Email</div>
             </b-form-group>
           </b-col>
           <b-col md="12">
             <b-form-group label="Comment: ">
-              <b-form-textarea id="comment-text" placeholder="e.g. This was delicious!" rows="2" max-rows="12"
-                v-model="v$.comment.text.$model" :class="{ 'is-invalid': v$.comment.text.$error }"></b-form-textarea>
+              <b-form-textarea id="comment-text" placeholder="e.g. This was delicious!" rows="2" max-rows="12" v-model="v$.comment.text.$model" :class="{ 'is-invalid': v$.comment.text.$error }"></b-form-textarea>
               <div v-if="v$.comment.text.$error" class="text-danger">No comment</div>
             </b-form-group>
           </b-col>
@@ -117,7 +115,7 @@
 
 <script>
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
-import { useFirebaseStorage, useDatabaseObject, useDatabase } from 'vuefire'
+import { useFirebaseAuth, useFirebaseStorage, useDatabaseObject, useDatabase } from 'vuefire'
 import { ref as dbRef, push } from 'firebase/database'
 import useVuelidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
@@ -166,15 +164,20 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    let auth = useFirebaseAuth()
+    if (auth.currentUser) {
+      this.comment.name = auth.currentUser.displayName
+      this.comment.email = auth.currentUser.email
+    }
   },
   components: {},
   methods: {
     async getRecipe() {
       const db = useDatabase()
       const { data: recipeData, promise: recipePromise } = useDatabaseObject(dbRef(db, 'recipes/' + this.id))
-      console.log("AAA:", recipeData)
+      console.log('AAA:', recipeData)
       await recipePromise.value
-      console.log("BBB:", recipeData)
+      console.log('BBB:', recipeData)
       this.recipe = recipeData
       if (typeof this.recipe.comments != 'undefined') {
         this.commentsNo = Object.keys(this.recipe.comments).length
