@@ -5,7 +5,7 @@ import IndivPost from '@/components/IndivPost.vue'
 import { computed } from 'vue'
 
 const db = useDatabase()
-const allposts = useDatabaseList(dbRef(db, 'Posts'))
+const allposts = useDatabaseList(dbRef(db, 'posts'))
 const uncollectedPosts = computed(() => {
   return allposts.value.filter((item) => item.collectionStatus == false)
 })
@@ -38,8 +38,9 @@ const uncollectedPosts = computed(() => {
     <div class="inner-box">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4" v-for="(post, ind) in uncollectedPosts" :key="ind">
-            <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title" :userID="post.userID" :content="post.content" :tags="post.tags" />
+          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" style="max-width:400px" v-for="(post, ind) in uncollectedPosts" :key="ind">
+            <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title"
+              :userID="post.userID" :content="post.content" :tags="post.tags" :is-collected="post.collectionStatus"/>
           </div>
         </div>
       </div>

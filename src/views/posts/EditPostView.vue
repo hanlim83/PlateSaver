@@ -69,13 +69,13 @@ const route = useRoute()
 const id = route.params.id
 const title = ref('')
 const content = ref('')
-const tags = ref('')
+// const tags = ref('')
 const contact = ref('')
 const lat = ref(0)
 const long = ref(0)
 
 onValue(
-  dbRef(db, '/Posts/' + id),
+  dbRef(db, '/posts/' + id),
   (snapshot) => {
     console.log(snapshot.val())
     if (snapshot.val().userID != auth.currentUser.uid) {
@@ -83,7 +83,7 @@ onValue(
     }
     title.value = snapshot.val().title
     content.value = snapshot.val().content
-    tags.value = '#' + snapshot.val().tags.join('#')
+    // tags.value = '#' + snapshot.val().tags.join('#')
     lat.value = snapshot.val().lat
     long.value = snapshot.val().long
   },
