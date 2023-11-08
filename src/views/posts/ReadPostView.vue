@@ -33,7 +33,8 @@
           <h6 class="">By: {{ createdUser }}</h6>
           <div class="d-flex align-items-center my-3">
             <span class="badge bg-warning py-1 mx-1 text-capitalize fs-5" v-if="isCollected">Collected</span>
-            <span class="badge bg-info py-1 mx-1 text-capitalize fs-5" v-for="(hashtag, key) in tags" :key="key">{{ hashtag }}</span>
+            <span class="badge bg-info py-1 mx-1 text-capitalize fs-5" v-for="(hashtag, key) in tags" :key="key">{{
+              hashtag }}</span>
           </div>
           <p class="mt-3 line-break">{{ content.replace(/\n/g, "\n") }}</p>
           <div class="row my-3">
@@ -43,6 +44,7 @@
               <!-- Latitude : {{ lat }}, longitude {{ long }} -->
               <p class="fs-5">Contact Details: {{ contact }}</p>
               <p class="fs-5">Address: {{ address }}</p>
+              <p class="fs-5">Distance: {{ dist }}</p>
             </div>
           </div>
           <GMapMap :center="center" :zoom="18" map-type-id="terrain" style="width: 100%; height: 300px" ref="mapRef">
@@ -70,7 +72,7 @@ import { ref as dbRef, onValue, update, remove } from 'firebase/database'
 import { useFirebaseAuth, useDatabase, useFirebaseStorage } from 'vuefire'
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
 import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive, computed } from 'vue'
 import { toast } from 'vue3-toastify'
 import router from '@/router'
 
@@ -99,6 +101,24 @@ const center = ref({
 })
 const address = ref('')
 var markers = []
+
+let currentLocation = reactive({
+  latitude: 0,
+  longitude: 0
+});
+
+const dist = computed(() => {
+  let currentLatitude = currentLocation.latitude
+  let currentLongitude = currentLocation.longitude
+  let output
+  if (currentLatitude == 0 && currentLongitude == 0) {
+    output = "Cannot get your location"
+  } else {
+    let dist = distance(currentLatitude, currentLongitude, lat.value, long.value, "K")
+    output = dist.toFixed(2) + " km away"
+  }
+  return output
+})
 
 const handleDeletePost = () => {
   if (confirm('Are you sure you want to delete this post?')) {
@@ -140,8 +160,6 @@ const handleUpdatePost = () => {
     })
   }
 }
-
-console.log("AAAA")
 
 onValue(dbRef(db, '/posts/' + id), (snapshot) => {
   if (snapshot.val() == null) {
@@ -185,115 +203,44 @@ onValue(dbRef(db, '/posts/' + id), (snapshot) => {
 })
 
 const previousPage = () => {
-  // let previousPage = sessionStorage.getItem('cameFrom')
   router.go(-1)
 }
-onMounted(async () => {
-  //   await loader.load()
-  //   console.log('centering map on coords')
-  //   while (currPos.value.lat == 0 && currPos.value.lng == 0) {
-  //     console.log('Awaiting Coords')
-  //     await sleep(500)
-  //   }
-  //   console.log('Centering Lat: ' + currPos.value.lat)
-  //   console.log('Centering Lng: ' + currPos.value.lng)
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+  if ((lat1 == lat2) && (lon1 == lon2)) {
+    return 0;
+  }
+  else {
+    var radlat1 = Math.PI * lat1 / 180;
+    var radlat2 = Math.PI * lat2 / 180;
+    var theta = lon1 - lon2;
+    var radtheta = Math.PI * theta / 180;
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    if (dist > 1) {
+      dist = 1;
+    }
+    dist = Math.acos(dist);
+    dist = dist * 180 / Math.PI;
+    dist = dist * 60 * 1.1515;
+    if (unit == "K") { dist = dist * 1.609344 }
+    if (unit == "N") { dist = dist * 0.8684 }
+    return dist;
+  }
+}
 
 
+onMounted(() => {
+  const success = (position) => {
+    currentLocation.latitude = position.coords.latitude;
+    currentLocation.longitude = position.coords.longitude;
+  }
+  const error = (err) => {
+    console.log(err)
+  };
 
-  // Main Map Settings
-  // const map = new google.maps.Map(mapDiv.value, {
-  //   center: currPos.value /* centre the map */,
-  //   zoom: 16 /* how zoomed in is the map */
-  // })
-
-  // const icon = {
-  //   url: 'https://maps.gstatic.com/mapfiles/markers2/measle_blue.png', // url
-  //   scaledSize: new google.maps.Size(14, 14) // scaled size
-  // }
-
-  // const infowindow = new google.maps.InfoWindow()
-  // const geocoder = new google.maps.Geocoder()
-  // geocoder
-  //   .geocode({ location: currPos.value })
-  //   .then((response) => {
-  //     if (response.results[0]) {
-  //       new google.maps.Marker({
-  //         position: currPos.value,
-  //         map: map,
-  //         icon: icon
-  //       })
-
-  //       infowindow.setContent(response.results[0].formatted_address)
-  //     } else {
-  //       window.alert('No results found')
-  //     }
-  //   })
-  //   .catch((e) => window.alert('Geocoder failed due to: ' + e))
-
-  // Other Collection Areas Within 5KM Range
-
-  // const infowindow2 = new google.maps.InfoWindow()
-
-  // for (var i = 0; i < markers.length; i++) {
-  //   var position = new google.maps.LatLng(markers[i][1], markers[i][2])
-  //   var marker2 = new google.maps.Marker({
-  //     position: position,
-  //     map: map,
-  //     animation: google.maps.Animation.DROP,
-  //     title: markers[i][0]
-  //   })
-
-  //   google.maps.event.addListener(
-  //     marker2,
-  //     'click',
-  //     (function (marker2, i) {
-  //       return function () {
-  //         var content = markers[i][0] + '<br/>' + markers[i][1] + ',' + markers[i][2]
-  //         infowindow2.setContent(content)
-  //         infowindow2.open(map, marker2)
-  //       }
-  //     })(marker2, i)
-  //   )
-  // }
-
-  // function createCenterControl(map) {
-  //   const controlButton = document.createElement('button')
-
-  //   // Set CSS for the control.
-  //   controlButton.style.backgroundColor = '#fff'
-  //   controlButton.style.border = '2px solid #fff'
-  //   controlButton.style.borderRadius = '3px'
-  //   controlButton.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)'
-  //   controlButton.style.color = 'rgb(25,25,25)'
-  //   controlButton.style.cursor = 'pointer'
-  //   controlButton.style.fontFamily = 'Roboto,Arial,sans-serif'
-  //   controlButton.style.fontSize = '16px'
-  //   controlButton.style.lineHeight = '38px'
-  //   controlButton.style.margin = '8px 0 22px'
-  //   controlButton.style.padding = '0 10px'
-  //   controlButton.style.textAlign = 'center'
-
-  //   controlButton.textContent = 'Center Map'
-  //   controlButton.title = 'Click to recenter the map'
-  //   controlButton.type = 'button'
-
-  //   // Setup the click event listeners: simply set the map to Chicago.
-  //   controlButton.addEventListener('click', () => {
-  //     map.setCenter(currPos.value)
-  //     map.setZoom(16)
-  //   })
-
-  //   return controlButton
-  // }
-
-  // const centerControlDiv = document.createElement('div')
-  // // Create the control.
-  // const centerControl = createCenterControl(map)
-  // // Append the control to the DIV.
-  // centerControlDiv.appendChild(centerControl)
-
-  // map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv)
+  navigator.geolocation.getCurrentPosition(success, error);
 })
+
 </script>
 
 <style>
