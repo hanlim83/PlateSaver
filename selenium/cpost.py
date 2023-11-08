@@ -25,7 +25,7 @@ class TestCreateRecipeTest():
     self.driver.implicitly_wait(2)
     
     test =["Nasi Lemak","1 x Fresh Nasi Lemak Ayam Cabe Ijo","Telegram @WoShiShen","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/nasilemak.jpg","#nasilemak#coconut"]
-    self.driver.get("http://192.168.2.164:8080/auth/login")
+    self.driver.get("http://localhost:8080/auth/login")
     self.driver.find_element(By.ID, "email").click()
     self.driver.find_element(By.ID, "email").send_keys("aujanweng@gmail.com")
     self.driver.find_element(By.ID, "password").click()
