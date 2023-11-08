@@ -1,11 +1,12 @@
 @@ -0,0 +1,174 @@
 <template>
+
   <b-row>
     <b-col>
       <b-card no-body class="my-4 mx-2">
         <b-card-header class="d-flex justify-content-between">
           <div class="header-title">
-            <b-card-title>Create Recipe</b-card-title>
+            <div class= "newHeader" style = "letter-spacing:3px;color: #3a57e8;font-size : 150%;">Create Recipe &hearts;</div>
           </div>
         </b-card-header>
         <b-card-body>

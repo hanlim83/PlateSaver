@@ -13,11 +13,14 @@ const myposts = computed(() => {
 })
 </script>
 <template>
+  <div class = "row">
+      <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px;font-size : 225%;letter-spacing : 5px;"><img src="@/assets/recipebook.png" style="width: 50px" />&nbsp; My Recipes &nbsp;<img src="@/assets/recipebook.png" style="width: 50px" /></div>
+  </div>
   <div class="row" data-masonry='{"percentPosition": true }'>
     <div class="inner-box">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" style="max-width:400px" v-for="(post, ind) in myposts" :key="ind">
+          <div class="col-md-6 col-lg-4" v-for="(post, ind) in myposts" :key="ind">
             <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title"
               :userID="post.userID" :content="post.content" :tags="post.tags" :is-collected="post.collectionStatus" />
           </div>

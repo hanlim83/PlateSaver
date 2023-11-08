@@ -1,5 +1,8 @@
 <template>
-  <div class="about">
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
+  <div class="about container">
     <div class="row justify-content-center p-3">
       <img src="@/assets/logo.png" style="width: 40%; height:" />
     </div>

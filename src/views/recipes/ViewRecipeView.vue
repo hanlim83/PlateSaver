@@ -1,9 +1,13 @@
 <template>
   <b-row>
+    <div class = "row">
+      <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px;font-size : 225%;letter-spacing : 5px;"><img src="@/assets/cheficon.png" style="width: 50px" />&nbsp; Recipes&nbsp;<img src="@/assets/cheficon.png" style="width: 50px" /></div>
+    </div>
+    
     <div class="inner-box">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-4" v-for="(value, key) in recipes" :key="key">
+        <div class="row ">
+          <div class="col-xl-4 col-lg-6" v-for="(value, key) in recipes" :key="key">
             <RecipeOne :id="value.id" :recipeImage="value.imageURL" :recipeDate="value.date_created" :recipeTitle="value.name" :recipeAuthor="value.username" :recipeDescription="value.description" />
           </div>
         </div>
@@ -33,7 +37,12 @@ export default {
 
     //Add image paths
     for (let recipe in this.recipes) {
-      let imagePath = this.recipes[recipe].imagePath
+      let imagePath 
+      if (this.recipes[recipe].imagePath){
+        imagePath = this.recipes[recipe].imagePath
+      }else{
+        imagePath = 'missing.png'
+      }
       getDownloadURL(storageRef(storage, imagePath))
         .then((url) => {
           this.recipes[recipe]['imageURL'] = url

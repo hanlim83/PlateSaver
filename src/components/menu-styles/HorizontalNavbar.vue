@@ -13,7 +13,7 @@
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
+      <div class="offcanvas-body" style="height: 100%">
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'home' }">Home</router-link>
