@@ -27,9 +27,9 @@ class TestCreateRecipeTest():
     test =["Nasi Lemak","1 x Fresh Nasi Lemak Ayam Cabe Ijo","Telegram @WoShiShen","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/nasilemak.jpg","#nasilemak#coconut"]
     self.driver.get("http://localhost:8080/auth/login")
     self.driver.find_element(By.ID, "email").click()
-    self.driver.find_element(By.ID, "email").send_keys("aujanweng@gmail.com")
+    self.driver.find_element(By.ID, "email").send_keys("aujanweng@gmail.com") #use ur own credentials
     self.driver.find_element(By.ID, "password").click()
-    self.driver.find_element(By.ID, "password").send_keys("platesavers")
+    self.driver.find_element(By.ID, "password").send_keys("platesavers") #use ur own credentials
     self.driver.find_element(By.ID, "signin").click()
     time.sleep(1)
     navbarposts=self.driver.find_element(By.LINK_TEXT, "Posts")

@@ -46,13 +46,31 @@ class TestCreaterecipe():
     #Uncomment line 47 or 48, not both, to switch between creating multiple recipes or just one
     #recipeDetails= list_of_validations.recipeValidations
     recipeDetails=singlerecipe.recipeval
-                                                                                                                                                        
+    self.driver.set_window_size(1512, 885)                                                                                                                                                    
       
 
     for aRecipe in recipeDetails:
+
         self.driver.implicitly_wait(3)
 
-        self.driver.get("http://192.168.2.164:8080/recipe/create") #browser opens this page
+        self.driver.get("http://localhost:8080/auth/login") #browser opens this page
+        #login
+        self.driver.find_element(By.ID, "email").click()
+        self.driver.find_element(By.ID, "email").send_keys("aujanweng@gmail.com") #use ur own credentials
+        self.driver.find_element(By.ID, "password").click()
+        self.driver.find_element(By.ID, "password").send_keys("platesavers") #use ur own credentials
+        self.driver.find_element(By.ID, "signin").click()
+        time.sleep(1)
+        ####
+        #navigate to create recipe page 
+        navbarrecipes=self.driver.find_element(By.LINK_TEXT, "Recipes") #IMPORTANT! Don't move your mouse until it clicks the link else the dropdown will close
+        ActionChains(self.driver)\
+                .move_to_element(navbarrecipes)\
+                .perform()
+        time.sleep(1)
+        
+        self.driver.find_element(By.LINK_TEXT, "Create New Recipe").click()
+        ####
 
         element = self.driver.find_element(By.ID, "servings")
         yscroll = 800
