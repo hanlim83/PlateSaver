@@ -17,7 +17,7 @@ const myposts = computed(() => {
     <div class="inner-box">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4" v-for="(post, ind) in myposts" :key="ind">
+          <div class="col-md-6 col-lg-4" v-for="(post, ind) in myposts" :key="ind">
             <IndivPost :id="post.id" :foodImage="post.foodImage" :timeStamp="post.timeStamp" :title="post.title"
               :userID="post.userID" :content="post.content" :tags="post.tags" :is-collected="post.collectionStatus" />
           </div>
