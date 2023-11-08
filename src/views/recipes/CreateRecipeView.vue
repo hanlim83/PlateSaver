@@ -149,7 +149,7 @@
                   </b-col>
 
                   <b-col md="6" class="order-last">
-                    <b-button class="btn btn-info" @click="addDirections()">Add Row</b-button>
+                    <b-button id="adddirection" class="btn btn-info" @click="addDirections()">Add Row</b-button>
                   </b-col>
                 </b-row>
               </div>
@@ -218,14 +218,15 @@
 
 <script>
 import IconComponent from '@/components/icons/IconComponent.vue'
-import { useFirebaseAuth, useFirebaseStorage, useDatabase } from 'vuefire'
+//import { useFirebaseAuth} from 'vuefire'
+import { useFirebaseStorage, useDatabase } from 'vuefire'
 import { ref as storageRef, uploadBytes } from 'firebase/storage'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { toast } from 'vue3-toastify'
 import { ref as dbRef, push, update } from 'firebase/database'
 
-const auth = useFirebaseAuth()
+//const auth = useFirebaseAuth()
 const storage = useFirebaseStorage()
 
 export default {
@@ -348,7 +349,8 @@ export default {
         directions: this.directions,
         nutritionDetails: this.nutritionDetails,
         date_created: dateNow,
-        username: auth.currentUser.displayName
+        //username: auth.currentuser.displayName
+        username: "Selena Oleksandr Dmytrovych Yaroslav Yevhenovych Kovalenko"// Hardcode username for selenium
       }
 
       //Remove empty strings from arrays
