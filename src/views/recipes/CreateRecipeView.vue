@@ -350,7 +350,7 @@ export default {
         nutritionDetails: this.nutritionDetails,
         date_created: dateNow,
         //username: auth.currentuser.displayName
-        username: "Selena"
+        username: "Selena Oleksandr Dmytrovych Yaroslav Yevhenovych Kovalenko"// Hardcode username for selenium
       }
 
       //Remove empty strings from arrays
