@@ -34,6 +34,10 @@ const uncollectedPosts = computed(() => {
 </template>
 -->
 <template>
+  <div class = "row">
+    <div class = "h1 newHeader" style = "color: #9414e4;text-align : center; padding-bottom : 20px; ">Food Up for Collection</div>
+  </div>
+
   <div class="row" data-masonry='{"percentPosition": true }'>
     <div class="inner-box">
       <div class="container">
