@@ -24,7 +24,7 @@ p {
   <!--<router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary">Read More</router-link>-->
   <!--</div>
     </div>-->
-  <b-card :img-src="foodImageURL" class="img-fluid rounded" style="height:700px" loading="lazy">
+  <b-card :img-src="foodImageURL" class="img-fluid rounded" style="height:730px" loading="lazy">
     <b-card-text class="p-3">
       <div class="my-2">
         <span class="text-primary pt-3 ml-1">{{ timeStamp }}</span>
