@@ -52,7 +52,8 @@ class TestCreaterecipe():
     for aRecipe in recipeDetails:
         self.driver.implicitly_wait(3)
 
-        self.driver.get("http://192.168.2.164:8080/recipe/create")
+        self.driver.get("http://192.168.2.164:8080/recipe/create") #browser opens this page
+
         element = self.driver.find_element(By.ID, "servings")
         yscroll = 800
         ActionChains(self.driver)\
@@ -75,7 +76,7 @@ class TestCreaterecipe():
         filePath= aRecipe[5]
         self.driver.find_element(By.ID, "photo").send_keys(filePath)
         time.sleep(1)
-        #
+        ####
         
         self.driver.find_element(By.ID, "nextbutton").click()
         time.sleep(1)

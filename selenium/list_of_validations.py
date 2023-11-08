@@ -14,6 +14,7 @@
 '''
 #Recipedetails[ recipe1[recipename,preptime,cookingtime,description,servings,photo,ingredients[],directions[],calories,carbs,fat,protein,sodium,cholesterol]  ]
 
+#IMAGE FILEPATH NEEDS TO BE CHANGED TO YOUR OWN'S
 recipeValidations=[  
     ["Chicken Croquettes (normal recipe)","10min","15min","This recipe is easy to make and delicious!","2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/chickencroquettes.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
                     ['Preheat oven to 175 degrees C.', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
