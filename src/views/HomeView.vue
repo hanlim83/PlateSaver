@@ -26,6 +26,9 @@ if (route.query.state != null && route.query.state === 'logout') {
 }
 </script>
 <template>
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
   <div class="home">
     <div class="outerlayer">
       <img src="@/assets/frontpage.jpeg" style="width: 100%" />

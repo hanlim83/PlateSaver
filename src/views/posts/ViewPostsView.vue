@@ -34,6 +34,9 @@ const uncollectedPosts = computed(() => {
 </template>
 -->
 <template>
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
   <div class = "row">
     <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px; "><img src="@/assets/lovefood.png" style="width: 90px" />&nbsp; Food Up For Collection <img src="@/assets/lovefood.png" style="width: 90px" /></div>
   </div>

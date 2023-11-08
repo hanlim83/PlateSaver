@@ -13,6 +13,9 @@ const myposts = computed(() => {
 })
 </script>
 <template>
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
   <div class="row" data-masonry='{"percentPosition": true }'>
     <div class="inner-box">
       <div class="container">
