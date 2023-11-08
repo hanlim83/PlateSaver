@@ -6,15 +6,13 @@ input[type=text], input[type=file] {
 </style>-->
 
 <template>
-  <div class="bg"></div>
-  <div class="bg bg2"></div>
-  <div class="bg bg3"></div>
+
   <b-row>
     <b-col>
       <b-card no-body class="my-4 mx-2">
         <b-card-header class="d-flex justify-content-between">
           <div class="header-title">
-            <div class= "h1 newHeader">Share your food with others &hearts;</div>
+            <div class= "newHeader" style = "color: #3a57e8;font-size : 150%;">Share your food with others &hearts;</div>
           </div>
         </b-card-header>
         <b-card-body>
