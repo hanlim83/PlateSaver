@@ -349,7 +349,7 @@ export default {
         directions: this.directions,
         nutritionDetails: this.nutritionDetails,
         date_created: dateNow,
-        username: auth.currentuser.displayName
+        username: auth.currentUser.displayName
         //username: "Selena Oleksandr Dmytrovych Yaroslav Yevhenovych Kovalenko"// Hardcode username for selenium
       }
 
