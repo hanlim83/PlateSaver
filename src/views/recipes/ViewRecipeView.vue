@@ -33,7 +33,12 @@ export default {
 
     //Add image paths
     for (let recipe in this.recipes) {
-      let imagePath = this.recipes[recipe].imagePath
+      let imagePath 
+      if (this.recipes[recipe].imagePath){
+        imagePath = this.recipes[recipe].imagePath
+      }else{
+        imagePath = 'missing.png'
+      }
       getDownloadURL(storageRef(storage, imagePath))
         .then((url) => {
           this.recipes[recipe]['imageURL'] = url

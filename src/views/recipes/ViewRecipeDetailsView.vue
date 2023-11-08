@@ -153,7 +153,12 @@ export default {
   },
   async created() {
     await this.getRecipe()
-    let imagePath = this.recipe.imagePath
+    let imagePath
+    if (this.recipe.imagePath) {
+      imagePath = this.recipe.imagePath
+    } else {
+      imagePath = 'missing.png'
+    }
     getDownloadURL(storageRef(storage, imagePath))
       .then((url) => {
         this.imageURL = url
@@ -167,7 +172,9 @@ export default {
     async getRecipe() {
       const db = useDatabase()
       const { data: recipeData, promise: recipePromise } = useDatabaseObject(dbRef(db, 'recipes/' + this.id))
+      console.log("AAA:", recipeData)
       await recipePromise.value
+      console.log("BBB:", recipeData)
       this.recipe = recipeData
       if (typeof this.recipe.comments != 'undefined') {
         this.commentsNo = Object.keys(this.recipe.comments).length
