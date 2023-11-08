@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 p {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -24,7 +24,7 @@ p {
   <!--<router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary">Read More</router-link>-->
   <!--</div>
     </div>-->
-  <b-card :img-src="foodImageURL" class="img-fluid rounded" loading="lazy">
+  <b-card :img-src="foodImageURL" class="img-fluid rounded" style="height:700px" loading="lazy">
     <b-card-text class="p-3">
       <div class="my-2">
         <span class="text-primary pt-3 ml-1">{{ timeStamp }}</span>
@@ -75,7 +75,7 @@ getDownloadURL(storageRef(storage, props.foodImage)).then((url) => {
 })
 </script>
 
-<style>
+<style scoped>
 .line-break {
   white-space: pre-line;
 }
