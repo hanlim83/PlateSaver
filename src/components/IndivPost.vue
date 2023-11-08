@@ -24,7 +24,7 @@ p {
   <!--<router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary">Read More</router-link>-->
   <!--</div>
     </div>-->
-  <b-card :img-src="foodImageURL" class="img-fluid rounded" style="height: 730px" loading="lazy">
+  <b-card :img-src="foodImageURL" class="img-fluid rounded" style="height: 830px" loading="lazy">
     <b-card-text class="p-3">
       <div class="my-2">
         <span class="text-primary pt-3 ml-1">{{ timeStamp }}</span>
@@ -36,6 +36,8 @@ p {
         <span class="badge bg-info mx-1 text-capitalize" v-for="(hashtag, key) in tags" :key="key">{{ hashtag }}</span>
       </div>
       <p class="pt-2 line-break">{{ content.replace(/\n/g, '\n') }}</p>
+      <p>Distance: {{ distance }}</p>
+      <p>Address: {{ address }}</p>
     </b-card-text>
     <div class="d-grid d-flex justify-content-end">
       <router-link :to="{ path: '/posts/read/' + id }" class="btn btn-primary btn-sm">Read More</router-link>
@@ -56,9 +58,11 @@ const props = defineProps({
   content: { type: String, default: '' },
   tags: { type: Array, default: () => [] },
   cameFrom: { type: String, default: '' },
+  address: { type: String, default: '' },
+  distance: { type: String, default: '' },
   isCollected: { type: Boolean, default: false }
 })
-console.log(props.foo)
+// console.log(props.foo)
 
 const db = useDatabase()
 const storage = useFirebaseStorage()
@@ -67,17 +71,17 @@ const foodImageURL = ref('')
 
 onValue(dbRef(db, '/users/' + props.userID), (snapshot) => {
   displayName.value = snapshot.val().firstName + ' ' + snapshot.val().lastName
-  console.log(displayName.value)
+  // console.log(displayName.value)
 })
 if (props.foodImage !== '') {
   getDownloadURL(storageRef(storage, props.foodImage)).then((url) => {
     foodImageURL.value = url
-    console.log(foodImageURL.value)
+    // console.log(foodImageURL.value)
   })
 } else {
   getDownloadURL(storageRef(storage, 'missing.png')).then((url) => {
     foodImageURL.value = url
-    console.log(foodImageURL.value)
+    // console.log(foodImageURL.value)
   })
 }
 </script>

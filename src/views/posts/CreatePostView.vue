@@ -12,7 +12,7 @@ input[type=text], input[type=file] {
       <b-card no-body class="my-4 mx-2">
         <b-card-header class="d-flex justify-content-between">
           <div class="header-title">
-            <div class= "newHeader" style = "color: #3a57e8;font-size : 150%;">Share your food with others &hearts;</div>
+            <div class= "newHeader" style = "color: #3a57e8;font-size : 148%;">Share your food with others &hearts;</div>
           </div>
         </b-card-header>
         <b-card-body>
@@ -186,16 +186,12 @@ export default {
     }
   },
   async mounted() {
-    console.log("GETTING LOCATION");
     const success = (position) => {
-      console.log("REACHED HERE")
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
       this.center = { lat: this.latitude, lng: this.longitude }
-      console.log("MAPREF: ", this.$refs.mapRef)
 
       this.$refs.mapRef.$mapPromise.then((mapObject) => {
-        console.log('map is loaded now', mapObject);
         const geocoder = new google.maps.Geocoder()
         geocoder
           .geocode({ location: this.center })
@@ -209,7 +205,6 @@ export default {
               this.address = response.results[0].formatted_address
               infowindow.setContent(this.address)
               infowindow.open(mapObject, marker)
-              console.log("Address: ", this.address)
             } else {
               toast('Address cannot be found', {
                 autoClose: 5000,
@@ -227,7 +222,6 @@ export default {
       });
 
     };
-
     const error = (err) => {
       console.log(err)
     };
@@ -238,13 +232,9 @@ export default {
 
   methods: {
     async handleAddingPost() {
-      console.log('Adding Post')
       try {
         //validate form
-        console.log("description Errors: ", this.description)
-        console.log("Files Errors: ", this.files)
         if (!(await this.v$.$validate())) {
-          console.log("Fields: ", this.v$.$errors)
           toast('Invalid Fields', {
             autoClose: 5000,
             type: 'error'
