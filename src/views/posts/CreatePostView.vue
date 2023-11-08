@@ -341,7 +341,7 @@ export default {
   font-family: 'Arvo';
   text-align:left;
   text-transform: uppercase;
-  color: #9414e4; 
+  color: #3a57e8; 
   font-size: 300%;
 
 }

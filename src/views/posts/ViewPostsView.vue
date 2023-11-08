@@ -35,8 +35,9 @@ const uncollectedPosts = computed(() => {
 -->
 <template>
   <div class = "row">
-    <div class = "h1 newHeader" style = "color: #9414e4;text-align : center; padding-bottom : 20px; ">Food Up for Collection</div>
+    <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px; "><img src="@/assets/lovefood.png" style="width: 90px" />&nbsp; Food Up For Collection <img src="@/assets/lovefood.png" style="width: 90px" /></div>
   </div>
+  
 
   <div class="row" data-masonry='{"percentPosition": true }'>
     <div class="inner-box">
