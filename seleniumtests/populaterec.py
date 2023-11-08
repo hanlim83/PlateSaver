@@ -20,8 +20,8 @@ class TestCreaterecipe():
     self.driver = webdriver.Chrome(service=service)
     self.vars = {}
     
-  #def teardown_method(self, method):
-    #self.driver.quit()
+  def teardown_method(self, method):
+    self.driver.quit()
 
   def scroll_down(self):
     #A method for scrolling the page.
@@ -144,5 +144,5 @@ class TestCreaterecipe():
         element = self.driver.find_element(By.ID, "submitrecipe")
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
-    #self.driver.close()
+    self.driver.close()
   

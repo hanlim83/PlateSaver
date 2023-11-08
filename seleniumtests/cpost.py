@@ -24,7 +24,7 @@ class TestCreateRecipeTest():
     self.driver.set_window_size(1512, 885)
     self.driver.implicitly_wait(2)
     
-    test =["Nasi Lemak","1 x Fresh Nasi Lemak Ayam Cabe Ijo","Telegram @WoShiShen","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/nasilemak.jpg","#nasilemak#coconut"]
+    test =["Nasi Lemak","1 x Fresh Nasi Lemak Ayam Cabe Ijo","Telegram @WoShiShen","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/burger.jpg","#nasilemak#coconut"]
     self.driver.get("http://localhost:8080/auth/login")
     self.driver.find_element(By.ID, "email").click()
     self.driver.find_element(By.ID, "email").send_keys("aujanweng@gmail.com") #use ur own credentials
@@ -55,4 +55,4 @@ class TestCreateRecipeTest():
     self.driver.find_element(By.ID, "tags").send_keys(test[4])
     self.driver.find_element(By.CSS_SELECTOR, ".btn:nth-child(2)").click()
     self.driver.execute_script("window.scrollTo(0,308.75)")
-  
+    time.sleep(1) #This is important, browser closes too quickly and somehow doesnt upload image
