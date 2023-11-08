@@ -220,4 +220,103 @@ $waveDur: 8000ms;
     transform: rotateY(90deg) scale(0);
   }
 }
+
+
+
+
+@media screen and (max-width: 700px) {
+  .container {
+  position: absolute;
+  width: 17rem;
+  height: 10rem;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  }
+  .text {
+  font-size: 200%;
+  display: inline-block;
+  position: absolute;
+  font-family: 'Muli', Helvetica, sans-serif;
+  bottom: 0;
+  -webkit-text-stroke-color: rgb(89, 81, 196);
+  -webkit-text-stroke-width: 2.5px;
+  -webkit-box-reflect: below -30px linear-gradient(transparent, #211e1e2e);
+  animation: text $textDur ease-in infinite;
+  transform: translatez(0);
+  &-w {
+    left: 4rem; //position
+    transform: translate3d(0, -4rem, 0);
+    animation: text-w $textDur ease-in infinite;
+  }
+  &-a {
+    left: 11.5rem;
+    animation-delay: 150ms;
+  }
+  &-v {
+    left: 13.75rem;
+    transform: translate3d(0, -4rem, 0);
+    animation-delay: 500ms;
+  }
+  &-e {
+    left: 21rem;
+    animation-delay: 750ms;
+  }
+}
+.wave {
+  // wave: width && scale && rotate
+
+  width: 20rem;
+ 
+}
+
+@keyframes coast {
+  //flow starting position
+  0% {
+    transform: translate3d(8rem, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(27rem, 0, 0);
+  }
+  100% {
+    transform: translate3d(27rem, 0, 0);
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+    width: 1rem;
+  }
+  10% {
+    transform: scale(1);
+    width: 9rem;
+  }
+  23% {
+    width: 2.2rem;
+  }
+  30% {
+    width: 3.5rem;
+  }
+
+  40% {
+    width: 7.1rem;
+  }
+  48% {
+    width: 5rem;
+    transform: rotateY(0deg) scale(1, 1);
+  }
+  56% {
+    transform: rotateY(90deg) scale(0.6, 0.2);
+  }
+  57% {
+    transform: rotateY(90deg) scale(0);
+  }
+  100% {
+    transform: rotateY(90deg) scale(0);
+  }
+}
+
+
+}
 </style>
