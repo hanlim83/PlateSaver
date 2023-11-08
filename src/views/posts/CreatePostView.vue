@@ -11,7 +11,7 @@ input[type=text], input[type=file] {
       <b-card no-body class="my-4 mx-2">
         <b-card-header class="d-flex justify-content-between">
           <div class="header-title">
-            <b-card-title>Share your food with others</b-card-title>
+            <div class= "h1 newHeader">Share your food with others &hearts;</div>
           </div>
         </b-card-header>
         <b-card-body>
@@ -333,3 +333,16 @@ export default {
 // }
 
 </script>
+<style>
+
+@import url(https://fonts.googleapis.com/css2?family=Arvo:wght@700&amp;display=swap);
+
+.newHeader{
+  font-family: 'Arvo';
+  text-align:left;
+  text-transform: uppercase;
+  color: #9414e4; 
+  font-size: 300%;
+
+}
+</style>
