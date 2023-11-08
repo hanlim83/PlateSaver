@@ -1,0 +1,662 @@
+{
+  "id": "f913e25e-c583-4248-b07a-38bcd0bb51ea",
+  "version": "2.0",
+  "name": "CreateRecipeStresstest",
+  "url": "http://192.168.2.164:8080/recipe/create",
+  "tests": [{
+    "id": "8b6cbfb6-2d67-4c8d-9256-50a8467c4adf",
+    "name": "Createrecipe",
+    "commands": [{
+      "id": "ddb1edcf-e351-41e8-a07e-97ba92bec26e",
+      "comment": "",
+      "command": "open",
+      "target": "http://192.168.2.164:8080/recipe/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "db6779c5-61c6-4dc9-8d4e-16baf0fcbe93",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1289x816",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "aa2108d9-3234-4244-ae43-2943462db101",
+      "comment": "",
+      "command": "click",
+      "target": "id=recipename",
+      "targets": [
+        ["id=recipename", "id"],
+        ["css=#recipename", "css:finder"],
+        ["xpath=//input[@id='recipename']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__982614___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c0637376-0d8e-40f8-a261-0c2237de6307",
+      "comment": "",
+      "command": "type",
+      "target": "id=recipename",
+      "targets": [
+        ["id=recipename", "id"],
+        ["css=#recipename", "css:finder"],
+        ["xpath=//input[@id='recipename']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__822389___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Chicken croquettes"
+    }, {
+      "id": "ac7b3934-083e-48c2-90b0-fc2060e7bb72",
+      "comment": "",
+      "command": "click",
+      "target": "id=preptime",
+      "targets": [
+        ["id=preptime", "id"],
+        ["name=preptime", "name"],
+        ["css=#preptime", "css:finder"],
+        ["xpath=//input[@id='preptime']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__169502___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e73714be-106a-4f3c-997f-443fbbfef75b",
+      "comment": "",
+      "command": "type",
+      "target": "id=preptime",
+      "targets": [
+        ["id=preptime", "id"],
+        ["name=preptime", "name"],
+        ["css=#preptime", "css:finder"],
+        ["xpath=//input[@id='preptime']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__572326___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "20 minutes"
+    }, {
+      "id": "259f798a-9356-4b15-bc61-d9030043a2c2",
+      "comment": "",
+      "command": "click",
+      "target": "id=cookingtime",
+      "targets": [
+        ["id=cookingtime", "id"],
+        ["name=cooktime", "name"],
+        ["css=#cookingtime", "css:finder"],
+        ["xpath=//input[@id='cookingtime']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__005333___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c66d485-a8b1-49c8-975f-e73bd7a87c87",
+      "comment": "",
+      "command": "type",
+      "target": "id=cookingtime",
+      "targets": [
+        ["id=cookingtime", "id"],
+        ["name=cooktime", "name"],
+        ["css=#cookingtime", "css:finder"],
+        ["xpath=//input[@id='cookingtime']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__307782___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "30 minutes"
+    }, {
+      "id": "e7f61c89-30b4-44a5-8765-8b7a836de9bd",
+      "comment": "",
+      "command": "click",
+      "target": "id=description",
+      "targets": [
+        ["id=description", "id"],
+        ["css=#description", "css:finder"],
+        ["xpath=//textarea[@id='description']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__155808___BV___']/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5d92b819-6678-476e-9485-874626bc5c1b",
+      "comment": "",
+      "command": "type",
+      "target": "id=description",
+      "targets": [
+        ["id=description", "id"],
+        ["css=#description", "css:finder"],
+        ["xpath=//textarea[@id='description']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__213295___BV___']/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "This recipe is super easy to make"
+    }, {
+      "id": "56d599ba-35b9-40a8-9f2e-deb8c53ae99f",
+      "comment": "",
+      "command": "click",
+      "target": "id=servings",
+      "targets": [
+        ["id=servings", "id"],
+        ["name=servings", "name"],
+        ["css=#servings", "css:finder"],
+        ["xpath=//input[@id='servings']", "xpath:attributes"],
+        ["xpath=//form[@id='form-wizard1']/div/div/div[2]/div[5]/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "70dc1dd0-c53f-4ec8-b9e1-08c35505b57d",
+      "comment": "",
+      "command": "type",
+      "target": "id=servings",
+      "targets": [
+        ["id=servings", "id"],
+        ["name=servings", "name"],
+        ["css=#servings", "css:finder"],
+        ["xpath=//input[@id='servings']", "xpath:attributes"],
+        ["xpath=//form[@id='form-wizard1']/div/div/div[2]/div[5]/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": "4 people"
+    }, {
+      "id": "d86079ca-4b42-444c-bc59-32faf9545c92",
+      "comment": "",
+      "command": "click",
+      "target": "id=photo",
+      "targets": [
+        ["id=photo", "id"],
+        ["name=pic", "name"],
+        ["css=#photo", "css:finder"],
+        ["xpath=//input[@id='photo']", "xpath:attributes"],
+        ["xpath=//form[@id='form-wizard1']/div/div/div[2]/div[6]/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2e51ebcd-cd23-4c58-8380-c1d9d4bfb88e",
+      "comment": "",
+      "command": "click",
+      "target": "css=#nextbutton > .btn-content",
+      "targets": [
+        ["css=#nextbutton > .btn-content", "css:finder"],
+        ["xpath=//button[@id='nextbutton']/div", "xpath:idRelative"],
+        ["xpath=//button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "db2ce806-489f-408d-9529-91fec8cb9153",
+      "comment": "",
+      "command": "click",
+      "target": "id=ingredient0",
+      "targets": [
+        ["id=ingredient0", "id"],
+        ["css=#ingredient0", "css:finder"],
+        ["xpath=//input[@id='ingredient0']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__481923___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e5c0ca77-e1fc-4bae-b1a9-d8bb265165ad",
+      "comment": "",
+      "command": "type",
+      "target": "id=ingredient0",
+      "targets": [
+        ["id=ingredient0", "id"],
+        ["css=#ingredient0", "css:finder"],
+        ["xpath=//input[@id='ingredient0']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__161779___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "3 cups of flour"
+    }, {
+      "id": "36d442f4-a95d-4979-857e-03a4d5c7d0b1",
+      "comment": "",
+      "command": "click",
+      "target": "id=ingredient1",
+      "targets": [
+        ["id=ingredient1", "id"],
+        ["css=#ingredient1", "css:finder"],
+        ["xpath=//input[@id='ingredient1']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__821676___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5b9d854-4605-43e6-8b0d-d9acb18b77ca",
+      "comment": "",
+      "command": "type",
+      "target": "id=ingredient1",
+      "targets": [
+        ["id=ingredient1", "id"],
+        ["css=#ingredient1", "css:finder"],
+        ["xpath=//input[@id='ingredient1']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__559489___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "4 tablespoons of vinegar"
+    }, {
+      "id": "db6abc4c-b670-4a4b-84e5-1074a952e737",
+      "comment": "",
+      "command": "click",
+      "target": "id=ingredient2",
+      "targets": [
+        ["id=ingredient2", "id"],
+        ["css=#ingredient2", "css:finder"],
+        ["xpath=//input[@id='ingredient2']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__443574___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2cfcc8b7-bbbc-48f8-9759-4d85be27c178",
+      "comment": "",
+      "command": "type",
+      "target": "id=ingredient2",
+      "targets": [
+        ["id=ingredient2", "id"],
+        ["css=#ingredient2", "css:finder"],
+        ["xpath=//input[@id='ingredient2']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__095796___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "1 cup of water"
+    }, {
+      "id": "0bd66a93-cbf3-465a-8deb-a827e3d4ed38",
+      "comment": "",
+      "command": "click",
+      "target": "css=.show > .form-card .btn-content",
+      "targets": [
+        ["css=.show > .form-card .btn-content", "css:finder"],
+        ["xpath=//form[@id='form-wizard1']/div[2]/div/div[2]/div[4]/button/div", "xpath:idRelative"],
+        ["xpath=//div[4]/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f97656f-7da0-460e-8739-1f81c60e1a34",
+      "comment": "",
+      "command": "click",
+      "target": "id=ingredient3",
+      "targets": [
+        ["id=ingredient3", "id"],
+        ["css=#ingredient3", "css:finder"],
+        ["xpath=//input[@id='ingredient3']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__741037___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa9bcc94-3821-4441-8e93-ffcae163b328",
+      "comment": "",
+      "command": "type",
+      "target": "id=ingredient3",
+      "targets": [
+        ["id=ingredient3", "id"],
+        ["css=#ingredient3", "css:finder"],
+        ["xpath=//input[@id='ingredient3']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__174805___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "0.5 tablespoon salt"
+    }, {
+      "id": "d6d0e5f0-5bc6-4b9c-a53f-7047b2984c94",
+      "comment": "",
+      "command": "click",
+      "target": "css=.show > .btn-primary > .btn-content",
+      "targets": [
+        ["css=.show > .btn-primary > .btn-content", "css:finder"],
+        ["xpath=//form[@id='form-wizard1']/div[2]/button/div", "xpath:idRelative"],
+        ["xpath=//div[2]/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5dfb003-1877-4250-b8d7-f5ad6035136a",
+      "comment": "",
+      "command": "click",
+      "target": "id=direction0",
+      "targets": [
+        ["id=direction0", "id"],
+        ["css=#direction0", "css:finder"],
+        ["xpath=//input[@id='direction0']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__787247___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "98b6cdb0-299d-42b9-b820-9ced69b311a6",
+      "comment": "",
+      "command": "type",
+      "target": "id=direction0",
+      "targets": [
+        ["id=direction0", "id"],
+        ["css=#direction0", "css:finder"],
+        ["xpath=//input[@id='direction0']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__986261___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "Preheat the oven to 170 degrees"
+    }, {
+      "id": "11746ec1-da79-4a31-ad28-09494d055899",
+      "comment": "",
+      "command": "click",
+      "target": "id=direction1",
+      "targets": [
+        ["id=direction1", "id"],
+        ["css=#direction1", "css:finder"],
+        ["xpath=//input[@id='direction1']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__562350___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[2]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f7f4b824-1a77-4343-898a-6af62487b48d",
+      "comment": "",
+      "command": "type",
+      "target": "id=direction1",
+      "targets": [
+        ["id=direction1", "id"],
+        ["css=#direction1", "css:finder"],
+        ["xpath=//input[@id='direction1']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__315059___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[2]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "grease the pan for frying"
+    }, {
+      "id": "bf49ce3e-4166-4a6b-93f2-247290775af2",
+      "comment": "",
+      "command": "click",
+      "target": "id=direction2",
+      "targets": [
+        ["id=direction2", "id"],
+        ["css=#direction2", "css:finder"],
+        ["xpath=//input[@id='direction2']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__210818___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c6462a07-09ee-41e0-9388-949f78c61c21",
+      "comment": "",
+      "command": "type",
+      "target": "id=direction2",
+      "targets": [
+        ["id=direction2", "id"],
+        ["css=#direction2", "css:finder"],
+        ["xpath=//input[@id='direction2']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__230508___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "mix the butter and sugar and salt"
+    }, {
+      "id": "6934e6e9-68d4-4288-937f-ed7df06c84de",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-md-6:nth-child(5) .btn-content",
+      "targets": [
+        ["css=.col-md-6:nth-child(5) .btn-content", "css:finder"],
+        ["xpath=//div[@id='payment']/div/div[2]/div[4]/button/div", "xpath:idRelative"],
+        ["xpath=//div[4]/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7a1f6644-8104-4609-b533-eadb17597f34",
+      "comment": "",
+      "command": "click",
+      "target": "id=direction3",
+      "targets": [
+        ["id=direction3", "id"],
+        ["css=#direction3", "css:finder"],
+        ["xpath=//input[@id='direction3']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__141416___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5067755f-45b9-46b5-9c4d-1ac61137355f",
+      "comment": "",
+      "command": "type",
+      "target": "id=direction3",
+      "targets": [
+        ["id=direction3", "id"],
+        ["css=#direction3", "css:finder"],
+        ["xpath=//input[@id='direction3']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__589601___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "Bake the chicken"
+    }, {
+      "id": "d9db84cc-e037-4e50-a180-2f8eb41a3d2b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#payment > .btn-primary > .btn-content",
+      "targets": [
+        ["css=#payment > .btn-primary > .btn-content", "css:finder"],
+        ["xpath=//div[@id='payment']/button/div", "xpath:idRelative"],
+        ["xpath=//div[3]/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff372bb8-3911-4c61-98e6-3dd8c17dea48",
+      "comment": "",
+      "command": "click",
+      "target": "id=calories",
+      "targets": [
+        ["id=calories", "id"],
+        ["name=calroies", "name"],
+        ["css=#calories", "css:finder"],
+        ["xpath=//input[@id='calories']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__745857___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e46e1861-ee8d-443b-8d3a-394c54ba11bb",
+      "comment": "",
+      "command": "type",
+      "target": "id=calories",
+      "targets": [
+        ["id=calories", "id"],
+        ["name=calroies", "name"],
+        ["css=#calories", "css:finder"],
+        ["xpath=//input[@id='calories']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__776762___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "228kcal"
+    }, {
+      "id": "0caa1456-36f0-4502-87e8-4cff2f9dddbb",
+      "comment": "",
+      "command": "click",
+      "target": "id=carbs",
+      "targets": [
+        ["id=carbs", "id"],
+        ["name=carbs", "name"],
+        ["css=#carbs", "css:finder"],
+        ["xpath=//input[@id='carbs']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__252926___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[2]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea694ec0-b2e7-46b4-8cc2-6feb2d56ec22",
+      "comment": "",
+      "command": "type",
+      "target": "id=carbs",
+      "targets": [
+        ["id=carbs", "id"],
+        ["name=carbs", "name"],
+        ["css=#carbs", "css:finder"],
+        ["xpath=//input[@id='carbs']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__180156___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[2]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "220g"
+    }, {
+      "id": "9532b531-a170-4ed8-9ab3-52340c2b2a22",
+      "comment": "",
+      "command": "click",
+      "target": "id=__BVID__278516___BV__BV_label___",
+      "targets": [
+        ["id=__BVID__278516___BV__BV_label___", "id"],
+        ["css=#\\__BVID__278516___BV__BV_label___", "css:finder"],
+        ["xpath=//legend[@id='__BVID__278516___BV__BV_label___']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__855875___BV___']/legend", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[3]/fieldset/legend", "xpath:position"],
+        ["xpath=//legend[contains(.,'Fat:')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "31b591c2-d736-49ca-8ad3-035a3fe64851",
+      "comment": "",
+      "command": "click",
+      "target": "id=fat",
+      "targets": [
+        ["id=fat", "id"],
+        ["name=fat", "name"],
+        ["css=#fat", "css:finder"],
+        ["xpath=//input[@id='fat']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__855875___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a3baacee-ba73-412d-9542-f243c7226124",
+      "comment": "",
+      "command": "type",
+      "target": "id=fat",
+      "targets": [
+        ["id=fat", "id"],
+        ["name=fat", "name"],
+        ["css=#fat", "css:finder"],
+        ["xpath=//input[@id='fat']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__060455___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[3]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "100g"
+    }, {
+      "id": "25e26151-6a4d-45c7-84e8-c9dea563c3bd",
+      "comment": "",
+      "command": "click",
+      "target": "id=protein",
+      "targets": [
+        ["id=protein", "id"],
+        ["name=protein", "name"],
+        ["css=#protein", "css:finder"],
+        ["xpath=//input[@id='protein']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__608373___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9f54f05f-8399-460e-8f7d-75187838cb83",
+      "comment": "",
+      "command": "type",
+      "target": "id=protein",
+      "targets": [
+        ["id=protein", "id"],
+        ["name=protein", "name"],
+        ["css=#protein", "css:finder"],
+        ["xpath=//input[@id='protein']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__941584___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div[2]/div[4]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "105g"
+    }, {
+      "id": "a9f4f104-d872-4d97-8d01-2726bd6cf2bb",
+      "comment": "",
+      "command": "click",
+      "target": "id=sodium",
+      "targets": [
+        ["id=sodium", "id"],
+        ["name=sodium", "name"],
+        ["css=#sodium", "css:finder"],
+        ["xpath=//input[@id='sodium']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__052105___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7efc8895-716b-451e-8a7f-891a2ed3dd1f",
+      "comment": "",
+      "command": "type",
+      "target": "id=sodium",
+      "targets": [
+        ["id=sodium", "id"],
+        ["name=sodium", "name"],
+        ["css=#sodium", "css:finder"],
+        ["xpath=//input[@id='sodium']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__264190___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "f"
+    }, {
+      "id": "f35ef957-b240-4780-9705-a6d15d8a9647",
+      "comment": "",
+      "command": "click",
+      "target": "id=cholesterol",
+      "targets": [
+        ["id=cholesterol", "id"],
+        ["name=cholestrol", "name"],
+        ["css=#cholesterol", "css:finder"],
+        ["xpath=//input[@id='cholesterol']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__050351___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "67079dd3-ac47-4766-a4a6-a83e1630408c",
+      "comment": "",
+      "command": "type",
+      "target": "id=cholesterol",
+      "targets": [
+        ["id=cholesterol", "id"],
+        ["name=cholestrol", "name"],
+        ["css=#cholesterol", "css:finder"],
+        ["xpath=//input[@id='cholesterol']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='__BVID__036390___BV___']/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/fieldset/div/input", "xpath:position"]
+      ],
+      "value": "0mg"
+    }, {
+      "id": "259a31b8-35d4-423a-80e5-091cabcfa1a2",
+      "comment": "",
+      "command": "click",
+      "target": "css=#submitrecipe > .btn-content",
+      "targets": [
+        ["css=#submitrecipe > .btn-content", "css:finder"],
+        ["xpath=//button[@id='submitrecipe']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "88db7b1e-016d-4e09-94aa-c81ba7821810",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=submitrecipe",
+      "targets": [
+        ["id=submitrecipe", "id"],
+        ["css=#submitrecipe", "css:finder"],
+        ["xpath=//button[@id='submitrecipe']", "xpath:attributes"],
+        ["xpath=//div[@id='nutrition']/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e477c63d-2817-4121-97e3-8d5c5cb33c90",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "26608358-0129-4a04-85fd-675485006c9f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://192.168.2.164:8080/recipe/create"],
+  "plugins": []
+}
