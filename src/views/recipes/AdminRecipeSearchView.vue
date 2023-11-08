@@ -10,7 +10,10 @@
   </b-modal>
 
   <div>
-    <h1>Search Edaman Recipe</h1>
+    <div class = "row">
+      <div class = "newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px;font-size : 175%;letter-spacing : 2px;"><img src="@/assets/chefadmin.png" style="width: 50px" />&nbsp;Admin Edaman Recipe&nbsp;<img src="@/assets/chefadmin.png" style="width: 50px" /></div>
+    </div>
+    <h1></h1>
 
     <b-row class="my-4 px-5">
       <div class="input-group cols-4">

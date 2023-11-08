@@ -66,7 +66,7 @@ onMounted(() => {
 </script>
 <template>
   <div class = "row">
-      <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px;font-size : 225%;letter-spacing : 5px;"><img src="@/assets/recipebook.png" style="width: 50px" />&nbsp; My Recipes &nbsp;<img src="@/assets/recipebook.png" style="width: 50px" /></div>
+      <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px;font-size : 225%;letter-spacing : 5px;"><img src="@/assets/mypost.png" style="width: 50px" />&nbsp; My Posts &nbsp;<img src="@/assets/mypost.png" style="width: 50px" /></div>
   </div>
   <div class="row" data-masonry='{"percentPosition": true }'>
     <div class="inner-box">
