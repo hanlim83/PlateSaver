@@ -102,6 +102,7 @@ const { files, open, reset } = useFileDialog()
 var extendedUserData = null
 var userProfilePicUrl = ref('')
 var photoPath = ref('')
+var showInfoTip = false
 
 const handleReset = () => {
   onValue(
@@ -126,6 +127,14 @@ const handleReset = () => {
           })
       } else {
         userProfilePicUrl.value = auth.currentUser.photoURL
+      }
+      if (!showInfoTip) {
+        showInfoTip = true
+      } else {
+        toast('Your changes have been reverted', {
+          autoClose: 5000,
+          type: 'info'
+        })
       }
       console.log(extendedUserData)
     },
