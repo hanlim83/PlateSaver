@@ -1,7 +1,4 @@
 <template>
-  <div class="bg"></div>
-  <div class="bg bg2"></div>
-  <div class="bg bg3"></div>
   <div class="row">
     <div class="col-xl-8 col-md-10 mx-auto">
       <div class="card mt-4">

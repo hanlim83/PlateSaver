@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <div class = "row">
-      <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px; "><img src="@/assets/cheficon.png" style="width: 50px" />&nbsp; Recipes <img src="@/assets/cheficon.png" style="width: 50px" /></div>
+      <div class = "h1 newHeader" style = "color: #3a57e8;text-align : center; padding-bottom : 20px;font-size : 225%;letter-spacing : 5px;"><img src="@/assets/cheficon.png" style="width: 50px" />&nbsp; Recipes &nbsp;<img src="@/assets/cheficon.png" style="width: 50px" /></div>
     </div>
     
     <div class="inner-box">

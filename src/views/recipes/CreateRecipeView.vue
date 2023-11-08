@@ -1,8 +1,6 @@
 @@ -0,0 +1,174 @@
 <template>
-  <div class="bg"></div>
-  <div class="bg bg2"></div>
-  <div class="bg bg3"></div>
+
   <b-row>
     <b-col>
       <b-card no-body class="my-4 mx-2">
