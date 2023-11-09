@@ -186,7 +186,7 @@ const routes = [
     children: adminChildRoutes('admin')
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: '/:pathMatch(.*)',
     name: 'not-found',
     meta: { requiresAuth: false, name: 'Not Found' },
     components: {
@@ -201,6 +201,7 @@ const router = createRouter({
   linkExactActiveClass: 'exact-active',
   history: createWebHistory(process.env.BASE_URL),
   base: process.env.BASE_URL,
+  mode: 'history',
   routes
 })
 router.beforeEach(async (to) => {
