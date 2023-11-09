@@ -144,7 +144,11 @@ const handleReset = () => {
   )
 }
 
-handleReset()
+if (auth.currentUser != null) {
+  handleReset()
+} else {
+  router.push({ name: 'auth.login', query: { redirect: router.currentRoute.value.fullPath } })
+}
 
 watch(files, (newFile) => {
   console.log(newFile)
