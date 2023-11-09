@@ -10,8 +10,9 @@
       <router-link :to="{ path: '/recipe/view/' + id }" class="my-3 h5">{{ recipeTitle }}</router-link>
       <div class="d-flex align-items-center my-2">
         <span class="me-3">{{ recipeAuthor }}</span>
-        <span class="badge bg-info mx-1 text-capitalize">Delicious</span>
-        <span class="badge bg-warning mx-1 text-capitalize">Popular</span>
+        <!-- <span class="badge bg-info mx-1 text-capitalize">Delicious</span> -->
+        <span class="badge bg-warning mx-1 text-capitalize" v-if="commentsNo > 2">Popular</span>
+        <span class="badge bg-info mx-1 text-capitalize" v-if="parseInt(calories.slice(0,-4)) < 300">Healthy</span>
       </div>
       <p class="pt-2">{{ recipeDescription }}</p>
       <router-link :to="{ path: '/recipe/view/' + id }" class="btn btn-primary">Read More</router-link>
@@ -27,7 +28,9 @@ export default {
     recipeDate: { type: String, default: '' },
     recipeAuthor: { type: String, default: '' },
     recipeTitle: { type: String, default: '' },
-    recipeDescription: { type: String, default: '' }
+    recipeDescription: { type: String, default: '' },
+    calories: { type: String, default: '' },
+    commentsNo: { type: Number, default: 0 }
   }
 }
 </script>
