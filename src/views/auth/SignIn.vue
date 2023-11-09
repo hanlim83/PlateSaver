@@ -115,12 +115,16 @@ const handleGoogleLogin = () => {
           onlyOnce: true
         }
       )
-      router.push({
-        name: 'home',
-        query: {
-          state: 'login'
-        }
-      })
+      if (route.query.redirect != null) {
+        router.push(route.query.redirect)
+      } else {
+        router.push({
+          name: 'home',
+          query: {
+            state: 'login'
+          }
+        })
+      }
     })
     .catch((error) => {
       let errorMessage = ''
