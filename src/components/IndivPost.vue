@@ -24,7 +24,7 @@ p {
   <!--<router-link :to="{ path: '/posts/view/' + id }" class="btn btn-primary">Read More</router-link>-->
   <!--</div>
     </div>-->
-  <b-card :img-src="foodImageURL" class="img-fluid rounded" style="height: 840px" loading="lazy">
+  <b-card :dummy="forceUpdate" :img-src="displayFoodImageURL" class="img-fluid rounded" style="height: 840px" loading="lazy">
     <b-card-text class="p-3">
       <div class="my-2">
         <span class="text-primary pt-3 ml-1">{{ timeStamp }}</span>
@@ -48,7 +48,7 @@ p {
 import { useDatabase, useFirebaseStorage } from 'vuefire'
 import { ref as dbRef, onValue } from 'firebase/database'
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, computed } from 'vue'
 const props = defineProps({
   id: { type: String, default: '' },
   foodImage: { type: String, default: '' },
@@ -67,23 +67,36 @@ const props = defineProps({
 const db = useDatabase()
 const storage = useFirebaseStorage()
 const displayName = ref('')
-const foodImageURL = ref('')
+const displayFoodImageURL = ref('')
+
+const forceUpdate = computed(() => {
+  let url = props.foodImage
+  console.log("url: ", url)
+  getImage()
+  return ""
+})
 
 onValue(dbRef(db, '/users/' + props.userID), (snapshot) => {
   displayName.value = snapshot.val().firstName + ' ' + snapshot.val().lastName
   // console.log(displayName.value)
 })
-if (props.foodImage !== '') {
-  getDownloadURL(storageRef(storage, props.foodImage)).then((url) => {
-    foodImageURL.value = url
-    // console.log(foodImageURL.value)
-  })
-} else {
-  getDownloadURL(storageRef(storage, 'missing.png')).then((url) => {
-    foodImageURL.value = url
-    // console.log(foodImageURL.value)
-  })
+
+const getImage = () => {
+  if (props.foodImage !== '') {
+    getDownloadURL(storageRef(storage, props.foodImage)).then((url) => {
+      displayFoodImageURL.value = url
+      // console.log(foodImageURL.value)
+    })
+  } else {
+    getDownloadURL(storageRef(storage, 'missing.png')).then((url) => {
+      displayFoodImageURL.value = url
+      // console.log(foodImageURL.value)
+    })
+  }
+
 }
+
+
 </script>
 
 <style scoped>
