@@ -3,6 +3,10 @@
     <div class="col-xl-8 col-md-10 mx-auto">
       <div class="card mt-4">
         <div class="card-body p-6">
+          <a @click="backBtn"
+            ><icon-component type="outlined" icon-name="arrow-circle-left" />
+            Recipes
+          </a>
           <p class="text-primary pt-3">{{ recipe.date_created }}</p>
           <h1 class="mt-2">{{ recipe.name }}</h1>
           <div class="d-flex align-items-center my-3">
@@ -111,7 +115,7 @@
 
 <script>
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
-import { useFirebaseStorage, useDatabaseObject, useDatabase } from 'vuefire'
+import { useFirebaseAuth, useFirebaseStorage, useDatabaseObject, useDatabase } from 'vuefire'
 import { ref as dbRef, push } from 'firebase/database'
 import useVuelidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
@@ -147,7 +151,12 @@ export default {
   },
   async created() {
     await this.getRecipe()
-    let imagePath = this.recipe.imagePath
+    let imagePath
+    if (this.recipe.imagePath) {
+      imagePath = this.recipe.imagePath
+    } else {
+      imagePath = 'missing.png'
+    }
     getDownloadURL(storageRef(storage, imagePath))
       .then((url) => {
         this.imageURL = url
@@ -155,13 +164,20 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    let auth = useFirebaseAuth()
+    if (auth.currentUser) {
+      this.comment.name = auth.currentUser.displayName
+      this.comment.email = auth.currentUser.email
+    }
   },
   components: {},
   methods: {
     async getRecipe() {
       const db = useDatabase()
       const { data: recipeData, promise: recipePromise } = useDatabaseObject(dbRef(db, 'recipes/' + this.id))
+      console.log('AAA:', recipeData)
       await recipePromise.value
+      console.log('BBB:', recipeData)
       this.recipe = recipeData
       if (typeof this.recipe.comments != 'undefined') {
         this.commentsNo = Object.keys(this.recipe.comments).length
@@ -193,6 +209,9 @@ export default {
       this.v$.$reset()
       //Update new comments
       await this.getRecipe()
+    },
+    backBtn() {
+      this.$router.go(-1)
     }
   }
 }

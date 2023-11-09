@@ -25,6 +25,9 @@ import 'vue3-toastify/dist/index.css'
 import { VueFire, VueFireAuth } from 'vuefire'
 import { firebaseApp } from './firebase'
 
+//Google MAPS
+import VueGoogleMaps from '@fawmi/vue-google-maps';
+
 const app = createApp(App)
 app.use(store).use(router)
 
@@ -59,6 +62,14 @@ app.use(Vue3Toastify, {
   icon: true,
   rtl: false,
   theme: 'light'
+})
+
+//Google MAPS
+
+app.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBHv4JD1OQx8TgqAgiing9nRP6HM72zAB4',
+  },
 })
 
 app.mount('#app')

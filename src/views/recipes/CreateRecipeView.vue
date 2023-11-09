@@ -1,11 +1,12 @@
 @@ -0,0 +1,174 @@
 <template>
+
   <b-row>
     <b-col>
       <b-card no-body class="my-4 mx-2">
         <b-card-header class="d-flex justify-content-between">
           <div class="header-title">
-            <b-card-title>Create Recipe</b-card-title>
+            <div class= "newHeader" style = "letter-spacing:3px;color: #3a57e8;font-size : 150%;">Create Recipe &hearts;</div>
           </div>
         </b-card-header>
         <b-card-body>
@@ -60,7 +61,7 @@
                 <b-row>
                   <b-col md="6">
                     <b-form-group label="Recipe Name:">
-                      <b-form-input type="text" class="form-control" :class="{ 'is-invalid': v$.details.name.$error }" placeholder="e.g. Leftover Chicken Croquettes" v-model="v$.details.name.$model" />
+                      <b-form-input type="text" id="recipename" class="form-control" :class="{ 'is-invalid': v$.details.name.$error }" placeholder="e.g. Leftover Chicken Croquettes" v-model="v$.details.name.$model" />
                       <div v-if="v$.details.name.$error" class="text-danger">Recipe name is required.</div>
                     </b-form-group>
                   </b-col>
@@ -72,34 +73,34 @@
                   </b-col>
                   <b-col md="6" class="order-2">
                     <b-form-group label="Prep Time:">
-                      <b-form-input type="text" class="form-control" name="preptime" :class="{ 'is-invalid': v$.details.preptime.$error }" placeholder="e.g. 15 minutes" v-model="v$.details.preptime.$model" />
+                      <b-form-input type="text" id='preptime' class="form-control" name="preptime" :class="{ 'is-invalid': v$.details.preptime.$error }" placeholder="e.g. 15 minutes" v-model="v$.details.preptime.$model" />
                       <div v-if="v$.details.preptime.$error" class="text-danger">Preptime is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6" class="order-4">
                     <b-form-group label="Cooking Time:">
-                      <b-form-input type="text" class="form-control" :class="{ 'is-invalid': v$.details.preptime.$error }" name="cooktime" placeholder="e.g. 20 minutes" v-model="v$.details.cooktime.$model" />
+                      <b-form-input type="text" id="cookingtime" class="form-control" :class="{ 'is-invalid': v$.details.preptime.$error }" name="cooktime" placeholder="e.g. 20 minutes" v-model="v$.details.cooktime.$model" />
                       <div v-if="v$.details.cooktime.$error" class="text-danger">Cooktime is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6" class="order-4">
                     <div class="form-group">
                       <label class="form-label">Servings: </label>
-                      <b-form-input type="text" class="form-control" name="servings" :class="{ 'is-invalid': v$.details.servings.$error }" placeholder="e.g. 3 pax" v-model="v$.details.servings.$model" />
+                      <b-form-input type="text" id="servings" class="form-control" name="servings" :class="{ 'is-invalid': v$.details.servings.$error }" placeholder="e.g. 3 pax" v-model="v$.details.servings.$model" />
                       <div v-if="v$.details.servings.$error" class="text-danger">Servings is required</div>
                     </div>
                   </b-col>
                   <b-col md="6" class="order-last">
                     <div class="form-group">
                       <label class="form-label">Upload a photo:</label>
-                      <input type="file" class="form-control" name="pic" accept="image/*" @change="uploadImage" ref="image" :class="{ 'is-invalid': v$.details.files.$error }" />
+                      <input type="file" id="photo" class="form-control" name="pic" accept="image/*" @change="uploadImage" ref="image" :class="{ 'is-invalid': v$.details.files.$error }" />
                       <div v-if="v$.details.files.$error" class="text-danger">A photo is required</div>
                     </div>
                   </b-col>
                 </b-row>
               </div>
 
-              <b-button class="btn btn-primary next action-button float-end" @click="changeTab(2)" value="Next">Next</b-button>
+              <b-button id="nextbutton" class="btn btn-primary next action-button float-end" @click="changeTab(2)" value="Next">Next</b-button>
             </div>
 
             <!-- Step 2: Ingredients -->
@@ -116,7 +117,7 @@
                   </b-form-group>
                   <b-col md="12" v-for="(value, key) in ingredients" :key="key">
                     <b-form-group>
-                      <b-form-input type="text" class="form-control" :placeholder="'e.g. ' + ingredientPlaceHolder[key % 5]" v-model="ingredients[key]" />
+                      <b-form-input :id="'ingredient'+ key" type="text" class="form-control" :placeholder="'e.g. ' + ingredientPlaceHolder[key % 5]" v-model="ingredients[key]" />
                     </b-form-group>
                   </b-col>
 
@@ -144,7 +145,7 @@
                   </b-form-group>
                   <b-col md="12" v-for="(value, key) in directions" :key="key">
                     <b-form-group>
-                      <b-form-input type="text" class="form-control" :placeholder="'e.g. ' + directionPlaceHolders[key % directionPlaceHolders.length]" v-model="directions[key]" />
+                      <b-form-input :id="'direction'+ key" type="text" class="form-control" :placeholder="'e.g. ' + directionPlaceHolders[key % directionPlaceHolders.length]" v-model="directions[key]" />
                     </b-form-group>
                   </b-col>
 
@@ -169,44 +170,44 @@
                 <b-row>
                   <b-col md="6">
                     <b-form-group label="Calories:">
-                      <b-form-input type="text" class="form-control" name="calroies" placeholder="e.g. 228 kcal" v-model="v$.nutritionDetails.calories.$model" :class="{ 'is-invalid': v$.nutritionDetails.calories.$error }" />
+                      <b-form-input id="calories" type="text" class="form-control" name="calroies" placeholder="e.g. 228 kcal" v-model="v$.nutritionDetails.calories.$model" :class="{ 'is-invalid': v$.nutritionDetails.calories.$error }" />
                       <div v-if="v$.nutritionDetails.calories.$error" class="text-danger">Calories is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6">
                     <b-form-group label="Carbohydrates:">
-                      <b-form-input type="text" class="form-control" name="carbs" placeholder="e.g. 22g" v-model="v$.nutritionDetails.carbohydrates.$model" :class="{ 'is-invalid': v$.nutritionDetails.carbohydrates.$error }" />
+                      <b-form-input id="carbs" type="text" class="form-control" name="carbs" placeholder="e.g. 22g" v-model="v$.nutritionDetails.carbohydrates.$model" :class="{ 'is-invalid': v$.nutritionDetails.carbohydrates.$error }" />
                       <div v-if="v$.nutritionDetails.carbohydrates.$error" class="text-danger">Carbohydrates is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6">
                     <b-form-group label="Fat:">
-                      <b-form-input type="text" class="form-control" name="fat" placeholder="e.g. 14g" v-model="v$.nutritionDetails.fat.$model" :class="{ 'is-invalid': v$.nutritionDetails.fat.$error }" />
+                      <b-form-input id="fat" type="text" class="form-control" name="fat" placeholder="e.g. 14g" v-model="v$.nutritionDetails.fat.$model" :class="{ 'is-invalid': v$.nutritionDetails.fat.$error }" />
                       <div v-if="v$.nutritionDetails.fat.$error" class="text-danger">Fat is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6">
                     <b-form-group label="Protein:">
-                      <b-form-input type="text" class="form-control" name="protein" placeholder="e.g. 10g" v-model="v$.nutritionDetails.protein.$model" :class="{ 'is-invalid': v$.nutritionDetails.protein.$error }" />
+                      <b-form-input id="protein" type="text" class="form-control" name="protein" placeholder="e.g. 10g" v-model="v$.nutritionDetails.protein.$model" :class="{ 'is-invalid': v$.nutritionDetails.protein.$error }" />
                       <div v-if="v$.nutritionDetails.protein.$error" class="text-danger">Protein is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6">
                     <b-form-group label="Sodium:">
-                      <b-form-input type="text" class="form-control" name="sodium" placeholder="e.g. 368mg" v-model="v$.nutritionDetails.sodium.$model" :class="{ 'is-invalid': v$.nutritionDetails.sodium.$error }" />
+                      <b-form-input id="sodium" type="text" class="form-control" name="sodium" placeholder="e.g. 368mg" v-model="v$.nutritionDetails.sodium.$model" :class="{ 'is-invalid': v$.nutritionDetails.sodium.$error }" />
                       <div v-if="v$.nutritionDetails.sodium.$error" class="text-danger">Sodium is required</div>
                     </b-form-group>
                   </b-col>
                   <b-col md="6">
                     <b-form-group label="Cholesterol:">
-                      <b-form-input type="text" class="form-control" name="cholestrol" placeholder="e.g. 0mg" v-model="v$.nutritionDetails.cholestrol.$model" :class="{ 'is-invalid': v$.nutritionDetails.cholestrol.$error }" />
+                      <b-form-input id="cholesterol" type="text" class="form-control" name="cholestrol" placeholder="e.g. 0mg" v-model="v$.nutritionDetails.cholestrol.$model" :class="{ 'is-invalid': v$.nutritionDetails.cholestrol.$error }" />
                       <div v-if="v$.nutritionDetails.cholestrol.$error" class="text-danger">Cholesterol is required</div>
                     </b-form-group>
                   </b-col>
                 </b-row>
               </div>
 
-              <b-button class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe()">Submit</b-button>
+              <b-button id="submitrecipe" class="btn btn-success me-1 float-end" value="Previous" @click="createRecipe()">Submit</b-button>
               <b-button @click="changeTab(3)" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Previous</b-button>
             </div>
           </b-form>

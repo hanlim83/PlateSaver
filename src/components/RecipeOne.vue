@@ -1,7 +1,9 @@
 <template>
   <div class="card">
-    <div class="card-body p-3">
-      <img :src="`${recipeImage}`" :alt="id" class="img-fluid rounded" loading="lazy" />
+    <div class="card-body p-3" style="height:600px">
+      <div style="height:300px">
+        <img :src="`${recipeImage}`" :alt="id" class="img-fluid rounded h-100" loading="lazy" />
+      </div>
       <div class="my-2">
         <span class="text-primary pt-3 ml-1">{{ recipeDate }}</span>
       </div>
@@ -29,3 +31,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
