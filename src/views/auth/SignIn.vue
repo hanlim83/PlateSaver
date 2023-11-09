@@ -162,7 +162,9 @@ toast.clearAll()
                   </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary">Sign In</button>
+
+                  <button id = "signin" type="submit" class="btn btn-primary">Sign In</button>
+
                 </div>
                 <p class="text-center my-3">or sign in with another account?</p>
                 <div class="d-flex justify-content-center">

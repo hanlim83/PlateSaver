@@ -30,7 +30,7 @@ input[type=text], input[type=file] {
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Title:">
-                    <b-form-input type="text" class="form-control" :class="{ 'is-invalid': v$.title.$error }"
+                    <b-form-input type="text" id="title" class="form-control" :class="{ 'is-invalid': v$.title.$error }"
                       placeholder="e.g. Leftover catering from party" v-model="v$.title.$model" />
                     <div v-if="v$.title.$error" class="text-danger">Title is required.</div>
                   </b-form-group>
@@ -46,7 +46,7 @@ input[type=text], input[type=file] {
 
                 <b-col md="4" class="">
                   <b-form-group label="Contact:">
-                    <b-form-input type="text" class="form-control" name="contact"
+                    <b-form-input type="text" id="contact" class="form-control" name="contact"
                       :class="{ 'is-invalid': v$.contact.$error }" placeholder="e.g. Telegram @MonkeyKingLuffy"
                       v-model="v$.contact.$model" />
                     <div v-if="v$.contact.$error" class="text-danger">Contact is required</div>
@@ -55,14 +55,14 @@ input[type=text], input[type=file] {
                 <b-col md="4" class="">
                   <div class="form-group">
                     <label class="form-label">Upload a photo:</label>
-                    <input type="file" class="form-control" name="pic" accept="image/*" @change="uploadImage" ref="image"
+                    <input type="file" id = "photo" class="form-control" name="pic" accept="image/*" @change="uploadImage" ref="image"
                       :class="{ 'is-invalid': v$.files.$error }" />
                     <div v-if="v$.files.$error" class="text-danger">A photo is required</div>
                   </div>
                 </b-col>
                 <b-col md="4" class="">
                   <b-form-group label="Tags:">
-                    <b-form-input type="text" v-model="tags" class="form-control" name="tags" placeholder="#Awesome" />
+                    <b-form-input type="text" id="tags" v-model="tags" class="form-control" name="tags" placeholder="#Awesome" />
                   </b-form-group>
                 </b-col>
                 <b-col md="12">

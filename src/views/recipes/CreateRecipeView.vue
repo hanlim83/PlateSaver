@@ -150,7 +150,7 @@
                   </b-col>
 
                   <b-col md="6" class="order-last">
-                    <b-button class="btn btn-info" @click="addDirections()">Add Row</b-button>
+                    <b-button id="adddirection" class="btn btn-info" @click="addDirections()">Add Row</b-button>
                   </b-col>
                 </b-row>
               </div>
@@ -350,6 +350,7 @@ export default {
         nutritionDetails: this.nutritionDetails,
         date_created: dateNow,
         username: auth.currentUser.displayName
+        //username: "Selena Oleksandr Dmytrovych Yaroslav Yevhenovych Kovalenko"// Hardcode username for selenium
       }
 
       //Remove empty strings from arrays
