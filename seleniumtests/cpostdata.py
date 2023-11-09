@@ -1,0 +1,16 @@
+
+# Post[ title, description, contact, filepath, tags ]
+
+pdets =  [
+    ["Fresh Apples", "I have a surplus of fresh apples from my backyard orchard. They are organic and pesticide-free.", "Telegram: @foodlover123", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/apples.jpg", "#organic #apples #localproduce"],
+    ["Homemade Bread", "I bake delicious homemade bread every weekend and have extra loaves to share. Let me know if you're interested! Pickup available in the evenings.", "Telegram: @breadbaker22", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/bread.jpg", "#homemade #bread #baking"],
+    ["Vegetarian Delight", "Cooked a large batch of vegetable curry. It's a healthy and flavorful mix of veggies.", "Telegram: @veggiechef", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/curry.jpg", "#vegetarian #curry #healthyfood"],
+    ["Cupcakes Galore", "I made too many cupcakes for a party! They're assorted flavors: chocolate, vanilla, and strawberry. Pickup available this weekend.", "Telegram: @cupcakequeen", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/cupcakes.jpg", "#cupcakes #dessert #baking"],
+    ["Community Garden Harvest", "Our community garden has a surplus of tomatoes, cucumbers, and bell peppers. Help yourself to these fresh veggies! Pickup at the community center.", "Telegram: @greenthumb", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/veg.jpg", "#communitygarden #freshveggies #organic"],
+    ["Spicy Salsa", "I made a batch of homemade spicy salsa with tomatoes, onions, and jalapeños. Perfect for snacking! Pickup near the downtown area.", "Telegram: @salsalover", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/salsa.jpg", "#homemade #salsa #spicy"],
+    ["Soup for the Soul", "Cooked a big pot of chicken noodle soup. It's comforting and perfect for chilly evenings. Pickup available after 6 PM.", "Telegram: @souplover", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/chickennoodle.jpg", "#homemade #soup #comfortfood"],
+    ["Gourmet Pies", "I love baking gourmet pies, and I have a few extra ones: apple, cherry, and pecan.", "Telegram: @pieartisan", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/pies.jpg", "#gourmetpies #baking #dessert"],
+    ["Sourdough bread", "I have some sourdough bread that I'm willing to share. It's great for breakfast at home.", "Telegram: @sourdoughenthusiast", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/sourdough.jpg", "#sourdough #starter #baking"],
+    ["Quinoa Salad", "Made a large bowl of quinoa salad with fresh vegetables. It's a healthy and nutritious option for lunch. Pickup near the gym.", "Telegram: @healthyeater", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/quinoa.jpg", "#quinoasalad #healthyfood #lunch"],
+    ["Homemade Kimchi", "Crafted a batch of traditional Korean kimchi with a perfect blend of spices. It's spicy, tangy, and full of flavor. ", "Telegram: @kimchimaster", "C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/kimchi.jpg", "#kimchi #koreanfood #spicy"]
+]

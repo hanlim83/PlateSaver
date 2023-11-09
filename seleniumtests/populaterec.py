@@ -58,12 +58,13 @@ class TestCreaterecipe():
 
         self.driver.get("https://is216-project-99edb.web.app/auth/login") #browser opens this page
         #login
-        self.driver.find_element(By.ID, "email").click()
-        self.driver.find_element(By.ID, "email").send_keys("masterchef@strawhats.com") #use ur own credentials
-        self.driver.find_element(By.ID, "password").click()
-        self.driver.find_element(By.ID, "password").send_keys("password") #use ur own credentials
-        self.driver.find_element(By.ID, "signin").click()
-        time.sleep(1)
+        if aRecipe == recipeDetails[0]:
+            self.driver.find_element(By.ID, "email").click()
+            self.driver.find_element(By.ID, "email").send_keys("masterchef@strawhats.com") #use ur own credentials
+            self.driver.find_element(By.ID, "password").click()
+            self.driver.find_element(By.ID, "password").send_keys("password") #use ur own credentials
+            self.driver.find_element(By.ID, "signin").click()
+            time.sleep(1)
         ####
         #navigate to create recipe page 
         navbarrecipes=self.driver.find_element(By.LINK_TEXT, "Recipes") #IMPORTANT! Don't move your mouse until it clicks the link else the dropdown will close
