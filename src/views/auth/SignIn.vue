@@ -1,6 +1,6 @@
 <script setup>
 import { signInWithEmailAndPassword, signOut, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useFirebaseAuth, useCurrentUser, useDatabase } from 'vuefire'
+import { useFirebaseAuth, useDatabase } from 'vuefire'
 import { ref as dbRef, onValue, set } from 'firebase/database'
 import { ref } from 'vue'
 import router from '@/router'
@@ -10,16 +10,13 @@ import { toast } from 'vue3-toastify'
 const auth = useFirebaseAuth()
 const emailAddress = ref('')
 const password = ref('')
-const user = useCurrentUser()
 const route = useRoute()
 const googleAuthProvider = new GoogleAuthProvider()
 const db = useDatabase()
 
-if (user && route.query.redirect) {
-  console.log(user.value)
+if (auth.currentUser != null && route.query.redirect) {
   router.push(route.query.redirect)
-} else if (user.value != null) {
-  console.log(user.value)
+} else if (auth.currentUser != null) {
   router.push({
     name: 'home',
     query: {
@@ -178,9 +175,7 @@ toast.clearAll()
                   </div>
                 </div>
                 <div class="d-flex justify-content-center">
-
-                  <button id = "signin" type="submit" class="btn btn-primary">Sign In</button>
-
+                  <button id="signin" type="submit" class="btn btn-primary">Sign In</button>
                 </div>
                 <p class="text-center my-3">or sign in with another account?</p>
                 <div class="d-flex justify-content-center">

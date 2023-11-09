@@ -11,44 +11,49 @@ const storage = useFirebaseStorage()
 import { toast } from 'vue3-toastify'
 const tableData = ref([])
 
-onValue(dbRef(db, '/users'), (snapshot) => {
-  tableData.value = []
-  snapshot.forEach((childSnapshot) => {
-    console.log(childSnapshot.val())
-    if (childSnapshot.val().id == auth.currentUser.uid && childSnapshot.val().role != 'admin') {
-      router.push({ name: 'not-found' })
-    }
-    if (childSnapshot.val().photoPath != null) {
-      getDownloadURL(storageRef(storage, childSnapshot.val().photoPath))
-        .then((url) => {
-          console.log(url)
-          tableData.value.push({
-            id: childSnapshot.val().id,
-            image: url,
-            name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
-            contact: childSnapshot.val().phoneNumber,
-            email: childSnapshot.val().emailAddress,
-            date: childSnapshot.val().createdTimestamp,
-            role: childSnapshot.val().role
-          })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    } else {
-      tableData.value.push({
-        id: childSnapshot.val().id,
-        image: 'https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media',
-        name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
-        contact: childSnapshot.val().phoneNumber,
-        email: childSnapshot.val().emailAddress,
-        date: childSnapshot.val().createdTimestamp,
-        role: childSnapshot.val().role
-      })
-    }
-  })
-})
+console.log(auth.currentUser)
 
+if (auth.currentUser == null) {
+  router.push({ name: 'auth.login', query: { redirect: router.currentRoute.value.fullPath } })
+} else {
+  onValue(dbRef(db, '/users'), (snapshot) => {
+    tableData.value = []
+    snapshot.forEach((childSnapshot) => {
+      console.log(childSnapshot.val())
+      if (childSnapshot.val().id == auth.currentUser.uid && childSnapshot.val().role != 'admin') {
+        router.push({ name: 'not-found' })
+      }
+      if (childSnapshot.val().photoPath != null) {
+        getDownloadURL(storageRef(storage, childSnapshot.val().photoPath))
+          .then((url) => {
+            console.log(url)
+            tableData.value.push({
+              id: childSnapshot.val().id,
+              image: url,
+              name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
+              contact: childSnapshot.val().phoneNumber,
+              email: childSnapshot.val().emailAddress,
+              date: childSnapshot.val().createdTimestamp,
+              role: childSnapshot.val().role
+            })
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      } else {
+        tableData.value.push({
+          id: childSnapshot.val().id,
+          image: 'https://firebasestorage.googleapis.com/v0/b/is216-project-99edb.appspot.com/o/user-profile-pictures%2Fgeneric.jpg?alt=media',
+          name: childSnapshot.val().firstName + ' ' + childSnapshot.val().lastName,
+          contact: childSnapshot.val().phoneNumber,
+          email: childSnapshot.val().emailAddress,
+          date: childSnapshot.val().createdTimestamp,
+          role: childSnapshot.val().role
+        })
+      }
+    })
+  })
+}
 const handleUpdateRole = (id, role) => {
   console.log(id)
   console.log(role)
