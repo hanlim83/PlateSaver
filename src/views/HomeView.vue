@@ -45,8 +45,8 @@ if (route.query.state != null && route.query.state === 'logout') {
         </div>
         <div class="text text-w">Number</div>
         <div class="text text-a">of</div>
-        <div class="text text-v">Unsung</div>
-        <div class="text text-e">Heroes</div>
+        <div class="text text-v">Plate</div>
+        <div class="text text-e">Savers</div>
       </div>
       <div class="box" style="left: 15%" v-if="allusers.length > 1000">{{ parseInt(allusers.length.toString()[0]) % 10 }}</div>
       <div class="box" style="left: 15%" v-else>0</div>
@@ -101,7 +101,7 @@ $waveDur: 8000ms;
     animation-delay: 500ms;
   }
   &-e {
-    left: 25.5rem;
+    left: 21.5rem;
     animation-delay: 750ms;
   }
 }

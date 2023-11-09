@@ -16,7 +16,7 @@ const handleLogOut = () => {
   signOut(auth)
     .then(() => {
       console.log('logged out')
-      router.push({ name: 'home', query: { state: 'logout' } })
+      router.push({ name: 'home', query: { state: 'logout' }, replace: true })
     })
     .catch((error) => {
       console.log(error)

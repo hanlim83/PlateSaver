@@ -18,7 +18,7 @@
                 <div class="col-lg-12">
                   <div class="floating-label form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input v-model="emailAddress" type="email" class="form-control" id="email" aria-describedby="email" placeholder=" " />
+                    <input v-model="emailAddress" type="email" class="form-control" id="email" aria-describedby="email" placeholder=" " required />
                   </div>
                 </div>
               </div>

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getCurrentUser } from 'vuefire'
+import BlankLayout from '@/layouts/BlankLayout.vue'
+import Error404PageVue from '@/views/Error404Page.vue'
 
 const baseChildRoutes = (prefix) => [
   {
@@ -190,8 +192,8 @@ const routes = [
     name: 'not-found',
     meta: { requiresAuth: false, name: 'Not Found' },
     components: {
-      layout: import('@/layouts/BlankLayout.vue'),
-      default: import('@/views/Error404Page.vue')
+      layout: BlankLayout,
+      default: Error404PageVue
     }
   }
 ]
