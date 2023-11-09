@@ -103,7 +103,7 @@ const postsChildRoutes = (prefix) => [
   {
     path: 'read/:id',
     name: prefix + '.read',
-    meta: { auth: false, name: 'Read A Post' },
+    meta: { requiresAuth: false, name: 'Read A Post' },
     component: () => import('@/views/posts/ReadPostView.vue')
   },
   {
@@ -124,25 +124,25 @@ const recipeChildRoutes = (prefix) => [
   {
     path: 'create',
     name: prefix + '.create',
-    meta: { auth: true, name: 'Create Recipe' },
+    meta: { requiresAuth: true, name: 'Create Recipe' },
     component: () => import('@/views/recipes/CreateRecipeView.vue')
   },
   {
     path: 'search',
     name: prefix + '.search',
-    meta: { auth: false, name: 'Search Recipe' },
+    meta: { requiresAuth: false, name: 'Search Recipe' },
     component: () => import('@/views/recipes/AdminRecipeSearchView.vue')
   },
   {
     path: 'view',
     name: prefix + '.view',
-    meta: { auth: false, name: 'View Recipe' },
+    meta: { requiresAuth: false, name: 'View Recipe' },
     component: () => import('@/views/recipes/ViewRecipeView.vue')
   },
   {
     path: 'view/:id',
     name: prefix + '.viewDetails',
-    meta: { auth: false, name: 'View Recipe Details' },
+    meta: { requiresAuth: false, name: 'View Recipe Details' },
     component: () => import('@/views/recipes/ViewRecipeDetailsView.vue')
   }
 ]
@@ -151,7 +151,7 @@ const adminChildRoutes = (prefix) => [
   {
     path: 'users',
     name: prefix + '.allusers',
-    meta: { auth: true, name: 'View All Users' },
+    meta: { requiresAuth: true, name: 'View All Users' },
     component: () => import('@/views/admin/ListUsers.vue')
   }
 ]
