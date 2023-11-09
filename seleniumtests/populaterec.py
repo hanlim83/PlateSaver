@@ -9,9 +9,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome.service import Service #
-
+###############################
 import list_of_validations
 import singlerecipe
+import sanjisrecipe
+###############################
 
 class TestCreaterecipe():
   def setup_method(self, method):
@@ -43,22 +45,23 @@ class TestCreaterecipe():
 
   def test_createrecipe(self):
     #Recipedetails[ recipe1[recipename,preptime,cookingtime,description,servings,photo,ingredients[],directions[],calories,carbs,fat,protein,sodium,cholesterol] ,recipe2[],recipe3[] ]
-    #Uncomment line 47 or 48, not both, to switch between creating multiple recipes or just one
-    #recipeDetails= list_of_validations.recipeValidations
-    recipeDetails=singlerecipe.recipeval
+    #Uncomment line 49 or 50, not both, to switch between creating multiple recipes or just one
+    recipeDetails= list_of_validations.recipeValidations
+    #recipeDetails=singlerecipe.recipeval
+    #recipeDetails = sanjisrecipe.sanjir
     self.driver.set_window_size(1512, 885)                                                                                                                                                    
       
 
     for aRecipe in recipeDetails:
 
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(10)
 
-        self.driver.get("http://localhost:8080/auth/login") #browser opens this page
+        self.driver.get("https://is216-project-99edb.web.app/auth/login") #browser opens this page
         #login
         self.driver.find_element(By.ID, "email").click()
-        self.driver.find_element(By.ID, "email").send_keys("aujanweng@gmail.com") #use ur own credentials
+        self.driver.find_element(By.ID, "email").send_keys("masterchef@strawhats.com") #use ur own credentials
         self.driver.find_element(By.ID, "password").click()
-        self.driver.find_element(By.ID, "password").send_keys("platesavers") #use ur own credentials
+        self.driver.find_element(By.ID, "password").send_keys("password") #use ur own credentials
         self.driver.find_element(By.ID, "signin").click()
         time.sleep(1)
         ####
@@ -144,5 +147,6 @@ class TestCreaterecipe():
         element = self.driver.find_element(By.ID, "submitrecipe")
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
+    time.sleep(1)
     self.driver.close()
   
