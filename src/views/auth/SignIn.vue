@@ -1,5 +1,5 @@
 <script setup>
-import { signInWithEmailAndPassword, signOut, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useFirebaseAuth, useDatabase } from 'vuefire'
 import { ref as dbRef, onValue, set } from 'firebase/database'
 import { ref } from 'vue'
@@ -28,14 +28,8 @@ if (auth.currentUser != null && route.query.redirect) {
 const handleLogin = () => {
   signInWithEmailAndPassword(auth, emailAddress.value, password.value)
     .then((userCredential) => {
-      if (!userCredential.user.emailVerified) {
-        sendEmailVerification(userCredential.user)
-        signOut(auth)
-        toast('You must verify your email first before you are able to login. Check your email inbox', {
-          autoClose: 10000,
-          type: 'info'
-        })
-      } else if (route.query.redirect != null) {
+      console.log(userCredential.user)
+      if (route.query.redirect != null) {
         router.push(route.query.redirect)
       } else {
         router.push({

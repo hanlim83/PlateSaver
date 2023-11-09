@@ -247,16 +247,16 @@ $waveDur: 8000ms;
   animation: text $textDur ease-in infinite;
   transform: translatez(0);
   &-w {
-    left: 4rem; //position
+    left: 6rem; //position
     transform: translate3d(0, -4rem, 0);
     animation: text-w $textDur ease-in infinite;
   }
   &-a {
-    left: 11.5rem;
+    left: 13.5rem;
     animation-delay: 150ms;
   }
   &-v {
-    left: 13.75rem;
+    left: 15.75rem;
     transform: translate3d(0, -4rem, 0);
     animation-delay: 500ms;
   }
