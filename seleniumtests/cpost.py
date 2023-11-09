@@ -39,6 +39,7 @@ class TestCreateRecipeTest():
         time.sleep(1)
       navbarposts=self.driver.find_element(By.LINK_TEXT, "Posts")
       self.driver.execute_script("window.scrollTo(0,0)")
+      time.sleep(2)
       ActionChains(self.driver)\
               .move_to_element(navbarposts)\
               .perform()
@@ -50,7 +51,7 @@ class TestCreateRecipeTest():
       self.driver.find_element(By.ID, "description").click()
       self.driver.find_element(By.ID, "description").send_keys(aPost[1])
       self.driver.execute_script("window.scrollTo(0, 1080)")
-      time.sleep(2)
+      time.sleep(1)
       self.driver.find_element(By.ID, "contact").click()
       self.driver.find_element(By.ID, "contact").send_keys(aPost[2])
       
@@ -59,6 +60,7 @@ class TestCreateRecipeTest():
       time.sleep(1)
       self.driver.find_element(By.ID, "tags").click()
       self.driver.find_element(By.ID, "tags").send_keys(aPost[4])
+      time.sleep(1)
       self.driver.find_element(By.CSS_SELECTOR, ".btn:nth-child(2)").click()
-      self.driver.execute_script("window.scrollTo(0,308.75)")
-      time.sleep(1) #This is important, browser closes too quickly and somehow doesnt upload image
+      #self.driver.execute_script("window.scrollTo(0,308.75)")
+      time.sleep(2) #This is important, browser closes too quickly and somehow doesnt upload image
