@@ -6,13 +6,12 @@ input[type=text], input[type=file] {
 </style>-->
 
 <template>
-
   <b-row>
     <b-col>
       <b-card no-body class="my-4 mx-2">
         <b-card-header class="d-flex justify-content-between">
           <div class="header-title">
-            <div class= "newHeader" style = "color: #3a57e8;font-size : 148%;">Share your food with others &hearts;</div>
+            <div class="newHeader" style="color: #3a57e8;font-size : 148%;">Share your food with others &hearts;</div>
           </div>
         </b-card-header>
         <b-card-body>
@@ -67,7 +66,7 @@ input[type=text], input[type=file] {
                 </b-col>
                 <b-col md="12">
                   <b-form-group label="Collection Location:">
-                    Latitude : {{ latitude }}, longitude {{ longitude }}
+                    <span v-if="latitude == 0">Cannot get your location</span>
                     <GMapMap :center="center" :zoom="18" map-type-id="terrain" style="width: 100%; height: 300px"
                       ref="mapRef">
                       <GMapMarker :position="center" />
@@ -242,6 +241,14 @@ export default {
           return
         }
 
+        if (this.latitude == 0 && this.longitude == 0) {
+          toast('Cannot get your location', {
+            autoClose: 5000,
+            type: 'error'
+          })
+          return
+        }
+
         //get current date
         let current = new Date()
         let dateNow = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`
@@ -292,47 +299,19 @@ export default {
 
   }
 }
-// watch(files, (newFile) => {
-//   console.log(newFile)
-//   if (newFile.length == 1) {
-//     console.log(newFile[0])
-//     let newPostPicRef = storageRef(storage, 'posts-media/' + id + '/' + newFile[0].name)
-//     uploadBytes(newPostPicRef, newFile[0])
-//       .then((snapshot) => {
-//         console.log(snapshot)
-//         imagePath = snapshot.ref.fullPath
-//         toast('Image Updated Successfully', {
-//           autoClose: 5000,
-//           type: 'info'
-//         })
-//       })
-//       .catch((error) => {
-//         console.log(error)
-//         toast('Image not uploaded', {
-//           autoClose: 5000,
-//           type: 'warning'
-//         })
-//       })
-//   }
-// })
-
-
-
-
 // function sleep(ms) {
 //   return new Promise((resolve) => setTimeout(resolve, ms))
 // }
 
 </script>
-<style>
-
+<style scoped>
 @import url(https://fonts.googleapis.com/css2?family=Arvo:wght@700&amp;display=swap);
 
-.newHeader{
+.newHeader {
   font-family: 'Arvo';
-  text-align:left;
+  text-align: left;
   text-transform: uppercase;
-  color: #3a57e8; 
+  color: #3a57e8;
   font-size: 300%;
 
 }

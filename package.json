@@ -38,7 +38,7 @@
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
     "mitt": "^3.0.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "PlateSaver": "file:..",
     "register-service-worker": "^1.7.1",
     "selenium-webdriver": "^4.12.0",
