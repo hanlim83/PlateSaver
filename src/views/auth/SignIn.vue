@@ -85,7 +85,19 @@ const handleGoogleLogin = () => {
       onValue(
         dbRef(db, '/users/' + result.user.uid),
         (snapshot) => {
-          if (snapshot.val() == null) {
+          if (snapshot.val() == null && result.user.photoURL != null) {
+            set(dbRef(db, 'users/' + result.user.uid), {
+              id: result.user.uid,
+              firstName: result.user.displayName.split(' ')[0],
+              lastName: result.user.displayName.split(' ')[1],
+              emailAddress: result.user.email,
+              phoneNumber: result.user.phoneNumber,
+              role: 'user',
+              photoPath: null,
+              createdTimestamp: Date.now(),
+              updatedTimestamp: Date.now()
+            })
+          } else if (snapshot.val() == null) {
             set(dbRef(db, 'users/' + result.user.uid), {
               id: result.user.uid,
               firstName: result.user.displayName.split(' ')[0],
