@@ -60,7 +60,7 @@ const route = useRoute()
 if (route.query.oobCode == undefined) {
   router.push('/auth/token')
 } else if (!user) {
-  router.push('/')
+  router.push({ name: 'home' })
 }
 
 const handlePassword = () => {

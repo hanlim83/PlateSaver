@@ -29,8 +29,10 @@ import router from '@/router'
 const user = useCurrentUser()
 const auth = useFirebaseAuth()
 
-if (user.emailVerified) {
-  router.push('/')
+if (user == null || auth.currentUser == null) {
+  router.push({ name: 'not-found' })
+} else if (user.emailVerified) {
+  router.push({ name: 'not-found' })
 } else {
   sendEmailVerification(auth.currentUser)
 }

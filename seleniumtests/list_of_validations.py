@@ -16,16 +16,16 @@
 
 #IMAGE FILEPATH NEEDS TO BE CHANGED TO YOUR OWN'S
 recipeValidations=[  
-    ["Chicken Croquettes (normal recipe)","10min","15min","This recipe is easy to make and delicious!","2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/chickencroquettes.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
+    ["Chicken Croquettes","20min","17min","This recipe is easy to make and delicious!","2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/chickencroquettes.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
                     ['Preheat oven to 175 degrees C.', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
                     ,"288kcal","200mg","5g","100mg","2g","50mg"],
                     
-    ["Sushi (long description, 1 para)","10min","15min","The iconic dish known as 'Sushi' has a rich and fascinating background that dates back to ancient Japan. Sushi, which means 'vinegar-seasoned rice,' originated as a way to preserve fish in fermented rice. It began as a simple street food, with fish-packed rice wrapped in salted leaves or bamboo. Over the centuries, sushi evolved, incorporating various ingredients and techniques to become the beloved culinary art form we know today. In the early 19th century, Edo (now Tokyo) became a sushi hotspot, as vendors created Edomae sushi, a style that emphasizes fresh, local seafood. Sushi bars proliferated and grew in sophistication, with the introduction of ingredients like soy sauce, wasabi, and pickled ginger to enhance the dining experience. Today, sushi has become a global sensation, with a myriad of styles and variations to suit diverse palates, making it a delectable and culturally significant dish appreciated worldwide.",
+    ["Sushi","12min","9min","The iconic dish known as 'Sushi' has a rich and fascinating background that dates back to ancient Japan. Sushi, which means 'vinegar-seasoned rice,' originated as a way to preserve fish in fermented rice. It began as a simple street food, with fish-packed rice wrapped in salted leaves or bamboo. Over the centuries, sushi evolved, incorporating various ingredients and techniques to become the beloved culinary art form we know today. In the early 19th century, Edo (now Tokyo) became a sushi hotspot, as vendors created Edomae sushi, a style that emphasizes fresh, local seafood. Sushi bars proliferated and grew in sophistication, with the introduction of ingredients like soy sauce, wasabi, and pickled ginger to enhance the dining experience. Today, sushi has become a global sensation, with a myriad of styles and variations to suit diverse palates, making it a delectable and culturally significant dish appreciated worldwide.",
                     "2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/sushi.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
                     ['Preheat oven to 175 degrees C.', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
                     ,"288kcal","200mg","5g","100mg","2g","50mg"],
     
-    ["Lasagna (super long description, 6 para)","10min","15min","""Lasagna is a classic Italian dish with a rich and storied culinary history that spans centuries. This mouthwatering creation, known for its layers of pasta, rich meat sauce, creamy béchamel, and melted cheese, has its origins in ancient Greece. The term 'lasagna' is believed to have been derived from the Greek word 'lasanon,' which referred to the flat dough used for cooking. However, it was in Italy, particularly in the region of Emilia-Romagna, where lasagna as we know it today truly took shape.
+    ["Lasagna","23min","45min","""Lasagna is a classic Italian dish with a rich and storied culinary history that spans centuries. This mouthwatering creation, known for its layers of pasta, rich meat sauce, creamy béchamel, and melted cheese, has its origins in ancient Greece. The term 'lasagna' is believed to have been derived from the Greek word 'lasanon,' which referred to the flat dough used for cooking. However, it was in Italy, particularly in the region of Emilia-Romagna, where lasagna as we know it today truly took shape.
      In Italy, the first documented recipe for lasagna appeared in the 14th century in a cookbook known as the 'Liber de Coquina.' These early versions featured layers of pasta and cheese, but tomatoes, a quintessential lasagna ingredient, were not introduced until the late 18th century after their arrival in Europe from the New World. Over time, different regions in Italy put their own unique spin on lasagna, with variations that incorporated local ingredients and regional preferences. In the north, it was common to find lasagna with béchamel sauce, while the south often favored a hearty meat ragù.
      Lasagna's popularity eventually spread beyond Italy's borders, making its way to North America through Italian immigrants. It gained widespread recognition in the United States during the 20th century, thanks to the growth of Italian-American communities. Today, lasagna remains a beloved and versatile dish, with countless interpretations and adaptations found in kitchens worldwide, from traditional meat and cheese versions to vegetarian and even vegan alternatives. It continues to be a cherished comfort food and a testament to the enduring appeal of Italian cuisine.
      As lasagna evolved, it became synonymous with Italian home cooking, often prepared for special family gatherings and celebrations. Each household had its unique twist on the recipe, passed down through generations. The preparation of lasagna was a labor of love, as it required careful layering and an investment of time and effort. This familial aspect of lasagna contributed to its enduring popularity and its status as a symbol of Italian culinary heritage.
@@ -34,19 +34,14 @@ recipeValidations=[
                     "2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/lasagna.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
                     ['Preheat oven to 175 degrees C.', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
                     ,"288kcal","200mg","5g","100mg","2g","50mg"],
-
-    ["Bitch, stupid and shit (swear words)","10min","15min","This recipe is easy to make and delicious!",
-                    "2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/sushi.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
-                    ['Preheat oven to 175 degrees C.', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
-                    ,"288kcal","200mg","5g","100mg","2g","50mg"],
     
-    ["                             Burger (Unnecessary whitespace)","      10min       ","15min             ",
+    ["Burger","25min","15min",
                     "           Hamburgers, with their roots in the 19th-century United States, were initially popularized by German immigrants who shaped ground meat into patties, a tradition that eventually evolved into the iconic American fast food staple.                     ",
                     "2 people              ","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/burger.jpg",['          2 cups flour sifted', '1/2 tablespoons butter, softened           ', '1 cup sugar           ', '1/2 teaspoon vanilla                 ', '4 cups milk              '],
                     ['Preheat oven to 175 degrees C.         ', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.           ', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
-                    ,"288kcal             ","200mg              ","             5g","           100mg","2g","50mg"],
+                    ,"216kcal             ","220mg              ","             55g","           165mg","8g","50mg"],
 
-    ["                             Pizza(Unnecessary whitespace + long description)","      10min       ","15min             ",
+    ["Pizza","      10min       ","15min             ",
                     """           Pizza, one of the world's most beloved and iconic dishes, can trace its origins back to ancient civilizations. The concept of baking a flatbread with various toppings has been part of human culinary history for centuries, with evidence of such dishes dating as far back as ancient Egypt, Greece, and Rome. However, the modern pizza, as we know it today, has its roots in Naples, Italy.
                     In the 18th century, Naples was a bustling and densely populated city, and a type of simple, round flatbread was a common street food for the working class. These early pizzas were often topped with ingredients like garlic, lard, salt, and local cheese, making them a tasty and affordable option. They were cooked quickly in the extremely hot ovens of the local pizzerias.
 
@@ -58,7 +53,7 @@ recipeValidations=[
                     ['Preheat oven to 175 degrees C.         ', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.           ', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
                     ,"288kcal             ","200mg              ","             5g","           100mg","2g","50mg"],
 
-    ["Classic Beef Bourguignon(long ingredient list)","10min","15min","A French stew that's rich and flavorful ",
+    ["Classic Beef Bourguignon","32min","1.5hr","A French stew that's rich and flavorful ",
                     "2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/beefbour.jpg",[
     "2 pounds of beef stew meat",
     "4 slices of bacon, diced",
@@ -89,7 +84,7 @@ recipeValidations=[
 ],['Preheat oven to 175 degrees C.', 'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners.', 'In a medium bowl, cream together the sugar and butter.', 'Beat in the eggs, one at a time, then stir in the vanilla.', 'Combine flour and baking powder, add to the creamed mixture and mix well.']
     ,"288kcal","200mg","5g","100mg","2g","50mg"],
 
-    ["Coq au Vin (long list of directions)","10min","15min","Coq au Vin is a classic French dish that demands patience and precision but rewards you with a delightful meal featuring complex flavors and layers of deliciousness.",
+    ["Coq au Vin","45min","45min","Coq au Vin is a classic French dish that demands patience and precision but rewards you with a delightful meal featuring complex flavors and layers of deliciousness.",
                     "2 people","C:/Users/Jan Weng/Documents/WAD2/WAD2recipeimages/coq.jpg",['2 cups flour sifted', '1/2 tablespoons butter, softened', '1 cup sugar', '1/2 teaspoon vanilla', '4 cups milk'],
                     [
     "Prepare the Chicken: Cut the whole chicken into pieces.",
@@ -121,6 +116,6 @@ recipeValidations=[
     "Simmer for an additional 15-20 minutes to heat everything through and meld the flavors.",
     "Garnish and Serve: Serve Coq au Vin hot, garnished with chopped fresh parsley for a fresh touch."
     ]
-                    ,"288kcal","200mg","5g","100mg","2g","50mg"]
+                    ,"500kcal","100mg","50g","10mg","2g","60mg"]
 
 ]          

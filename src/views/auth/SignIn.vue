@@ -50,10 +50,10 @@ const handleLogin = () => {
           errorMessage = 'Invalid email address'
           break
         case 'auth/user-disabled':
-          errorMessage = 'User account disabled'
+          errorMessage = 'Your account is disabled'
           break
         case 'auth/user-not-found':
-          errorMessage = 'User not found'
+          errorMessage = 'Your account does not exists'
           break
         case 'auth/wrong-password':
           errorMessage = 'Invalid password'
@@ -122,6 +122,12 @@ const handleGoogleLogin = () => {
       switch (error.code) {
         case 'auth/cancelled-popup-request':
           errorMessage = 'Google Sign-in Cancelled'
+          break
+        case 'auth/user-disabled':
+          errorMessage = 'Your account is disabled'
+          break
+        case 'auth/invalid-login-credentials':
+          errorMessage = 'Invalid credentials'
           break
         default:
           errorMessage = 'An error occurred'
