@@ -8,9 +8,12 @@
 We have prepared some accounts that can be used for testing although new accounts can be registered as well. 
 New accounts will require real email verification. The email might be end up in junk or quarratine so please check those folders as well.
 
+bestgirl@strawhats.com (admin)
+swordking@strawhats.com
+masterchef@strawhats.com
+pinkcute@strawhats.com
 
-
-
+The password for all these accounts is just "password".
 
 # Guides
 
