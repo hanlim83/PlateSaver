@@ -1,3 +1,17 @@
+# Installation Instructions 
+1) Open the main folder
+2) Do npm install (requires nodejs to be installed)
+3) Do npm run dev
+4) Page can be opened on http://localhost:8080/ 
+
+# Accounts
+We have prepared some accounts that can be used for testing although new accounts can be registered as well. 
+New accounts will require real email verification. The email might be end up in junk or quarratine so please check those folders as well.
+
+
+
+
+
 # Guides
 
 ## Vue and Express
